@@ -1,0 +1,19 @@
+#include<stdio.h>
+#include<string.h>
+int main(){
+    char Input[1000000];
+	int Big=0;
+	scanf("%[^\n]s",Input);
+	int len =strlen(Input);
+	if(len ==1 && Input[0]==' '){
+		printf("0");
+		return 0;
+	}
+	for(int i=1;i<len-1;i++){
+		if(Input[i]==' '){
+			Big+=1;
+		}
+	}
+	printf("%d",Big+1);
+	return 0;
+}
