@@ -1,0 +1,22 @@
+#include<stdio.h>
+int main(){
+    int A;
+	int B=1;
+	int C=1;
+	int Add=6;
+	int Result=1;
+	scanf("%d",&A);
+	while(1){
+		if(A>=B&&C>=A){
+			break;
+		}
+		else{
+			B=C+1;
+			C+=Add;
+			Add+=6;
+			Result+=1;
+		}
+	}
+	printf("%d",Result);
+	return 0;
+}
