@@ -1,0 +1,28 @@
+#include<stdio.h>
+int main(){
+    char Input[100];
+	int Num[26];
+	int i;
+	int check;
+	int Result;
+	scanf("%d",&i);
+	Result=i;
+	for(int j=0;j<i;j++){
+		check=0;
+		scanf("%s",Input);
+		for(int k=0;k<26;k++){
+			Num[k]=0;
+		}
+		for(int k=0;Input[k]!='\0';k++){
+			if(Num[Input[k]-'a']!=0&&Input[k-1]!=Input[k]){
+				Result-=1;
+				break;
+			}
+			else{
+				Num[Input[k]-'a']=1;
+			}
+		}
+	}
+	printf("%d",Result);
+	return 0;
+}
