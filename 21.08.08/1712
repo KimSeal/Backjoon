@@ -1,0 +1,14 @@
+#include<stdio.h>
+int main(){
+    int A, B, C;
+	scanf("%d %d %d",&A,&B,&C);
+	int Num;
+	if(B>=C){
+		Num=-1;
+	}
+	else{
+		Num=(A/(C-B))+1;
+	}
+	printf("%d",Num);
+	return 0;
+}
