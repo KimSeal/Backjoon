@@ -1,0 +1,23 @@
+#include<stdio.h>
+int main(){
+	int N;
+	scanf("%d",&N);
+	int value=N/5;
+	int trash=N%5;
+	while(1){
+		if(value==0&&trash%3!=0){
+			printf("-1");
+			return 0;
+		}
+		if(trash%3==0){
+			break;
+		}	
+		else{
+			value-=1;
+			trash+=5;
+		}
+	}
+	trash/=3;
+	printf("%d",value+trash);
+	return 0;
+}
