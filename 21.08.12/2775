@@ -1,0 +1,34 @@
+#include<stdio.h>
+int main(){
+	int Num;
+	scanf("%d",&Num);
+	int A[Num];
+	int B[Num];
+	int Big,Big2=0;
+	for(int i=0;i<Num;i++){
+		scanf("%d",&A[i]);
+		if(Big<A[i]){
+			Big=A[i];
+		}
+		scanf("%d",&B[i]);
+		if(Big2<B[i]){
+			Big2=B[i];
+		}
+	}
+	int Arr[Big+1][Big2];
+	for(int i=0;i<Big+1;i++){
+		Arr[i][0]=1;
+	}
+	for(int i=1;i<Big2;i++){
+		Arr[0][i]=i+1;
+	}
+	for(int i=1;i<Big+1;i++){
+		for(int j=1;j<Big2;j++){
+			Arr[i][j]=Arr[i-1][j]+Arr[i][j-1];
+		}
+	}
+	for(int i=0;i<Num;i++){
+		printf("%d\n",Arr[A[i]][B[i]-1]);
+	}
+	return 0;
+}
