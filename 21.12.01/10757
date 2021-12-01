@@ -1,0 +1,52 @@
+#include<stdio.h>
+void reverse(char *arr){
+	int i=0;
+	int a=0;
+	char temp;
+	while(arr[i]!='\0'){
+		a++;
+		i++;
+	}
+	i=0;
+	while(i < a/2){
+		temp = arr[i];
+		arr[i]=arr[a-i-1];
+		arr[a-i-1]=temp;
+		i++;
+	}
+}
+int main(){
+	char a[10002];
+	char b[10002];
+	char result[10003];
+	scanf("%s %s",a,b);
+	reverse(a);
+	reverse(b);
+	char upbit=0;
+	int i;
+	for(i=0;!(a[i]=='\0'&&b[i]=='\0');i++){
+		if(a[i]=='\0'){
+			a[i]='0';
+		}
+		if(b[i]=='\0'){
+			b[i]='0';
+		}
+		result[i]=a[i]-'0'+b[i]+upbit;
+		if(result[i]>'9'){
+			result[i]-=10;
+			upbit=1;
+		}
+		else{
+			upbit=0;
+		}
+	}
+	if(upbit==1){
+		result[i]='1';
+	}
+	else{i--;}
+	while(i>=0){
+		printf("%c",result[i]);
+		i--;
+	}
+	return 0;
+}
