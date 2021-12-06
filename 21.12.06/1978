@@ -1,0 +1,29 @@
+#include <stdio.h>
+
+int main(){
+	int number=0;
+	int them=0;
+	int check=0;
+	int input;
+	scanf("%d",&number);
+	for(int j=0;j<number;j++){
+		scanf("%d",&input);
+		if(input==2){
+			them+=1;
+		}
+		else if(input%2!=0 && input!=1){
+			for(int i=3;i!=input;i+=2){
+				if(input%i==0){
+					check=1;
+					break;
+				}
+			}
+			if(check==0){
+				them+=1;
+			}
+		}
+		check=0;
+	}
+	printf("%d",them);
+	return 0;
+}
