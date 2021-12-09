@@ -1,0 +1,24 @@
+#include <stdio.h>
+int main(){
+	int start, end;
+	int check=0;
+	scanf("%d %d",&start,&end);
+	bool * num = new bool[end+1];
+	num[1]=false;
+	for(int i=2;i<end+1;i++){
+		num[i]=true;
+	}
+	for(int i=2;i<=end;i++){
+		if(num[i]==true){
+			for(int j=2; i*j<=end;j++){
+				num[i*j]=false;
+			}
+		}
+	}
+	for(int k=start; k<=end; k++){
+		if(num[k]==true){
+			printf("%d\n", k);
+		}
+	}
+	return 0;
+}
