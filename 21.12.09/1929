@@ -1,17 +1,16 @@
 #include <stdio.h>
 int main(){
 	int start, end;
-	int check=0;
 	scanf("%d %d",&start,&end);
 	bool * num = new bool[end+1];
 	num[1]=false;
 	for(int i=2;i<end+1;i++){
 		num[i]=true;
 	}
-	for(int i=2;i<=end;i++){
+	for(int i=2;i*i<=end;i++){
 		if(num[i]==true){
-			for(int j=2; i*j<=end;j++){
-				num[i*j]=false;
+			for(int j=0; i*(i+j)<=end; j++){
+				num[i*(i+j)]=false;
 			}
 		}
 	}
@@ -20,5 +19,11 @@ int main(){
 			printf("%d\n", k);
 		}
 	}
+	delete num;
 	return 0;
 }
+//////////////////
+//에라토스테네스의 체:
+//1부터 m까지 구간중
+//가장 소수인 2를 true로 하고 이에 2의 제곱보다 크고 m보다 작은 2의 배수를 모두 false로 함.
+//이후 3도 반복, 4는 위에서 false가 되었으므로 생략, 이를 반복.
