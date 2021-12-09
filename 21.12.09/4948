@@ -1,0 +1,32 @@
+#include <stdio.h>
+int main(){
+	int start=1;
+	bool num[246913];
+	int end = 246912;
+	int check=0;
+	num[1]=false;
+	for(int i=2;i<end+1;i++){
+		num[i]=true;
+	}
+	for(int i=2;i*i<=end;i++){
+		if(num[i]==true){
+			for(int j=0; i*(i+j)<=end; j++){
+				num[i*(i+j)]=false;
+			}
+		}
+	}
+	while(true){
+		scanf("%d",&start);
+		if(start==0){
+			break;
+		}
+		check=0;
+		for(int k=start+1; k<=(2*start); k++){
+			if(num[k]==true){
+				check+=1;
+			}
+		}
+		printf("%d\n", check);
+	}
+	return 0;
+}
