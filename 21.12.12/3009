@@ -1,0 +1,30 @@
+#include<stdio.h>
+int main(){
+	int x0,y0,x1,y1,x2,y2;
+	scanf("%d %d",&x0,&y0);
+	scanf("%d %d",&x1,&y1);
+	scanf("%d %d",&x2,&y2);
+	if(x0 == x1){
+		printf("%d ",x2);
+	}
+	if(x0 != x1){
+		if(x0==x2){
+			printf("%d ",x1);
+		}
+		else{
+			printf("%d ",x0);
+		}
+	}
+	if(y0 == y1){
+		printf("%d ",y2);
+	}
+	if(y0 != y1){
+		if(y0==y2){
+			printf("%d ",y1);
+		}
+		else{
+			printf("%d ",y0);
+		}
+	}
+	return 0;
+}
