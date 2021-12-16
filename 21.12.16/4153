@@ -1,0 +1,23 @@
+#include<stdio.h>
+int main(){
+	int input1,input2,input3;
+	while(!(input1==0 && input2==0 && input3==0)){
+		scanf("%d %d %d",&input1,&input2,&input3);
+		if(input1==0 && input2==0 && input3==0){
+			
+		}
+		else if(input1*input1==(input2*input2)+(input3*input3)){
+			printf("right\n");
+		}
+		else if(input2*input2==(input1*input1)+(input3*input3)){
+			printf("right\n");
+		}
+		else if(input3*input3==(input1*input1)+(input2*input2)){
+			printf("right\n");
+		}
+		else{
+			printf("wrong\n");
+		}
+	}
+	return 0;
+}
