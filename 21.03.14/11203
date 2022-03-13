@@ -1,0 +1,23 @@
+#include <iostream>
+using namespace std;
+int main() {
+	int height;
+	cin >> height;
+	char input[31];
+	long base = 2;
+	long check = 1;
+	cin >> input;
+	if (!cin.eof()) {
+		for (int i = 0; input[i] != '\0'; i++) {
+			check *= 2;
+			if (input[i] == 'R') {
+				check++;
+			}
+		}
+	}
+	for (int i = 0; i < height; i++) {
+		base *= 2;
+	}
+	cout << base - check;
+	return 0;
+}
