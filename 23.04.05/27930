@@ -1,0 +1,29 @@
+#include <stdio.h>
+int main() {
+    char a[500001];
+    scanf("%s", a);
+    //printf("%s", a);
+
+    int i = 0;
+    char yon[7] = "YONSEI";
+    char kor[6] = "KOREA";
+    int yonsei = 0;
+    int korea = 0;
+    for (; a[i] != '\0'; i++) {
+        if (yon[yonsei] == a[i]) {
+            yonsei++;
+        }
+        if (kor[korea] == a[i]) {
+            korea++;
+        }
+        if (yonsei == 6) {
+            printf("YONSEI");
+            return 0;
+        }
+        if (korea == 5) {
+            printf("KOREA");
+            return 0;
+        }
+    }
+    
+}
