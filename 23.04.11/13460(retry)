@@ -1,0 +1,54 @@
+N, M = map(int, input().split())
+B = [list(input().rstrip()) for _ in range(N)]
+dx = [-1,1,0,0]
+dy = [0,0,-1,1]
+queue=[]
+
+visited = [[[[False]*M for _ in range(N)] for _ in range(M)] for _ in range(N)]
+
+def init():
+  rx, ry, bx, by = 0,0,0,0
+  for i in range(N):
+    for j in range(M):
+      if B[i][j]=='R':
+        rx, ry = i, j
+      elif B[i][j] =='B':
+        bx, by = i, j
+  queue.append((rx,ry,bx,by,1))
+  visited[rx][ry][bx][by]=True
+
+def move(x,y,dx,dy):
+  count = 0
+  while B[x+dx][y+dy] !='#' and B[x][y]!=0:
+    x+=dx
+    y+=dy
+    count+=1
+  return x, y, count
+
+def solve():
+  init()
+  while queue:
+    rx, ry, bx, by, depth = queue.pop(0)
+    if depth >10:
+      break;
+    for i in range(4):
+      rx_next, ry_next, rcount_next = move(rx, ry, dx[i], dy[i])
+      bx_next, by_next, bcount_next = move(bx, by, dx[i], dy[i])
+
+      if B[bx_next][by_next] != 'O':
+        if B[rx_next][ry_next] =='O':
+          print(depth)
+          return
+        if rx_next == bx_next and ry_next == by_next:
+          if rcount_next > bcount_next:
+            rx_next -= dx[i]
+            ry_next -= dy[i]
+          else:
+            bx_next -= dx[i]
+            by_next -= dy[i]
+        if not visited[rx_next][ry_next][bx_next][by_next]:
+          visited[rx_next][ry_next][bx_next][by_next] = True
+          queue.append((rx_next, ry_next, bx_next, by_next, depth+1))
+  print(-1)
+
+solve()
