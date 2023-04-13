@@ -1,0 +1,40 @@
+from collections import deque
+
+size = int(input())
+app_num = int(input())
+apple = [[0]*size for _ in range(size)]
+for _ in range(app_num):
+    a,b = map(int, input().split())
+    apple[a-1][b-1] = 1
+dir_num = int(input())
+turn=[]
+for _ in range(dir_num):
+    t,d = map(str, input().split())
+    turn.append((int(t),d))
+
+dx = [0,1,0,-1]
+dy = [1,0,-1,0]
+nd, nx, ny =0,0,0
+time,i= 0,0
+queue = deque()
+queue.append((nx,ny))
+while 1:
+    nx = nx+dx[nd]
+    ny = ny+dy[nd]
+    time +=1
+    if nx <0 or nx >= size or ny <0 or ny>=size or (nx, ny) in queue:
+        break
+    queue.append((nx, ny))
+    if apple[nx][ny] ==0:
+        queue.popleft()
+    else:
+        apple[nx][ny]=0
+    if time == turn[i][0]:
+        if turn[i][1] == 'L':
+            nd = (nd-1)%4
+        else:
+            nd = (nd+1)%4
+        if i+1< len(turn):
+            i+=1
+
+print(time)
