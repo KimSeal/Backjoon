@@ -1,0 +1,23 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int a;
+    int b;
+    cin >> a;
+    int* arr = new int[a];
+    for (int i = 0; i < a; i++) {
+        cin >> b;
+        arr[i] = b;
+    }
+    int c;
+    cin >> c;
+    int num = 0;
+    for (int i = 0; i < a; i++) {
+        if (arr[i] == c) {
+            num++;
+        }
+    }
+    cout << num;
+    return 0;
+}
