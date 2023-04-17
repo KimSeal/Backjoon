@@ -1,0 +1,31 @@
+#include <iostream>
+using namespace std;
+int main() {
+    int num, num2;
+    cin >> num;
+    cin >> num2;
+    int** arr1 = new int* [num];
+    int** arr2 = new int* [num];
+
+    for (int i = 0; i < num; i++) {
+        arr1[i] = new int[num2];
+        arr2[i] = new int[num2];
+    }
+    for (int i = 0; i < num; i++) {
+        for (int j = 0; j < num2; j++) {
+            cin >> arr1[i][j];
+        }
+    }
+    for (int i = 0; i < num; i++) {
+        for (int j = 0; j < num2; j++) {
+            cin >> arr2[i][j];
+        }
+    }
+    for (int i = 0; i < num; i++) {
+        for (int j = 0; j < num2; j++) {
+            cout << arr1[i][j]+arr2[i][j] << " ";
+        }
+        cout << "\n";
+    }
+    return 0;
+}
