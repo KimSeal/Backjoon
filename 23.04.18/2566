@@ -1,0 +1,23 @@
+#include <iostream>
+using namespace std;
+int main() {
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    int num=0;
+    int max = 0;
+    int max_x = 0;
+    int max_y = 0;
+    for (int i = 1; i <= 9; i++) {
+        for (int j = 1; j <= 9; j++) {
+            cin >> num;
+            if (max <= num) {
+                max = num;
+                max_x = j ;
+                max_y = i ;
+            }
+        }
+    }
+    cout << max << endl << max_y << ' ' << max_x << endl;
+    return 0;
+} 
