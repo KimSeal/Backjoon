@@ -1,0 +1,18 @@
+#include <iostream>
+#include <sstream>
+using namespace std;
+
+int main() {
+    string input[5];
+    for (int i = 0; i < 5; i++) {
+        cin >> input[i];
+    }
+    for (int j = 0; j < 15; j++) {
+        for (int i = 0; i < 5; i++) {
+            if (input[i].size() > j) {
+                cout << input[i][j];
+            }
+        }
+    }
+    return 0;
+}
