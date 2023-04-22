@@ -1,0 +1,24 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    char input[100];
+    cin >> input;
+    int input2;
+    cin >> input2;
+    int result = 0;
+
+
+    for (int i = 0; input[i] != '\0';i++) {
+        result *= input2;
+        if ('0' <= input[i] && input[i]<='9') {
+            result += input[i] - '0';
+        }
+        else if ('A' <= input[i] && input[i] <= 'Z') {
+            result += (input[i] - 'A' + 10);
+        }
+    }
+    cout << result;
+    return 0;
+
+}
