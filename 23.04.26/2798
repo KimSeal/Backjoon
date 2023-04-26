@@ -1,0 +1,25 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int N, M;
+    cin >> N >> M;
+    int* input = new int[N];
+    for (int i = 0; i<N ;i++) {
+        cin >> input[i];
+    }
+    int min = 0;
+    int add;
+    for (int i = 0; i < N-2;i++) {
+        for (int j = i + 1; j < N-1;j++) {
+            for (int k = j + 1; k < N ; k++) {
+                add = input[i] + input[j] + input[k];
+                if (add <= M && min < add) {
+                    min = add;
+                }
+            }
+        }
+    }
+    cout << min;
+    return 0;
+}
