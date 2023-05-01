@@ -1,0 +1,23 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+using namespace std;
+
+int main() {
+    int N, M;
+    cin >> N;
+    long long * dp = new long long[110];
+    dp[0] = 1;
+    dp[1] = 1;
+    dp[2] = 1;
+    dp[3] = 2;
+    dp[4] = 2;
+    for (int i = 5; i < 100;i++) {
+        dp[i] = dp[i - 1] + dp[i - 5];
+    }
+    for (int i = 0; i < N;i++) {
+        cin >> M;
+        cout << dp[M - 1]<<endl;
+    }
+    return 0;
+}
