@@ -1,0 +1,36 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+using namespace std;
+
+int main() {
+    int N, M;
+    cin >> N;
+    vector<int> red;
+    vector<int> blue;
+    vector<int> green;
+    vector<int> red_max;
+    vector<int> blue_max;
+    vector<int> green_max;
+    for (int i = 0; i < N;i++) {
+        cin >> M;
+        red.push_back(M);
+        cin >> M;
+        blue.push_back(M);
+        cin >> M;
+        green.push_back(M);
+    }
+
+    red_max.push_back(red[0]);
+    blue_max.push_back(blue[0]);
+    green_max.push_back(green[0]);
+    for (int i = 1; i < N;i++) {
+        red_max.push_back(min(blue_max[i - 1], green_max[i - 1]) +red[i]);
+        blue_max.push_back( min(red_max[i - 1], green_max[i - 1]) +blue[i]);
+        green_max.push_back(min(blue_max[i - 1], red_max[i - 1]) +green[i]);
+    }
+    int answer = min(red_max[N - 1], blue_max[N - 1]);
+    answer = min(answer , green_max[N - 1]);
+    cout << answer;
+    return 0;
+}
