@@ -1,0 +1,20 @@
+#include <iostream>
+using namespace std;
+int main() {
+    int N, M;
+    cin >> N;
+    int add;
+    int result = 0;
+    for (int i = N;i>0; i--) {
+        add = i;
+        M = i;
+        while (M != 0) {
+            add += (M % 10);
+            M /= 10;
+        }
+        if (add == N) {
+            result = i;
+        }
+    }
+    cout << result;
+}
