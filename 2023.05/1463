@@ -12,11 +12,11 @@ int main() {
     dp.push_back(1);
     for (int i = 4;i<=a;i++) {
         b = dp[i - 1] + 1;
-        if (b %2==0) {
-            b = min(b, dp[i / 2] + 1);
+        if (i % 3 == 0) {
+            b = min(b, dp[i / 3] + 1);
         }
-        if (b %3 ==0) {
-            b = min(b,dp[i / 3] + 1);
+        if (i %2==0) {
+            b = min(b, dp[i / 2] + 1);
         }
         dp.push_back(b);
     }
