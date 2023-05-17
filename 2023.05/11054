@@ -1,0 +1,59 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <cmath>
+using namespace std;
+int main() {
+    int a = 0;
+    int b = 0;
+    cin >> a;
+    vector<int> dp;
+    vector<int> result;
+    vector<int> result2;
+    vector<int> result3;
+    dp.push_back(0);
+    result.push_back(0);
+    result2.push_back(0);
+    result3.push_back(0);
+    for (int i = 0; i < a;i++) {
+        cin >> b;
+        dp.push_back(b);
+        result.push_back(0);
+        result2.push_back(0);
+        result3.push_back(0);
+    }
+    if (a>=1) {
+        result[1] = 1;
+        result2[a] = 1;
+    }
+    if (a>1) {
+        result[2] = (dp[1] < dp[2]) ? 2 : 1;
+        result2[a-1] = (dp[a-1] < dp[a]) ? 1 : 2;
+    }
+    int max_num;
+    int min_num;
+    for (int i = 1; i <= a; i++) {
+        max_num = 1;
+        for (int j = 1; j < i; j++) {
+            if (dp[j] < dp[i] && max_num < result[j] + 1) {
+                max_num = result[j] + 1;
+            }
+        }
+        result[i] = max_num;
+    }
+    for (int i = a; i >= 1; i--) {
+        min_num = 1;
+        for (int j = a; j > i; j--) {
+            if (dp[j] < dp[i] && min_num < result2[j] + 1) {
+                min_num = result2[j] + 1;
+            }
+        }
+        result2[i] = min_num;
+        result3[i] = result[i] + result2[i] - 1;
+    }
+    max_num = 0;
+    for (int i = 1; i <= a;i++) {
+        max_num = (max_num < result3[i]) ? result3[i] : max_num;
+    }
+    cout << max_num;
+}
