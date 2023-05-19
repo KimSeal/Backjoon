@@ -1,0 +1,39 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <cmath>
+using namespace std;
+int main() {
+    int a, b;
+    cin >> a;
+    int arr[101][101];
+    int dp[101][101];
+    int ans[101];
+    for (int i = 0; i < a;i++) {
+        cin >> b;
+        arr[0][i] = b;
+        dp[0][i] = b;
+        cin >> b;
+        arr[1][i] = b;
+    }
+    
+    sort(dp[0], dp[0] + a);
+    for (int i = 0; i < a; i++) {
+        for (int j = 0; j < a;j++) {
+            if (dp[0][i]==arr[0][j]) {
+                dp[1][i] = arr[1][j];
+            }
+        }
+    }
+    int answer = 0;
+    for (int i = 0; i < a;i++) {
+        ans[i] = 1;
+        for (int j = 0; j < i;j++) {
+            if (dp[1][j]<dp[1][i]) {
+                ans[i] = max(ans[i], ans[j] + 1);
+            }
+        }
+        answer = max(answer, ans[i]);
+    }
+    cout << a - answer;
+}
