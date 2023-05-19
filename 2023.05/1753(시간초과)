@@ -1,0 +1,52 @@
+#include <iostream>
+#include <vector>
+//#include <algorithm>
+//#include <cmath>
+#include <queue>
+using namespace std;
+#define endl '\n'
+#define INF 987654321
+#define MAX 20010
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+
+    int a, b, start_point;
+    int dist[MAX];
+    vector<pair<int, int>> arr[MAX];
+
+    cin >> a >>b >>start_point;
+    int input0, input1, input2;
+    for (int i = 0; i < b;i++) {
+        cin >> input0 >> input1 >> input2;
+        arr[input0].push_back(make_pair(input1, input2));
+    }
+    for (int i = 1; i <= a;i++) {
+        dist[i] = INF;
+    }
+
+    priority_queue<pair<int, int>> PQ;
+    PQ.push(make_pair(start_point, 0));
+    dist[start_point] = 0;
+
+    while (PQ.empty()==0) {
+        int cur_point = PQ.top().first;
+        int cost = PQ.top().second;
+        PQ.pop();
+        for (int i = 0; i < arr[cur_point].size();i++) {
+            int next = arr[cur_point][i].first;
+            int cost2 = arr[cur_point][i].second;
+
+            if (dist[next] > cost+cost2) {
+                dist[next] = cost + cost2;
+                PQ.push(make_pair(next,dist[next]));
+            }
+        }
+    }
+    for (int i = 1; i <= a;i++) {
+        if (dist[i] == INF) cout << "INF"<<endl;
+        else cout << dist[i]<<endl;
+    }
+
+}
