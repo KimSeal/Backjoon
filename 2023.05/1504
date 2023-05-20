@@ -1,0 +1,58 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <queue>
+using namespace std;
+#define MAX 20002
+#define INF 99999999
+
+int V, E;
+vector<pair<int, int>> arr[20002];
+int input0,input1,input2;
+int dist[MAX];
+
+int di(int a, int b) {
+	for (int i = 1; i <= V; i++) {
+		dist[i] = INF;
+	}
+	priority_queue<pair<int, int>> PQ;
+	PQ.push(make_pair(0, a));
+	dist[a] = 0;
+	while (PQ.empty() == 0) {
+		int cur = PQ.top().second;
+		int cost = -PQ.top().first;
+		PQ.pop();
+		for (int i = 0; i < arr[cur].size(); i++) {
+			int next = arr[cur][i].first;
+			int cost2 = arr[cur][i].second;
+			if (dist[next] > cost + cost2) {
+				dist[next] = (cost+cost2>=INF)? INF : cost + cost2;
+				PQ.push(make_pair(-dist[next], next));
+			}
+		}
+	}
+
+	return dist[b];
+}
+
+
+int main() {
+	cin >> V >> E ;
+	for (int i = 1; i <= E;i++) {
+		cin >> input0 >> input1 >> input2;
+		arr[input0].push_back(make_pair(input1, input2));
+		arr[input1].push_back(make_pair(input0, input2));
+	}
+	cin >> input0 >> input1;
+	int root_0, root_1;
+	root_0 = di(1, input0) + di(input0, input1) + di(input1, V);
+	root_1 = di(1, input1) + di(input1, input0) + di(input0, V);
+	//cout << root_0 << " " << root_1 << endl;
+	int result = (root_0 > root_1) ? root_1 : root_0;
+	if (result>=INF) {
+		cout << "-1";
+	}
+	else {
+		cout << result;
+	}
+}
