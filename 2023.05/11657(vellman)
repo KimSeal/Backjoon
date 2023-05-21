@@ -1,0 +1,48 @@
+#include <iostream>
+#include<deque>
+#include<queue>
+#include <algorithm>
+#include<vector>
+using namespace std;
+#define INF 60000010
+
+int main() {
+	int N, M;
+	cin >> N >> M;
+	vector<pair<pair<int, int>, int>> edge;
+	long long dist[510];
+	for (int i = 1; i <= N;i++) {
+		dist[i] = INF;
+	}
+	int a, b, c;
+	for (int i = 0; i < M;i++) {
+		cin >> a >> b >> c;
+		edge.push_back(make_pair(make_pair(a, b), c));
+	}
+	int start = 1;
+	dist[start] = 0;
+	for (int i = 0; i < N - 1;i++) {
+		for (int j = 0; j < edge.size();j++) {
+			int cur = edge[j].first.first;
+			int next = edge[j].first.second;
+			int cost = edge[j].second;
+			if (dist[cur] == INF) { continue; }
+			if (dist[next] > dist[cur] + cost) { dist[next] = dist[cur] + cost; }
+		}
+	}
+	int loopchk = 0;
+	for (int j = 0; j < edge.size(); j++) {
+		int cur = edge[j].first.first;
+		int next = edge[j].first.second;
+		int cost = edge[j].second;
+		if (dist[cur] == INF) { continue; }
+		if (dist[next] > dist[cur] + cost) { cout << -1 << endl; loopchk = 1; break; }
+	}
+	if (loopchk==0) {
+		for (int i = 2; i <= N; i++) {
+			if (dist[i] == INF)cout << -1 << endl;
+			else { cout << dist[i] << endl; }
+		}
+	}
+	return 0;
+}
