@@ -1,0 +1,70 @@
+#include <iostream>
+#include<deque>
+#include<queue>
+#include <algorithm>
+#include<vector>
+using namespace std;
+#define INF 50000010
+
+vector<pair<int, int>> vec[2001];
+
+int dij(int start, int end) {
+	priority_queue<pair<int, int>> pq;
+
+	int dist[2001];
+	for (int i = 0; i < 2001;i++) {
+		dist[i] = INF;
+	}
+	pq.push(make_pair(0,start));
+	dist[start] = 0;
+	while (!pq.empty()) {
+		int cost = -pq.top().first;
+		int cur = pq.top().second;
+		pq.pop();
+		for (int i = 0; i < vec[cur].size();i++) {
+			int next = vec[cur][i].first;
+			int cost2 = vec[cur][i].second;
+			
+			if (dist[next] > cost+cost2) {
+				dist[next] = cost + cost2;
+				pq.push(make_pair(-dist[next], next));
+			}
+		}
+	}
+	return dist[end];
+
+}
+int main() {
+	int test;
+	cin >> test;
+	priority_queue<int, vector<int>, greater<int>>answer;
+
+	for (int test_num = 0; test_num < test;test_num++) {
+		for (int i = 0; i < 2001; i++) {
+			vec[i] = vector<pair<int, int>>();
+		}
+		int n, m, t, s, g, h;
+		cin >> n >> m >> t >>s>>g>>h;
+		int a, b, d;
+		for (int i = 1; i <= m;i++) {
+			cin >> a >> b >> d;
+			vec[a].push_back(make_pair(b, d));
+			vec[b].push_back(make_pair(a, d));
+		}
+		int x;
+		for (int i = 1; i <= t;i++) {
+			cin >> x;
+			int short_1 = dij(s, x);
+			int short_2 = dij(s, g) + dij(g, h) + dij(h, x);
+			int short_3 = dij(s, h) + dij(h, g) + dij(g, x);
+			if (short_1==short_2 || short_1 == short_3) {
+				answer.push(x);
+			}
+		}
+		while (!answer.empty()) {
+			cout << answer.top() << " ";
+			answer.pop();
+		}
+		cout << endl;
+	}
+}
