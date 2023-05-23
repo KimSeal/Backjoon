@@ -1,0 +1,48 @@
+#include <iostream>
+#include<deque>
+#include<queue>
+#include <algorithm>
+#include<vector>
+using namespace std;
+#define INF 16000010
+
+int main() {
+	int V, E;
+	int dist[401][401];
+	cin >> V >> E;
+	for (int i = 1; i <= V;i++) {
+		for (int j = 1; j <= V;j++) {
+			dist[i][j] = INF;
+		}
+	}
+	int a, b, c;
+	for (int i = 0; i < E;i++) {
+		cin >> a >> b >> c;
+		if (dist[a][b]>c) {
+			dist[a][b] = c;
+		}
+	}
+	for (int k = 1; k <= V;k++) {
+		for (int i = 1; i <= V;i++) {
+			for (int j = 1; j <= V;j++) {
+				if (dist[i][j] > dist[i][k] + dist[k][j]) {
+					dist[i][j] = dist[i][k] + dist[k][j];
+				}
+			}
+		}
+	}
+	int min = INF;
+	for (int i = 1; i <= V; i++) {
+		for (int j = 1; j <= V; j++) {
+			if (dist[i][j]+dist[j][i] < INF && min>dist[i][j]+dist[j][i]) {
+				min = dist[i][j] + dist[j][i];
+			}
+		}
+	}
+	if (min >=INF) {
+		cout << -1;
+	}
+	else {
+		cout << min;
+	}
+}
