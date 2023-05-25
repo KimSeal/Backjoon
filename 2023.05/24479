@@ -1,0 +1,42 @@
+#include <iostream>
+#include<deque>
+#include<queue>
+#include <algorithm>
+#include<vector>
+using namespace std;
+#define INF 16000010
+int visited[100001];
+vector<int> arr[100001];
+vector<int> result;
+void dfs(int n) {
+	visited[n] = 1;
+	result.push_back(n);
+	for (int i = 0; i < arr[n].size();i++) {
+		if (visited[ arr[n][i] ] == 0) dfs(arr[n][i]);
+	}
+}
+
+int main() {
+	int N, M, R;
+	scanf( "%d %d %d",&N,&M, &R);
+	int a, b;
+	for (int i = 0; i < M; i++) {
+		scanf("%d %d",  &a, &b);
+		arr[a].push_back(b);
+		arr[b].push_back(a);
+	}
+	for (int i = 1; i <= N;i++) {
+		sort(arr[i].begin(), arr[i].end());
+		visited[i] = 0;
+	}
+	dfs(R);
+	for (int i = 1; i <= N; i++) {
+		visited[i] = 0;
+	}
+	for (int i = 0; i < result.size(); i++) {
+		visited[result[i]] = i+1;
+	}
+	for (int i = 1; i <= N; i++) {
+		printf("%d\n", visited[i]);
+	}
+}
