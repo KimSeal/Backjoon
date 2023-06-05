@@ -1,0 +1,74 @@
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <algorithm>
+using namespace std;
+
+bool map[27][27];
+int answer1;
+int answer2;
+int N;
+vector<pair<int, int>> vec;
+vector<int> result;
+queue<pair<int, int>> Q;
+int cut_num;
+
+bool cmp(int a, int b) {
+    return a < b;
+}
+void bfs(int a, int b) {
+    if (map[a - 1][b] == true) {
+        map[a - 1][b] = false;
+        Q.push(make_pair(a - 1, b));
+    }
+    if (map[a + 1][b] == true) {
+        map[a + 1][b] = false;
+        Q.push(make_pair(a + 1, b));
+    }
+    if (map[a][b - 1] == true) {
+        map[a][b - 1] = false;
+        Q.push(make_pair(a, b - 1));
+    }
+    if (map[a][b + 1] == true) {
+        map[a][b + 1] = false;
+        Q.push(make_pair(a, b + 1));
+    }
+}
+
+int main() {
+    cin >> N;
+    char input[26];
+    for (int i = 1; i <= N; i++) {
+        cin >> input;
+        for (int j = 1; j <= N; j++) {
+            if (input[j - 1] == '0')map[i][j] = false;
+            else map[i][j] = true;
+            if (map[i][j] == true) {
+                vec.push_back(make_pair(i, j));
+            }
+        }
+    }
+
+    for (int i = 0; i < vec.size(); i++) {
+        int fir = vec[i].first;
+        int sec = vec[i].second;
+        if (map[fir][sec] == true) {
+            answer1++;
+            answer2 = 0;
+            Q.push(make_pair(fir, sec));
+            map[fir][sec] = false;
+            while (!Q.empty()) {
+                answer2++;
+                bfs(Q.front().first, Q.front().second);
+                Q.pop();
+            }
+            result.push_back(answer2);
+        }
+    }
+    cout << answer1 << "\n";
+    sort(result.begin(), result.end());
+    for (int i = 0; i < result.size(); i++) {
+        cout << result[i] << "\n";
+    }
+
+}
