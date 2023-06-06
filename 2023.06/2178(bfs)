@@ -1,0 +1,41 @@
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <algorithm>
+#include<string>
+using namespace std;
+
+queue<pair<pair<int, int>, int>> Q;
+int N, M;
+bool map[102][102];
+void bfs(int a, int b, int c) {
+    Q.pop();
+    int dx[4] = { 1, -1, 0, 0 };
+    int dy[4] = { 0, 0, 1, -1 };
+    for (int i = 0; i < 4; i++) {
+        if (map[a + dx[i]][b + dy[i]] == true) {
+            map[a + dx[i]][b + dy[i]] = false;
+            Q.push(make_pair(make_pair(a + dx[i], b + dy[i]), c + 1));
+        }
+    }
+}
+int main() {
+    cin >> N >> M;
+    string input;
+    for (int i = 1; i <= N; i++) {
+        cin >> input;
+        for (int j = 0; j < M; j++) {
+            if (input[j] == '1')map[i][j + 1] = true;
+        }
+    }
+
+    Q.push(make_pair(make_pair(1, 1), 1));
+    map[1][1] = false;
+    while (!Q.empty()) {
+        if (Q.front().first.first == N && Q.front().first.second == M) {
+            cout << Q.front().second;
+            break;
+        }
+        bfs(Q.front().first.first, Q.front().first.second, Q.front().second);
+    }
+}
