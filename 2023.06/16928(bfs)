@@ -1,0 +1,52 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <queue>
+using namespace std;
+
+int map[101];
+int max;
+int M, N;
+int end_check;
+
+queue<pair<int, int>> Q;
+void bfs(int a, int b) {
+    Q.pop();
+    int end=0;
+    for (int i = 1; i < 7; i++) {
+        if ((i + a) == 100) {
+            end_check = 1;
+            cout << b + 1;
+            break;
+        }
+        if (i+a <100 && map[i + a] != 999) {
+            if (map[i+a] == 0) {
+                Q.push(make_pair(i+a, b + 1));
+                map[i + a] = 999;
+            }
+            else if (map[i + a] != 0) {
+                end = map[i + a];
+                Q.push(make_pair(end, b + 1));
+                map[end] = 999;
+                map[i + a] = 999;
+            }
+            
+        }
+    }
+}
+int main() {
+    cin >> M >> N;
+    int A, B;
+    for (int i = 1; i <= M; i++) {
+        cin >> A >> B;
+        map[A] = B;
+    }
+    for (int j = M + 1; j <= M + N; j++) {
+        cin >> A >> B;
+        map[A] = B;
+    }
+    Q.push(make_pair(1, 0));
+    while (end_check == 0) {
+        bfs(Q.front().first, Q.front().second);
+    }
+}
