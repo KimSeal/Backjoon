@@ -1,0 +1,75 @@
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <algorithm>
+using namespace std;
+int box[102][102][102];
+struct place {
+    int x;
+    int y;
+    int z;
+    int count;
+};
+queue<place> Q;
+int M, N, H;
+int dx[6] = { 1,-1,0,0,0,0 };
+int dy[6] = { 0,0,1,-1,0,0 };
+int dz[6] = { 0,0,0,0,1,-1 };
+int num;
+int num_zero = 0;
+int count_max;
+void bfs(place Q_Front) {
+    int x1, y1, z1, count1;
+    x1 = Q_Front.x;
+    y1 = Q_Front.y;
+    z1 = Q_Front.z;
+    count1 = Q_Front.count;
+    Q.pop();
+    for (int i = 0; i < 6; i++) {
+        if (box[x1 + dx[i]][y1 + dy[i]][z1 + dz[i]] == 0 &&
+            x1 + dx[i] > 0 && x1 + dx[i] <= M &&
+            y1 + dy[i] > 0 && y1 + dy[i] <= N &&
+            z1 + dz[i] > 0 && z1 + dz[i] <= H) {
+            box[x1 + dx[i]][y1 + dy[i]][z1 + dz[i]] = 1;
+            place A;
+            A.x = x1 + dx[i];
+            A.y = y1 + dy[i];
+            A.z = z1 + dz[i];
+            A.count = count1 + 1;
+            count_max = count1 + 1;
+            num_zero--;
+            Q.push(A);
+        }
+    }
+}
+int main() {
+
+    cin >> M >> N >> H;
+    for (int k = 1; k <= H; k++) {
+        for (int j = 1; j <= N; j++) {
+            for (int i = 1; i <= M; i++) {
+                cin >> box[i][j][k];
+                if (box[i][j][k] == 1) {
+                    place A;
+                    A.x = i;
+                    A.y = j;
+                    A.z = k;
+                    A.count = 0;
+                    Q.push(A);
+                }
+                if (box[i][j][k] == 0) {
+                    num_zero++;
+                }
+            }
+        }
+    }
+    while (!Q.empty()) {
+        bfs(Q.front());
+    }
+    if (num_zero==0) {
+        cout << count_max;
+    }
+    else {
+        cout << -1;
+    }
+}
