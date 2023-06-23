@@ -1,0 +1,35 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+using namespace std;
+
+#define INF 1000000000;
+int T, V;
+int sum[501];
+int input[501];
+int dp[501][501];
+
+int main() {
+    cin >> T;
+    while (T--) {
+        cin >> V;
+        for (int i = 1; i <= V; i++) {
+            cin >> input[i];
+            sum[i] = sum[i - 1] + input[i];
+        }
+        for (int i = 1; i <= V; i++) {
+            for (int j = 1; j <= V - i; j++) {
+                dp[j][j + i] = INF;
+                for (int k = j; k <= j + i; k++) {
+                    dp[j][j + i] = min(dp[j][j + i], dp[j][k] + dp[k + 1][j + i] + sum[i + j] - sum[j - 1]);
+                }
+            }
+        }
+        cout << dp[1][V]<<"\n";
+        for (int i = 0; i < 501;i++) {
+            for (int j = 0; j < 501;j++) {
+                dp[i][j] = 0;
+            }
+        }
+    }
+}
