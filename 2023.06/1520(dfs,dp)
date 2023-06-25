@@ -1,0 +1,38 @@
+#include<iostream>
+#include<vector>
+#include<algorithm>
+#include<queue>
+using namespace std;
+int map[501][501];
+int dp[501][501];
+queue<pair<int, int>> Q;
+int M, N;
+int dx[4] = { 1,-1,0,0 };
+int dy[4] = { 0,0,1,-1 };
+int dfs(int a, int b) {
+    if (dp[a][b]!=-1) {
+        return dp[a][b];
+    }
+    if (a==1 && b==1) {
+        return 1;
+    }
+    dp[a][b] = 0;
+    for (int i = 0; i < 4;i++) {
+        if (a+dy[i] <=M && a+dy[i]>0 &&
+            b + dx[i] <= N && b + dx[i]>0 &&
+            map[a+dy[i]][b+dx[i]] > map[a][b]) {
+            dp[a][b] += dfs(a + dy[i], b + dx[i]);
+        }
+    }
+    return dp[a][b];
+}
+int main() {
+    cin >> M >> N;
+    for (int j = 1; j <= M; j++) {
+        for (int i = 1; i <= N; i++) {
+            cin >> map[j][i];
+            dp[j][i] = -1;
+        }
+    }
+    cout << dfs(M, N);
+}
