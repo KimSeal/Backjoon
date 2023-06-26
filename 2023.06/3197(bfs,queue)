@@ -1,0 +1,122 @@
+
+
+
+/*wrong * memory
+
+#include <iostream>
+#include<queue>
+#include<algorithm>
+#include <vector>
+
+using namespace std;
+
+#define INF 100000;
+
+pair<int, int> map[1501][1501];
+int M, N;
+
+struct water {
+    int y;
+    int x;
+    int count;
+};
+struct cmp {
+    bool operator()(water v1, water v2) {
+        return v1.count > v2.count;
+    }
+};
+priority_queue<water, vector<water>, cmp> Q;
+int vfs_num;
+int dx[4] = { -1,1,0,0 };
+int dy[4] = { 0,0,-1,1 };
+int answer=INF;
+int zerochk = 0;
+
+void bfs(water A) {
+    Q.pop();
+    for (int i = 0; i < 4; i++) {
+        if (dy[i] + A.y > 0 && dy[i] + A.y <= M &&
+            dx[i] + A.x > 0 && dx[i] + A.x <= N) {
+            if (map[dy[i] + A.y][dx[i] + A.x].first * map[A.y][A.x].first < 0 &&
+                map[dy[i] + A.y][dx[i] + A.x].first != 100000 ) {
+                int cur = max(abs(map[dy[i] + A.y][dx[i] + A.x].first) , abs(map[A.y][A.x].first));
+                answer = (answer > cur)? cur : answer;
+                zerochk = 1;
+                break;
+            }
+            if (map[dy[i] + A.y][dx[i] + A.x].second == -1 &&
+                abs(map[dy[i] + A.y][dx[i] + A.x].first) > abs(map[A.y][A.x].first)){
+//                map[dy[i] + A.y][dx[i] + A.x].first > map[A.y][A.x].first) {
+                map[dy[i] + A.y][dx[i] + A.x].first = map[A.y][A.x].first;
+                struct water B = { dy[i] + A.y, dx[i] + A.x, abs(map[dy[i] + A.y][dx[i] + A.x].first) };
+                Q.push(B);
+            }
+            if (map[dy[i] + A.y][dx[i] + A.x].second == -2 &&
+                abs(map[dy[i] + A.y][dx[i] + A.x].first) > abs(map[A.y][A.x].first)) {
+                //map[dy[i] + A.y][dx[i] + A.x].first = map[A.y][A.x].first;
+
+                map[dy[i] + A.y][dx[i] + A.x].first = (map[A.y][A.x].first > 0) ? map[A.y][A.x].first + 1 : map[A.y][A.x].first - 1;
+                struct water B = { dy[i] + A.y, dx[i] + A.x, abs(map[dy[i] + A.y][dx[i] + A.x].first)+1 };
+                Q.push(B);
+            }
+        }
+    }
+   // cout << vfs_num++  << "\n";
+    /*
+    for (int i = 1; i <= M; i++) {
+        for (int j = 1; j <= N;j++) {
+            cout << map[i][j].first;
+        }
+        cout << endl;
+    }
+    cout << endl;
+    */
+}
+//string str;
+char str[5100];
+int main() {
+    
+    struct water duck_water;
+    int duckchk = 0;
+    cin >> M >> N;
+    for (int i = 1; i <= M; i++) {
+        cin >> str;
+        for (int j = 1; j <= N; j++) {
+            map[i][j].first = INF;
+            if (str[j - 1]=='L') {    //duck
+                if (duckchk == 0) {
+                    map[i][j].first = 1;
+                    duckchk = 1;
+                }
+                else {
+                    map[i][j].first = -1;
+                }
+                map[i][j].second = 0;
+                duck_water = { i,j,0 };
+                Q.push(duck_water);
+            }
+            if (str[j - 1] == '.') {    //water
+                map[i][j].second = -1;
+            }
+            if (str[j - 1] == 'X') {    //ice
+                map[i][j].second = -2;
+            }
+        }
+    }
+    while (!Q.empty()&& zerochk==0) {
+        bfs(Q.top());
+    }
+    /*
+    cout << endl;
+    for (int i = 1; i <= M; i++) {
+        for (int j = 1; j <= N; j++) {
+            printf("%3d" ,map[i][j].first);
+        }
+        cout << endl;
+    }
+    cout << endl;
+    */
+    cout << answer-1;
+}
+
+/*
