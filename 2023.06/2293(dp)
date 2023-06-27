@@ -1,0 +1,23 @@
+#include <iostream>
+#include<queue>
+#include<algorithm>
+#include <vector>
+#include <cmath>
+//#include <bits/stdc++.h>
+using namespace std;
+
+int n, k;
+int A;
+int dp[10001];
+int main() {
+    cin >> n >> k;
+    dp[0] = 1;
+
+    while(n--){
+        cin >> A;
+        for (int j = A; j <= k; j++) {
+            dp[j] += dp[j - A];
+        }
+    }
+    cout << dp[k];
+}
