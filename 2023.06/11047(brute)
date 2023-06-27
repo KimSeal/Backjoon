@@ -1,0 +1,23 @@
+#include <bits/stdc++.h>
+using namespace std;
+stack<int> coin;
+int n, k;
+int num;
+int main(){
+    cin >> n >> k;
+    int A;
+    for(int i=0;i<n;i++){
+        cin >> A;
+        coin.push(A);
+    }
+    while(k>0){
+        if(k >= coin.top()){
+            k -= coin.top();
+            num++;
+        }
+        else{
+            coin.pop();
+        }
+    }
+    cout << num;
+}
