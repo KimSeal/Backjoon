@@ -1,0 +1,45 @@
+#include <iostream>
+#include<queue>
+#include<algorithm>
+#include <vector>
+#include <cmath>
+//#include <bits/stdc++.h>
+using namespace std;
+
+int input[31];
+vector<int> input_goosle;
+vector <int> result;
+bool visited[32][15002];
+int Ball, goosle;
+int input_1;
+
+void dfs(int a, int b) {
+    if (a > Ball || visited[a][b]==true) {
+        //cout << a << b << "\n";
+        return;
+    }
+    //cout << a<<b<<"\n";
+    visited[a][b] = true;    
+    dfs(a + 1, b + input[a]);
+    dfs(a + 1, abs(b - input[a]));
+    dfs(a + 1, b);
+}
+int main() {
+    cin >> Ball;
+    for (int i = 0; i < Ball; i++) {
+        cin >> input_1;
+        input[i]=input_1;
+    }
+    cin >> goosle;
+    dfs(0, 0);
+    for (int i = 0; i < goosle; i++) {
+        cin >> input_1;
+        if (visited[Ball][input_1] == true) {
+            cout << "Y ";
+        }
+        else {
+            cout << "N ";
+        }
+    }
+    return 0;
+}
