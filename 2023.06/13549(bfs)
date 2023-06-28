@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define INF 500000000
+int visited[100001];
+int N, K;
+int result=-1;
+int upcount = 0;
+queue <int> Q;
+queue <int> Q2;
+
+void bfs(int b) {
+    Q.pop();
+    visited[b] = 1;
+    if (b == K) {
+        result = upcount;
+        return;
+    }
+    if (b *2 < 100001 && !visited[b *2]) {
+        Q.push(b * 2);      
+    }
+    if ( b+1 <100001 && !visited[b + 1]) {
+        Q2.push(b + 1);
+        
+    }
+    if (b - 1 >=0 && !visited[b - 1]) {
+        Q2.push(b - 1);
+    }
+    
+}
+int main() {
+    cin >> N >> K;
+    Q.push(N);
+    visited[N] = 1;
+    while (result==-1) {
+        if (Q.empty()) {
+            Q = Q2;
+            upcount++;
+            while (!Q2.empty()) {
+                Q2.pop();
+            }
+        }
+        bfs(Q.front());
+    }
+    cout << result;
+}
