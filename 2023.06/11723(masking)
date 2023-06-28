@@ -1,0 +1,41 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+bool x[21];
+int M;
+
+int main() {
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+
+    cin >> M;
+    string A;
+    char A2[100];
+    int input;
+    while (M--) {
+        cin >> A2;
+        if (!strcmp(A2, "add")) {
+            cin >> input;
+            x[input] = true;
+        }
+        if (!strcmp(A2, "remove")) {
+            cin >> input;
+            x[input] = false;
+        }
+        if (!strcmp(A2, "check")) {
+            cin >> input;
+            if (x[input]) {
+                cout << 1 << "\n";
+            }
+            else {
+                cout << 0 << "\n";
+            }
+        }
+        if (!strcmp(A2, "toggle")) {
+            cin >> input;
+            x[input] = (x[input]) ? false : true;
+        }
+        if (!strcmp(A2, "all")) { for (int i = 1; i < 21; i++) x[i] = true; }
+        if (!strcmp(A2, "empty")) { for (int i = 1; i < 21; i++) x[i] = false; }
+    }
+}
