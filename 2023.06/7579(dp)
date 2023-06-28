@@ -1,0 +1,33 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define INF 500000000
+int coin_num, m;
+int coin[101];
+int cheap[101];
+int dp[101][10001];
+int result;
+
+int main() {
+    cin >> coin_num >> m;
+    for (int i = 1; i <= coin_num; i++) {
+        cin >> coin[i];
+    }
+    for (int i = 1; i <= coin_num; i++) {
+        cin >> cheap[i];
+        result += cheap[i];
+    }
+    for (int i = 1; i <= coin_num;i++) {
+        for (int j = 1; j <= result;j++) {
+            if (j-cheap[i]>=0) {
+                dp[i][j] = max(dp[i][j], dp[i-1][j-cheap[i]]+coin[i]);
+            }
+            dp[i][j] = max(dp[i][j], dp[i - 1][j]);
+        }
+    }
+    for (int i = 0; i <= result;i++) {
+        if (dp[coin_num][i]>=m) {
+            cout << i;
+            break;
+        }
+    }
+}
