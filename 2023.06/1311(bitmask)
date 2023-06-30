@@ -1,0 +1,41 @@
+include<bits/stdc++.h>
+using namespace std;
+#define inf 300000
+vector<int> cost[21];
+vector <int> dp;
+int N;
+
+int count_1(int x) {
+    int num = 0;
+    while (x > 0) {
+        num += (x % 2 == 0) ? 0 : 1;
+        x /= 2;
+    }
+    return num;
+}
+int main() {
+    cin >> N;
+    int max = 1 << N;
+    for (int i = 0; i < max ;i++) {
+        dp.push_back(inf);
+    }
+    int input;
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            cin >> input;
+            cost[i].push_back(input);
+        }
+    }
+    int x;
+    dp[0] = 0;
+    for (int i = 0; i < max; i++) {
+        
+        x = count_1(i);
+        for (int j = 0; j < N; j++) {
+            if ((i>>j) % 2==0) {
+                dp[i + (1 << j)] = min(dp[i + (1 << j)], dp[i] + cost[x][j]);
+            }
+        }
+    }
+    cout << dp[max - 1];
+}
