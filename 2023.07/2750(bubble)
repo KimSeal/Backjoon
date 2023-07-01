@@ -1,0 +1,36 @@
+#include <iostream>
+#include<queue>
+#include <deque>
+#include<algorithm>
+#include <vector>
+#include <cmath>
+//##include<bits/stdc++.h>
+using namespace std;
+vector<int> array2;
+
+int main() {
+    int T;
+    cin >> T;
+    int t2 = T;
+    int input;
+    while (t2--) {
+        cin >> input;
+        array2.push_back(input);
+    }
+    int chk;
+    
+    for (int i = 0; i < T; i++) {
+        for (int j = i + 1; j < T; j++) {
+            if (array2[i] > array2[j]) {
+                chk = array2[i];
+                array2[i] = array2[j];
+                array2[j] = chk;
+            }
+        }
+    }
+    t2 = 0;
+    while (t2 < T) {
+        cout << array2[t2] << "\n";
+        t2++;
+    }
+}
