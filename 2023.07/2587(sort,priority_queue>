@@ -1,0 +1,18 @@
+#include <bits/stdc++.h>
+using namespace std;
+priority_queue<int> pq;
+int main(){
+    int T=5;
+    int avg=0;
+    int input;
+    while(T--){
+        cin >> input;
+        avg += input;
+        pq.push(input);
+    }
+    avg/=5;
+    cout << avg <<'\n';
+    pq.pop();
+    pq.pop();
+    cout << pq.top();
+}
