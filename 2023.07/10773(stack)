@@ -1,0 +1,23 @@
+#include <bits/stdc++.h>
+using namespace std;
+stack<int> stk;
+int N;
+long long result;
+int main(){
+    cin >> N;
+    int input;
+    for(int i=0;i<N;i++){
+        cin >> input;
+        if(input == 0){
+            stk.pop();
+        }
+        else{
+            stk.push(input);
+        }
+    }
+    while(!stk.empty()){
+        result+=stk.top();
+        stk.pop();
+    }
+    cout << result;
+}
