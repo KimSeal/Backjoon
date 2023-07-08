@@ -1,0 +1,23 @@
+#include <bits/stdc++.h>
+using namespace std;
+ 
+int arr[10001];
+
+int main(){
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    
+    int H, input;
+    cin >> H;
+    for(int i =0;i<H;i++){
+        cin >> input;
+        arr[input] += 1;
+    }
+    
+    for(int i=1; i<10001; i++){
+        for(int j=0;j<arr[i];j++){
+            cout << i <<"\n";
+        }
+    }
+}
