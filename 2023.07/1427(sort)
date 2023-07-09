@@ -1,0 +1,19 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int arr[10];
+    int N = 0;
+    int input;
+    cin >> input;
+    while (input > 0) {
+        arr[N] = input % 10;
+        input /= 10;
+        N++;
+    }
+    sort(arr, arr + N);
+
+    while (N--) {
+        cout << arr[N];
+    }
+}
