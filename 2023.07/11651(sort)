@@ -1,0 +1,30 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+long long input[100000];
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+
+    int N;
+    long long input_2;
+    cin >> N;
+    for (int i = 0; i < N; i++) {
+        cin >> input[i];
+        cin >> input_2;
+        input[i] += 100000;
+        input_2 += 1000000;
+        input_2 *= 1000000;
+
+        input[i] += input_2;
+        cout << input[i] << "\n";
+    }
+    sort(input, input + N);
+    long long A, B;
+    for (int i = 0; i < N; i++) {
+        A = (input[i] / 1000000) - 1000000;
+        B = (input[i] % 1000000) - 100000;
+        cout << B << " " << A << "\n";
+    }
+}
