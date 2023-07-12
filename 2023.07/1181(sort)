@@ -1,0 +1,27 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+vector<string> str_vec;
+bool compa(string a, string b) {
+    if (a.length() == b.length()) {
+        return a < b;
+    }
+    return a.length() < b.length();
+}
+
+int main() {
+    int N;
+    cin >> N;
+    string input;
+    for (int i = 0; i < N;i++) {
+        cin >> input;
+        if (find(str_vec.begin(), str_vec.end(), input) == str_vec.end()) {
+            str_vec.push_back(input);
+        }
+    }
+            sort(str_vec.begin(), str_vec.end(), compa);
+
+    for (int i = 0; i < str_vec.size();i++) {
+        cout << str_vec[i] << "\n";
+    }
+}
