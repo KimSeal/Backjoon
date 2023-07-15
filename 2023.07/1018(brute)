@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+char board[50][50];
+int M, N;
+int result=64;
+vector<pair<int, int>> chk_arr;
+
+void check_board(int a, int b) {
+    int sub_count = 0;
+    char chk = board[a][b];
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            if (chk != board[a + i][b + j] && (i + j) % 2 == 0) {
+                sub_count++;
+            }
+            if (chk == board[a + i][b + j] && (i + j) % 2 == 1) {
+                sub_count++;
+            }
+        }
+    }
+    sub_count = (sub_count < 64 - sub_count) ? sub_count : 64 - sub_count;
+    result = (result > sub_count) ? sub_count : result;
+}
+
+int main() {
+    cin >> M >> N;
+    for (int i = 0; i < M; i++) {
+        for (int j = 0; j < N; j++) {
+            cin >> board[i][j];
+        }
+    }
+    for (int i = 0; i < M - 7; i++) {
+        for (int j = 0; j < N - 7; j++) {
+            chk_arr.push_back(make_pair(i, j));
+        }
+    }
+    for (int i = 0; i < chk_arr.size(); i++) {
+        check_board(chk_arr[i].first, chk_arr[i].second);
+    }
+    cout << result;
+}
