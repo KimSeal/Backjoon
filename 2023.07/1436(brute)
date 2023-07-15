@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+long long int result = 665;
+int N;
+
+void check_666(long long int a) {
+    int count = 0;
+    while (a > 0 && count != 3) {
+        if (a % 10 == 6) {
+            count++;
+        }
+        else {
+            count = 0;
+        }
+        a /= 10;
+    }
+    if (count == 3) {
+        N--;
+    }
+}
+int main() {
+    cin >> N;
+    while (N != 0) {
+        result++;
+        check_666(result);
+    }
+    cout << result;
+}
