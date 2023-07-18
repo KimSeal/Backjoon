@@ -1,0 +1,9 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    long long int N;
+    cin >> N;
+    long long int dot = 1 << (N-1);
+    cout << (2*dot+1)*(2*dot+1) ;   
+}
