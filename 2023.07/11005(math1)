@@ -1,0 +1,22 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+long long int N, B;
+vector<long long int> vec1;
+int main(){
+    char input_a;
+    cin >> N >> B;
+    while(N>0){
+        vec1.push_back( N%B );
+        N/=B;
+    }
+    for(int i = vec1.size()-1;i>=0;i--){
+        if(vec1[i]<10){
+            cout << vec1[i];
+        }
+        else{
+            input_a = 'A'+vec1[i]-10;
+            cout << input_a;
+        }
+    }
+}
