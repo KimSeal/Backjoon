@@ -1,0 +1,22 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+stack<char> stk_1;
+int main(){
+    string a;
+    cin >> a;
+    const char * input = a.c_str();
+    int leng = a.size();
+    for(int i=0;i<leng/2;i++){
+        stk_1.push(input[i]);
+    }
+    int chk_point =1;
+    for(int i=leng-leng/2;i<leng;i++){
+        if(input[i]!=stk_1.top()){
+            chk_point = 0;
+            break;
+        }
+        stk_1.pop();
+    }
+    cout << chk_point;
+}
