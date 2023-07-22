@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+    string str1;
+    float num1;
+    string grade1;
+    
+    float result;
+    float result_grade;
+    
+    int num_study = 20;
+    while(num_study--){
+        cin >> str1 >> num1 >> grade1;
+        if(!strcmp(grade1.c_str(), "A+")){
+            result += num1 * 4.5;
+        }
+        if(!strcmp(grade1.c_str(), "A0")){
+            result += num1 * 4.0;
+        }
+        if(!strcmp(grade1.c_str(), "B+")){
+            result += num1 * 3.5;
+        }
+        if(!strcmp(grade1.c_str(), "B0")){
+            result += num1 * 3.0;
+        }
+        if(!strcmp(grade1.c_str(), "C+")){
+            result += num1 * 2.5;
+        }
+        if(!strcmp(grade1.c_str(), "C0")){
+            result += num1 * 2.0;
+        }
+        if(!strcmp(grade1.c_str(), "D+")){
+            result += num1 * 1.5;
+        }
+        if(!strcmp(grade1.c_str(), "D0")){
+            result += num1 * 1.0;
+        }
+   
+        if(strcmp(grade1.c_str(), "P")){
+            result_grade += num1;
+        }
+    }
+    cout << result / result_grade ;
+}
