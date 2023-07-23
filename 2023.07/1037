@@ -1,0 +1,16 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int vec_1[50];
+int n;
+
+int main(){
+    cin >> n;
+    
+    for(int i =0;i<n;i++){
+        cin >> vec_1[i];
+    }
+    
+    sort(vec_1, vec_1 + n);
+    cout << vec_1[0] * vec_1[n-1];
+}
