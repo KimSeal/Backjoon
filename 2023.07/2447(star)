@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int N;
+
+bool map_1[2188][2188];
+
+void arr_make(int a, int b, int c){
+    if(c == 1){
+        map_1[a][b]=true;
+    }
+    else{
+        arr_make(a, b, c/3);
+        arr_make(a+(c/3), b, c/3);
+        arr_make(a+(c*2/3), b, c/3);
+    
+        arr_make(a, b+(c/3), c/3);
+        arr_make(a, b+(c*2/3), c/3);
+    
+        arr_make(a+(c/3), b+(c*2/3), c/3);
+        arr_make(a+(c*2/3), b+(c/3), c/3);
+        arr_make(a+(c*2/3), b+(c*2/3), c/3);
+    }
+}
+
+int main(){
+    cin >> N;
+    arr_make(0,0,N);
+    for(int i=0;i<N;i++){
+        for(int j =0;j<N;j++){
+            if(map_1[i][j]){ cout << "*";}
+            else{cout << " ";}
+        }
+        cout << "\n";
+    }
+}
