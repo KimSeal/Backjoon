@@ -1,0 +1,39 @@
+//#include <bits/stdc++.h>
+#include <iostream>
+using namespace std;
+
+int N;
+
+bool map_1[3073][6150];
+
+void arr_make(int a, int b, int c){
+    if(c == 3){
+        map_1[b][a]=true;
+        
+        map_1[b+1][a-1]=true;
+        map_1[b+1][a+1]=true;
+        
+        map_1[b+2][a-2]=true;
+        map_1[b+2][a-1]=true;
+        map_1[b+2][a]=true;
+        map_1[b+2][a+1]=true;
+        map_1[b+2][a+2]=true;
+    }
+    else{
+        arr_make(a, b, c/2);
+        arr_make(a-(c/2), b+(c/2), c/2);
+        arr_make(a+(c/2), b+(c/2), c/2);
+    }
+}
+
+int main(){
+    cin >> N;
+    arr_make(N-1,0,N);
+    for(int i=0;i<N;i++){
+        for(int j =0;j<(2*N);j++){
+            if(map_1[i][j]){ cout << "*";}
+            else{cout << " ";}
+        }
+        cout << "\n";
+    }
+}
