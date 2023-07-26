@@ -1,0 +1,22 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int N;
+vector<string>chong;
+vector<string>::iterator it_1;
+vector<string>::iterator it_2;
+
+
+int main(){
+    cin >> N;
+    string input_1, input_2;
+    chong.push_back("ChongChong");
+    while(N--){
+        cin >> input_1 >> input_2;
+        it_1 = find(chong.begin(), chong.end(), input_1);
+        it_2 = find(chong.begin(), chong.end(), input_2);
+        if(it_1 == chong.end() && it_2 != chong.end()) chong.push_back(input_1);
+        if(it_2 == chong.end() && it_1 != chong.end()) chong.push_back(input_2);
+    }
+    cout << chong.size() ;
+}
