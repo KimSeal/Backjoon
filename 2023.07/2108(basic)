@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<double> vec_1;
+int count_num[8002];
+
+int main(){
+    int N, M;
+    cin >> N;
+    M = N;
+    double input_1;
+    double avg_1=0;
+    double biggest= -4001;
+    double smallest = 4001;
+	
+    while(M--){
+        cin >> input_1;
+        if(input_1 > biggest) biggest = input_1;
+        if(input_1 < smallest) smallest = input_1;
+        avg_1 += input_1;
+        vec_1.push_back(input_1);
+        count_num[(int)input_1+4000]++;
+    }
+    cout << floor(avg_1/N+0.5) << "\n";
+    
+	sort(vec_1.begin(), vec_1.end());
+    cout << (int)vec_1[(N-1)/2] <<"\n";
+    
+    int hello = *max_element(count_num, count_num+8002);
+	
+	double bin_do=0;
+	int chk =0;
+	for(int i=0;i<8002;i++){
+		if(hello == count_num[i]){
+			bin_do = i-4000;
+			chk++;
+			if(chk == 2){
+				break;
+			}		
+		}
+	}
+    cout << (int)bin_do<<"\n";
+    
+    cout << (int)(biggest- smallest) ;
+   
+}
