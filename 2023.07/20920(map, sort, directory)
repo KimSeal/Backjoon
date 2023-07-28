@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+map<string, int> map_1;
+vector<pair<string, int>> vec_1;
+
+int N, M;
+bool compare_some(pair<string, int> a, pair<string, int>b){
+    if(a.second > b.second){
+        return true;
+    }
+    if(a.second == b.second && a.first.size() > b.first.size() ){
+        return true;
+    }
+    if(a.second == b.second && a.first.size() == b.first.size() && a.first < b.first){
+        return true;
+    }
+    return false;
+}
+int main(){
+    cin >> N >> M;
+    string input_1;
+    while(N--){
+        cin >> input_1;
+        if(input_1.size() < M){
+            continue;
+        }
+        if(map_1.find(input_1) == map_1.end()){
+            map_1.insert({input_1, 1});
+        }
+        else{
+            map_1[input_1]++;
+        }
+    }
+    for(auto ite=map_1.begin(); ite!=map_1.end(); ite++){
+        vec_1.push_back(make_pair(ite->first, ite->second));
+    }
+    sort(vec_1.begin(), vec_1.end(), compare_some);
+    
+    for(int i=0;i<vec_1.size();i++) cout << vec_1[i].first << "\n";
+    
+}
