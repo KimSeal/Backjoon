@@ -1,0 +1,12 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    int N;
+    cin >> N;
+    string input_1;
+    while(N--){
+        cin >> input_1;
+        cout << input_1[0] <<input_1[strlen(input_1.c_str())-1]<<"\n";
+    }
+}
