@@ -1,0 +1,18 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+    int N, result, W, input_1, input_2;
+    cin >> N >> W;
+    result =0;
+    while(W--){
+        cin >> input_1 >> input_2;
+        result += input_1 * input_2;
+    }
+    if(result == N){
+        cout << "Yes";
+    }
+    else{
+        cout << "No";
+    }
+}
