@@ -1,0 +1,7 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main(){
+    string input_1;
+    cin >> input_1;
+    cout << strlen(input_1.c_str());
+}
