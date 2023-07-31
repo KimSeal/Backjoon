@@ -1,0 +1,17 @@
+#include<bits/stdc++.h>
+using namespace std;
+int arr[101];
+int N, M;
+int main(){
+    cin >> N >> M;
+    int a, b, c;
+    while(M--){
+        cin >> a >> b >> c;
+        for(int i =a; i<=b;i++){
+            arr[i] = c;
+        }
+    }
+    for(int i=1;i<=N;i++){
+        cout << arr[i]<<" ";
+    }
+}
