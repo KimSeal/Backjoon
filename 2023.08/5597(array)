@@ -1,0 +1,15 @@
+#include <bits/stdc++.h>
+using namespace std;
+bool arr[31];
+
+int main(){
+    int input_1;
+    int M = 28;
+    while(M--){
+        cin>> input_1;
+        arr[input_1] = true;
+    }
+    for(int i =1;i<31;i++){
+        if(!arr[i]) cout << i<<"\n";
+    }
+}
