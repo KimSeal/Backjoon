@@ -1,0 +1,34 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int N, M;
+vector<long long int> weight_arr;
+vector<long long int> vec_1;
+vector<long long int> vec_2;
+
+void dfs(int start_1, int end_1, vector<long long int>& vec, long long int weight_1){
+    if(start_1 > end_1){
+        vec.push_back(weight_1);
+    }
+    else{
+        dfs(start_1+1, end_1, vec, weight_1);
+        dfs(start_1+1, end_1, vec, weight_1 + weight_arr[start_1]);
+    }
+}
+int main(){
+    cin >> N >> M;
+    long long int input_1;
+    for(int i =0;i<N;i++){
+        cin >> input_1;
+        weight_arr.push_back(input_1);
+    }
+    dfs(0, N/2-1, vec_1, 0);
+    dfs(N/2, N-1, vec_2, 0);
+    sort(vec_2.begin(), vec_2.end());
+    int result = 0;
+    for(int i=0;i<vec_1.size();i++){
+        long long int namusi = M - vec_1[i]+1;
+        result += lower_bound(vec_2.begin(), vec_2.end(), namusi) - vec_2.begin();
+    }
+    cout << result;
+}
