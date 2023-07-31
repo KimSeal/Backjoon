@@ -1,0 +1,8 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+    int str_1;
+    cin >> str_1;
+    cout << str_1 -543;
+}
