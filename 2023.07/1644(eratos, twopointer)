@@ -1,0 +1,52 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+bool hello[1001][4000];
+
+vector<int> sosu_vec;
+void sosu(){
+    for(int i =2;i<=2000;i++){
+        if( hello[0][i]==false ){
+            for(int j=i*2;j<=4000000;j+=i){
+                hello[j/4000][j%4000] = true;
+            }
+        }
+    }
+    for(int i=2;i<=4000000;i++){
+        if(!hello[i/4000][i%4000])sosu_vec.push_back(i);
+    }
+	//sosu_vec.push_back(4000999);
+}
+int main(){
+    sosu();
+    int N;
+    cin >> N;
+    int start_point =0;
+    int end_point =0;
+    int sum_1 = sosu_vec[0];
+    int result =0;
+    while(sosu_vec[start_point] <= N){
+        if(sum_1 == N){
+            result++;
+            sum_1 -= sosu_vec[end_point];
+            end_point++;
+            start_point++;
+			if(start_point == sosu_vec.size()){
+				break;
+			}
+            sum_1 += sosu_vec[start_point];
+        }
+        else if(sum_1 > N){
+            sum_1 -= sosu_vec[end_point];
+            end_point++;
+        }
+        else{
+            start_point++;
+			if(start_point == sosu_vec.size()){
+				break;
+			}
+            sum_1 += sosu_vec[start_point];
+        }
+    }
+	cout << result ;
+}
