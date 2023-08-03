@@ -1,0 +1,24 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+    int N , K;
+    cin >> N >> K;
+    int hello, hit;
+    hello =1;
+    hit=0;
+    while(hello <= N){
+        if(N % hello == 0){
+            hit++;
+			//cout << hit <<" ";
+            if(hit==K){
+                break;
+            }
+        }
+        hello++;
+    }
+    if(hit<K){
+        hello = 0;
+    }
+    cout << hello;
+}
