@@ -1,0 +1,32 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    int N=0;
+    int add_1=0;
+    cin >> N;
+    while(N!=-1){
+		add_1=0;
+        vector<int> vec_1;
+        for(int i=1;i<N;i++){
+            if(N%i==0){
+                vec_1.push_back(i);
+                add_1 += i;
+            }
+        }
+        if(add_1 == N){
+            cout << N <<" = ";
+            for(int i=0;i<vec_1.size();i++){
+                cout << vec_1[i];
+                if(i != vec_1.size()-1){
+                    cout <<" + ";
+                }
+            }
+        }
+        else{
+            cout << N << " is NOT perfect.";
+        }
+        cout<< "\n";
+        cin >> N;
+    }    
+}
