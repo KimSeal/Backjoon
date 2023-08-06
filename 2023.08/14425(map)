@@ -1,0 +1,19 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+map<string, int> map_1;
+int main(){
+    int N , M;
+    cin >> N >> M;
+    string str_1;
+    int result =0;
+    while(N--){
+        cin >> str_1; 
+        map_1[str_1] = 1;
+    }
+    while(M--){
+        cin >> str_1; 
+        if(map_1.end() != map_1.find(str_1)) result++;
+    }
+    cout << result;
+}
