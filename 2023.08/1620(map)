@@ -1,0 +1,30 @@
+#include <bits/stdc++.h>
+using namespace std;
+map<string, int> m_1;
+string m_2[100001];
+
+int main(){
+	cin.tie(NULL); ios_base::sync_with_stdio(false);
+    int N, M;
+    cin >> N >> M;
+    int i=1;
+    string input_1;
+    while(i <= N){
+        cin >> input_1;
+        m_1.insert({input_1, i});
+        m_2[i]=input_1;
+        i++;
+    }
+    i =0;
+    while(i<M){
+        cin >> input_1;
+        if(input_1.c_str()[0] >= '0' && input_1.c_str()[0] <='9'){
+            int a = stoi(input_1);
+            cout << m_2[a] <<"\n";
+        }
+        else{
+            cout << m_1.find(input_1)->second<<"\n";
+        }
+		i++;
+    }
+}
