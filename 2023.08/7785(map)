@@ -1,0 +1,22 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+map<string, int> m_1;
+int main(){
+    int n;
+    cin >> n;
+    string str_1, str_2;
+    
+    while(n--){
+        cin >> str_1 >> str_2;
+        if(str_2 == "enter") m_1.insert({str_1, 1});
+        else if(str_2 == "leave") m_1.erase(str_1);
+    }
+    for(auto iter_1 = m_1.end();;){
+		iter_1--;
+		cout << iter_1->first<< "\n" ;
+		if(iter_1 == m_1.begin()){
+			break;
+		}
+    }
+}
