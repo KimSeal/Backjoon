@@ -1,0 +1,24 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    
+    int N, input;
+    vector<int> vec_1;
+    cin >> N;
+    while(N--){
+        cin >> input;
+        vec_1.push_back(input);
+    }
+    sort(vec_1.begin(), vec_1.end());
+    cin >> N;
+    while(N--){
+        cin >> input;
+        auto start_1 = upper_bound(vec_1.begin(), vec_1.end(), input);
+        auto end_1 = lower_bound(vec_1.begin(), vec_1.end(), input);
+        cout << start_1 - end_1<<" ";
+    }                                                  
+}
