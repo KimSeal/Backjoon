@@ -1,0 +1,15 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+map<string, int> map_1;
+int main(){
+    string str_1, str_2;
+    cin >> str_1;
+    for(int i=0; i<str_1.length() ;i++){
+        for(int j=1; i+j<=str_1.length(); j++){
+            str_2 = str_1.substr(i, j);
+            map_1.insert({str_2,1});
+        }
+    }
+    cout << map_1.size() ;
+}
