@@ -1,0 +1,18 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+long long int gcd(long long int a, long long int b){
+    long long int c;
+    while(b != 0){
+        c = a%b;
+        a = b;
+        b = c;
+    }
+    return a;
+}
+int main(){
+    long long int input_1, input_2;
+    cin >> input_1 >> input_2;
+    if(input_1 > input_2) cout << input_1 * input_2 / gcd(input_1, input_2)<<"\n";
+    else cout << input_1 * input_2 / gcd(input_2, input_1)<<"\n";
+}
