@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+long long int gcd(long long int a, long long int b){
+    int c;
+    if(a < b){ c = b; b= a; a= c;}
+    while(b != 0){
+        c = a%b;
+        a = b;
+        b = c;
+    }
+    return a;
+}
+int main(){
+    long long int N, M, first_1, input_1, input_2, gcd_1;
+    cin >> N;
+    M = N;
+    
+    cin >> first_1;
+    cin >> input_1;
+    gcd_1 = input_1 - first_1;
+    N-=2;
+    
+    while(N--){
+        cin >> input_2;
+        gcd_1 = gcd(input_2 - first_1, gcd_1);
+    }
+    cout << (input_2 - first_1) / gcd_1 + 1 - M;
+}
