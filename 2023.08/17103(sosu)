@@ -1,0 +1,41 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+bool map_1[1001][1000];
+vector<int> sosu;
+void sosu_chk(){
+	map_1[0][0]=true;
+	map_1[0][1]=true;
+    for(int i =2;i<1000;i++){
+        if(!map_1[0][i]){
+            for(int j=2; i*j<=1000000 ;j++){
+                map_1[i*j/1000][i*j%1000]=true;
+            }
+        }
+    }
+    for(int i =0;i<=1000000;i++){
+        if(!map_1[i/1000][i%1000]) sosu.push_back(i);
+    }
+}
+
+int sosu_num (int a){
+    int num, result;
+    result =0;
+    for(int i =0;i<sosu.size();i++){
+        if(sosu[i]>=a) break;
+        num = a - sosu[i];
+        if(!map_1[num/1000][num%1000]) result++;
+		if(num == sosu[i]) result++;
+    }
+    
+    return result/2;
+}
+int main(){
+    int N, M;
+    sosu_chk();
+    cin >> N;
+    while(N--){
+        cin >> M;
+        cout << sosu_num(M) <<"\n";
+    }
+}
