@@ -1,0 +1,36 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+stack<int> stk_1;
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    
+    int N, input_1, input_2;
+	cin >> N;
+    while(N--){
+        cin >> input_1;
+      
+        if(input_1 == 2) {
+            if(stk_1.empty())    cout << "-1\n";    
+            else{
+                cout << stk_1.top() <<"\n"; 
+                stk_1.pop();
+            }
+        }                
+        else if(input_1 == 3) cout << stk_1.size() <<"\n";
+        else if(input_1 == 4) { 
+            if(stk_1.empty()) cout << "1\n";
+            else cout << "0\n";
+        }
+        else if(input_1 == 5){
+            if(stk_1.empty()) cout << "-1\n";
+            else cout << stk_1.top() << "\n";
+        }
+        else if(input_1 == 1){
+            cin >> input_2;
+            stk_1.push(input_2);
+        }
+    }
+}
