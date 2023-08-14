@@ -1,0 +1,35 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+queue<int> Q_1;
+int main(){
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+    int N;
+    string str_1;
+    int input_1;
+    cin >> N;
+    while(N--){
+        cin >> str_1;
+        if(str_1 == "push") {
+            cin >> input_1;
+            Q_1.push(input_1);
+        }
+        else if(str_1 == "pop") {
+			if(Q_1.empty()) cout << "-1\n";
+			else{cout << Q_1.front() <<"\n"; Q_1.pop();}
+		}
+		
+        else if(str_1 == "size") cout << Q_1.size() <<"\n";
+        else if(str_1 == "empty") {
+            if(Q_1.empty()) cout << "1\n"; else cout <<"0\n";
+        }
+        else if(str_1 == "front"){
+            if(!Q_1.empty()) cout <<Q_1.front() << "\n"; else cout << "-1\n";
+        }
+        else if(str_1 == "back"){
+            if(!Q_1.empty()) cout <<Q_1.back() << "\n"; else cout << "-1\n";
+        }
+    }
+}
