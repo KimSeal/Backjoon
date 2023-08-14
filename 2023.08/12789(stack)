@@ -1,0 +1,32 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+stack<int> stk_1;
+vector<int> vec_1;
+vector<int> vec_2;
+
+int main(){
+    int N, input_1;
+    cin >> N;
+    while(N--){
+        cin >> input_1;
+        vec_1.push_back(input_1);
+        vec_2.push_back(input_1);
+    }
+    sort(vec_2.begin(), vec_2.end());
+    
+    int i=0;
+    int chk_1 =0;
+    
+    for(int j=0;j<vec_1.size();j++){
+            if(vec_1[j]==vec_2[i]) i++;
+            else if( (!stk_1.empty()) && stk_1.top()==vec_2[i] ){i++; j--; stk_1.pop();}
+            else stk_1.push(vec_1[j]);
+    }
+    while(!stk_1.empty()){
+        if(stk_1.top() == vec_2[i]) {i++; stk_1.pop();}
+        else{chk_1 = 1; break;}
+    }
+    if(chk_1 == 0) cout << "Nice";
+    else cout <<"Sad";
+}
