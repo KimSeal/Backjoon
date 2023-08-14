@@ -1,0 +1,33 @@
+#include <bits/stdc++.h>
+using namespace std;
+int result;
+int N;
+int last;
+vector<long long int> vec_1;
+queue <long long int> Q_1;
+
+long long int chk_1(int a){
+	for(int i=0;i<10;i++){
+		Q_1.push(i);
+        vec_1.push_back(i);
+    }
+	if(0<=a && a<=10){return a;}
+    int Idx = 10;
+    while(Idx <=a && !Q_1.empty()){
+		long long int num_1 = Q_1.front();
+		Q_1.pop();
+        last = num_1 % 10;
+        for(int j=0;j<last;j++){
+			Q_1.push(num_1*10 +j);
+            vec_1.push_back( num_1*10+j );
+			Idx++;
+        }
+    }
+	if(Idx >= a && vec_1[a] != 0) return vec_1[a];
+	else return -1;
+}
+
+int main(){
+    cin >> N;
+    cout << chk_1(N);
+}
