@@ -1,0 +1,17 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+queue<int> hello;
+int main(){
+    int N;
+    cin >> N;
+    for(int i=1;i<=N;i++){
+        hello.push(i);
+    }
+    while(hello.size()!=1){
+        hello.pop();
+        hello.push(hello.front());
+        hello.pop();
+    }
+    cout << hello.front();
+}
