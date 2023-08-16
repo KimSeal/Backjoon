@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+double height_1[50];
+int N;
+double result;
+
+void build_chk(int a){
+    int left_build=0;
+    double left_1 = -2100000001;
+    
+    int right_build =0;
+    double right_1 = -2100000001;
+    
+    for(int i=a-1;i>=0;i--){
+		double slope = (double)(height_1[i] - height_1[a]) / (a-i);
+        if( i==a-1 || slope > left_1){
+            left_1= slope;
+			
+            left_build++;
+        }
+    }
+    for(int i=a+1;i<N;i++){
+		double slope = (double)(height_1[i] - height_1[a]) / (i-a);
+        if(  i==a+1 || slope > right_1){
+            right_1= slope;
+            right_build++;
+        }
+    }
+    result = (result < (left_build + right_build)) ? (left_build + right_build) : result;
+}
+
+int main(){
+	cin >> N;
+    for(int i=0;i<N;i++){
+        cin >> height_1[i];
+    }
+    for(int i=0;i<N;i++){
+        build_chk(i);
+    }
+    cout << result;
+}
