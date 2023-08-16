@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+deque<int> DQ;
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    int N, input;
+    cin >> N;
+    while(N--){
+        cin >> input;
+        if(input==1) {cin >> input ; DQ.push_front(input); }
+        else if(input ==2) {cin >> input ; DQ.push_back(input); }
+        else if(input == 3){
+            if(DQ.empty()) cout << "-1\n"; 
+            else {
+                cout << DQ.front()<<"\n";
+                DQ.pop_front();
+            }
+        }
+        else if(input == 4){
+            if(DQ.empty()) cout << "-1\n"; 
+            else {
+                cout << DQ.back()<<"\n";
+                DQ.pop_back();
+            }
+        }
+        else if(input == 5) cout << DQ.size() <<"\n";
+        else if(input == 6){ if(DQ.empty()) cout << "1\n"; else cout << "0\n"; }
+        else if(input == 7){
+            if(DQ.empty()) cout << "-1\n"; 
+            else { cout << DQ.front()<<"\n"; }
+        }
+        else if(input == 8){
+            if(DQ.empty()) cout << "-1\n"; 
+            else { cout << DQ.back()<<"\n"; }
+        }
+    }
+}
