@@ -1,0 +1,33 @@
+#include <bits/stdc++.h>
+using namespace std;
+int N, M, input_1;
+vector<int> tree_1[50];
+
+map<int, int> parent_1;
+int main(){
+    cin >> N;
+    for(int i=0; i<N; i++){
+        cin >> input_1;
+        parent_1[i]=input_1;
+        if(input_1 != -1 )tree_1[input_1].push_back(i);        
+    }
+    cin >> M;
+    
+    int hello =0;
+    for(int i=0; i<N; i++){
+        if(tree_1[i].size() > 1 || (tree_1[i].size() ==1 && tree_1[i][0]!=M)){
+            continue;
+        }
+		int temp=0;
+		int temp_2 = i;
+        while(temp != -1){
+            temp = parent_1[temp_2];
+			//cout << temp <<"\n";
+            if(temp == M || i == M){hello--; break;}
+			temp_2 = temp;
+        }
+        hello++;
+    }
+    cout << hello;
+    
+}
