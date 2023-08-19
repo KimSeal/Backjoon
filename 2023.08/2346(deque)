@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int N;
+deque<pair<int, int>> hello;
+int main(){
+    cin >> N;
+    int input;
+    for(int i=1;i<=N;i++){
+        cin >> input;
+        hello.push_back(make_pair(input, i));
+    }
+	
+    while(1){
+        cout << hello.front().second <<" ";
+		input = hello.front().first;
+		hello.pop_front();
+		if(hello.empty()){
+			break;
+		}
+		if(input < 0 ) input = hello.size() - ((0 - input) % hello.size());
+		// -1 = 3 /-2 = 2/ -5 = 7
+        else input = (input-1) % hello.size();
+		//cout << input;
+		while(input){
+            hello.push_back(hello.front());
+            hello.pop_front();
+            input--;
+        }
+            
+    }
+}
