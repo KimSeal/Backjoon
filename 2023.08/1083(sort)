@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int N, input, M;
+int map_1[50];
+
+int main(){
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+	
+    cin >> N;
+    for(int i=0; i<N; i++){
+        cin >> map_1[i];
+    }
+    cin >> M;
+    int temp_1 =0;
+	
+    for(int i=0;i<N;i++){
+		if(M==0) break;
+		int max_1 = i;
+		for(int j=i+1;j<N && j-i<=M ;j++){
+			if(map_1[max_1] < map_1[j]) max_1 = j;
+		}
+
+		for(int j=max_1; j>i ;j--){
+			temp_1 = map_1[j];
+            map_1[j] = map_1[j-1];
+            map_1[j-1] = temp_1;
+            M--;
+			//for(int i =0;i<N;i++){
+    		//    cout << map_1[i]<<" ";
+    		//}
+			//cout << "\n";
+			if(M==0) break;
+		}
+		
+    }
+    for(int i =0;i<N;i++){
+        cout << map_1[i]<<" ";
+    }
+}
