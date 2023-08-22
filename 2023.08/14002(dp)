@@ -1,0 +1,50 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int vec_1[1000];
+pair<int, int> vec_2[1000];
+stack <int> stk_1;
+int N;
+int main() {
+    cin >> N;
+    for (int i = 0; i < N; i++) {
+        cin >> vec_1[i];
+        vec_2[i].first = 1;
+        vec_2[i].second = i;
+    }
+    int max_1 = 0;
+    int max_place = 0;
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < i; j++) {
+            if (vec_1[i] > vec_1[j]) {
+                if (vec_2[i].first == vec_2[j].first + 1) {
+                    vec_2[i].second = (vec_1[vec_2[i].second] > vec_1[j]) ? j : vec_2[i].second;
+                }
+                else if (vec_2[i].first < vec_2[j].first + 1) {
+                    vec_2[i].first = vec_2[j].first + 1;
+                    vec_2[i].second = j;
+                }
+            }
+        }
+        if (max_1 < vec_2[i].first) {
+            max_1 = vec_2[i].first;
+            max_place = i;
+        }
+    }
+    //for (int i = 0; i < N; i++) {
+    //    cout << vec_2[i].second <<" ";
+    //}
+    //cout << "\n";
+
+    cout << max_1 << "\n";
+
+    while (1) {
+        stk_1.push(vec_1[max_place]);
+        if (vec_2[max_place].second == max_place) break;
+        max_place = vec_2[max_place].second;
+    }
+    while (!stk_1.empty()) {
+        cout << stk_1.top() << " ";
+        stk_1.pop();
+    }
+}
