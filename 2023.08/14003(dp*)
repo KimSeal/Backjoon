@@ -1,0 +1,50 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int vec_1[1000000];
+vector<int> vec_2;
+int vec_3[1000000];
+stack<int> stk_1;
+int N, max_1, max_place;
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+
+    cin >> N;
+    for (int i = 0; i < N; i++) {
+        cin >> vec_1[i];
+        vec_3[i] = 1;
+
+        if (vec_2.size() == 0) vec_2.push_back(vec_1[i]);
+        else if (vec_2[vec_2.size() - 1] < vec_1[i]) {
+            vec_2.push_back(vec_1[i]);
+            vec_3[i] = vec_2.size();
+        }
+        else {
+            auto place_1 = lower_bound(vec_2.begin(), vec_2.end(), vec_1[i]);
+            *(place_1) = vec_1[i];
+            vec_3[i] = place_1 - vec_2.begin() + 1;
+        }
+
+        if (max_1 < vec_3[i]) {
+            max_1 = vec_3[i];
+            max_place = i;
+        }
+    }
+    cout << vec_3[max_place] << "\n";
+    stk_1.push(vec_1[max_place]);
+    for (int i = max_place; i >= 0; i--) {
+        if (max_1 > vec_3[i] && vec_3[i] + 1 == vec_3[max_place]) {
+            stk_1.push(vec_1[i]);
+            max_1 = vec_3[i];
+            max_place = i;
+        }
+    }
+    while (!stk_1.empty()) {
+        cout << stk_1.top() << " ";
+        stk_1.pop();
+    }
+
+}
