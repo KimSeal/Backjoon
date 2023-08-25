@@ -1,0 +1,16 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+    long long int N;
+    long long int result =1;
+    cin >> N;
+    if(N==0) cout << 1;
+    else{
+        while(N != 1){
+            result *= N;
+            N--;
+        }
+        cout << result;
+    }
+}
