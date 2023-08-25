@@ -1,0 +1,74 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<pair <int, pair<int,int>> > vec_1[11];
+long long int vec_2[11];
+bool visited[11];
+int N;
+int a, b, c, d;
+int visited_num;
+
+int gcd(long long int x, long long int y) {
+    long long int mod = x % y;
+    while (mod != 0) {
+        x = y;
+        y = mod;
+        mod = x % y;
+    }
+    return y;
+}
+
+void dfs(long long int x, long long int y, long long int a) {
+    for (int i = 0; i < vec_1[x].size(); i++) {
+        if (vec_1[x][i].first == y) continue;
+        dfs(vec_1[x][i].first, x, a);
+        vec_2[vec_1[x][i].first] *= a;
+    }
+}
+
+void solve(int x, int y, int p, int q) {
+    long long int gcd_val;
+
+    gcd_val = gcd(p, q);
+    p /= gcd_val;
+    q /= gcd_val;
+
+    long long int a_1 = vec_2[x];
+    long long int b_1 = vec_2[y];
+    //cout << a_1 << " " << b_1 << " ";
+    long long int c_1 = a_1 * b_1 / gcd(a_1, b_1);
+
+    dfs(x, y, (c_1 / a_1 * p));
+    vec_2[x] *= (c_1 / a_1 * p);
+
+    dfs(y, x, (c_1 / b_1 * q));
+    vec_2[y] *= (c_1 / b_1 * q);
+    /*
+    for (int i = 0; i < N; i++) {
+        cout << vec_2[i] << " ";
+    }
+    cout << "\n";
+    */
+}
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    cin >> N;
+    for (int i = 0; i < N; i++) {
+        vec_2[i] = 1;
+    }
+    for (int i = 1; i < N; i++) {
+        cin >> a >> b >> c >> d;
+        vec_1[a].push_back(make_pair(b, make_pair(c,d)));
+        vec_1[b].push_back(make_pair(a, make_pair(d,c)));
+        solve(a, b, c, d);
+    }
+    int result_1 = vec_2[0];
+    for (int i = 1; i < N; i++) {
+        result_1 = gcd(result_1, vec_2[i]);
+    }
+    for (int i = 0; i < N; i++) {
+        cout << vec_2[i]/result_1 << " ";
+    }
+}
