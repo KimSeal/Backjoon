@@ -1,0 +1,38 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+
+using namespace std;
+
+int N, M, input;
+int crain_1[50];
+vector<int> weight_1;
+
+int result = 0;
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+
+    cin >> N;
+    for (int i = 0; i < N; i++) cin >> crain_1[i];
+    sort(crain_1, crain_1 + 50, greater<int>());
+
+    cin >> M;
+    for (int i = 0; i < M; i++) {
+        cin >> input;
+        weight_1.push_back(input);
+    }
+    sort(weight_1.begin(), weight_1.end());
+
+    if (crain_1[0] < weight_1[M - 1]) { cout << -1; return 0; }
+    while (weight_1.size() != 0) {
+        for (int i = 0; i < N; i++) {
+            vector<int>::iterator it = upper_bound(weight_1.begin(), weight_1.end(), crain_1[i]);
+            if (it - weight_1.begin() != 0) weight_1.erase(it - 1);
+        }
+        result++;
+    }
+    cout << result;
+}
