@@ -1,0 +1,22 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int N;
+int result;
+
+int hello(char * str_1, int start_1, int end_1){
+    result++;
+    if(start_1 >= end_1) return 1;
+    if(str_1[start_1] != str_1[end_1]) return 0;
+    return hello(str_1, start_1 +1, end_1 -1);
+}
+
+int main(){
+    cin >> N;
+    while(N--){
+        result = 0;
+        char str_1[1010];
+        cin >> str_1;
+        cout << hello(str_1, 0, strlen(str_1)-1) <<" " << result <<"\n";
+    }
+}
