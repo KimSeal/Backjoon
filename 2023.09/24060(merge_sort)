@@ -1,0 +1,51 @@
+#include <bits/stdc++.h>
+using namespace std;
+void merge_2(int p, int q, int r);
+
+int A[500001];
+int tmp[500001];
+int N, K, chk_1;
+void merge_1(int p, int r) {
+    if (p < r) {
+        int q = (p + r) / 2;
+        merge_1(p, q);
+        merge_1(q + 1, r);
+        merge_2(p, q, r);
+    }
+    if (chk_1 == K) return;
+}
+
+void merge_2(int p, int q, int r) {
+    int i, j, k;
+    i = p; j = q + 1; k = p;
+    while (i <= q && j <= r) {
+        if (A[i] < A[j]) { tmp[k] = A[i]; i++; }
+        else { tmp[k] = A[j]; j++; }
+        chk_1++;
+        if (chk_1 == K) { cout << tmp[k]; return; }
+        k++;
+    }
+    while (i <= q) {
+        tmp[k] = A[i]; i++;
+        chk_1++;
+        if (chk_1 == K) { cout << tmp[k]; return; }
+        k++;
+    }
+    while (j <= r) {
+        tmp[k] = A[j]; j++;
+        chk_1++;
+        if (chk_1 == K) { cout << tmp[k]; return; }
+        k++;
+    }
+    i = p;
+    while (i <= r) { A[i] = tmp[i]; i++; }
+}
+
+int main() {
+    cin >> N >> K;
+    for (int i = 0; i < N; i++) {
+        cin >> A[i];
+    }
+    merge_1(0, N - 1);
+    if (chk_1 < K) cout << -1;
+}
