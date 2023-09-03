@@ -1,0 +1,24 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void recursive_1(int a) {
+    if (a == 0) { cout << "-"; return; }
+    recursive_1(a / 3);
+    for (int i = 0; i < a; i++) {
+        cout << " ";
+    }
+    recursive_1(a / 3);
+}
+
+int main() {
+    int N, N_2;
+    while (cin >> N) {
+        N_2 = 1;
+        while (N--) {
+            N_2 *= 3;
+        }
+        N_2 /= 3;
+        recursive_1(N_2);
+        cout << "\n";
+    }
+}
