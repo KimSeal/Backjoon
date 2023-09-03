@@ -1,0 +1,25 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int N;
+int result;
+vector<pair<int, int>> vec_1;
+
+void recursive_1(int a, int b, int c, int d) {
+    if (d == N) {
+        return;
+    }
+    recursive_1(a, c, b, d + 1);
+    vec_1.push_back(make_pair(a, c));
+    result++;
+    recursive_1(b, a, c, d + 1);
+}
+
+int main() {
+    cin >> N;
+    recursive_1(1, 2, 3, 0);
+    cout << result << "\n";
+    for (int i = 0; i < result; i++) {
+        cout << vec_1[i].first << " " << vec_1[i].second << "\n";
+    }
+}
