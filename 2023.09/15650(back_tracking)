@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int visited[9];
+vector<int> stk;
+int N, M;
+void dfs(int a, int b) {
+	for (int i = b+1; i <= N;i++) {
+		if (visited[i] == 0) {
+			visited[i] = 1;
+			stk.push_back(i);
+			if (a+1 == M) {
+				for (int j = 0; j < M;j++) {
+					cout << stk[j] <<" ";
+				}
+				cout << "\n";
+			}
+			else{ dfs(a + 1, i); }
+			visited[i] = 0;
+			stk.pop_back();
+		}
+		
+	}
+};
+
+int main() {
+	cin >> N >> M;
+	dfs(0, 0);
+}
