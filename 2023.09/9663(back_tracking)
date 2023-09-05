@@ -1,0 +1,41 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int map_1[16][16];
+int N, result;
+
+void dfs(int a) {
+    if (a == N) {
+        result++;
+        return;
+    }
+    for (int i = 0; i < N; i++) {
+
+        if (map_1[a][i] == 0) {
+            map_1[a][i] = a + 1;
+            for (int j = 1; a + j < N; j++) {
+                if (i + j < N && map_1[a + j][i + j] == 0) { map_1[a + j][i + j] = a + 1; }
+                if (map_1[a+j][i] == 0) { map_1[a+j][i] = a + 1; }
+                if (i - j >= 0 && map_1[a + j][i - j] == 0) { map_1[a + j][i - j] = a + 1; }
+            }
+
+            dfs(a + 1);
+
+            map_1[a][i] = 0;
+            for (int j = 1; a + j < N; j++) {
+                if (i + j < N && map_1[a + j][i + j] == a + 1) { map_1[a + j][i + j] = 0; }
+                if (map_1[a+j][i] == a + 1) { map_1[a+j][i] = 0; }
+                if (i - j >= 0 && map_1[a + j][i - j] == a + 1) { map_1[a + j][i - j] = 0; }
+            }
+        }
+    }
+
+}
+int main() {
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+    cin >> N;
+    dfs(0);
+    cout << result;
+}
