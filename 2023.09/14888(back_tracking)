@@ -1,0 +1,41 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int N;
+int digit_1[11];
+int sic[4];
+int max_1 = -1000000010;
+int min_1 = 1000000010;
+
+void back_1(int a, int b) {
+    if (b == N - 1) {
+        max_1 = (max_1 < a) ? a : max_1;
+        min_1 = (min_1 > a) ? a : min_1;
+        return;
+    }
+    int temp = a;
+    for (int i = 0; i < 4;i++) {
+        if (sic[i] > 0) {
+            if (i==0) a += digit_1[b + 1];
+            if (i==1) a -= digit_1[b + 1];
+            if (i==2) a *= digit_1[b + 1];
+            if (i==3) a /= digit_1[b + 1];
+            sic[i]--;
+            back_1(a, b + 1);
+            sic[i]++;
+            a = temp;
+        }
+    }
+
+}
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    cin >> N;
+    for (int i = 0; i < N; i++) cin >> digit_1[i];
+    for (int i = 0; i < 4; i++) cin >> sic[i];
+    back_1(digit_1[0], 0);
+    cout << max_1 << "\n";
+    cout << min_1;
+}
