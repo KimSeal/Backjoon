@@ -1,0 +1,170 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+struct board_1 {
+    int arr[20][20];
+};
+int N, input, max_2;
+queue<pair<board_1,int>> map_1;
+
+void move_1(int map_0[20][20], int a) {
+    board_1 copy_1;
+    
+    if (a != 0) {
+        // <-
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                copy_1.arr[i][j] = map_0[i][j];
+            }
+        }
+
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                for (int k = j + 1; k < N; k++) {
+                    if (copy_1.arr[i][j] == 0 && copy_1.arr[i][k] != 0) {
+                        copy_1.arr[i][j] = copy_1.arr[i][k];
+                        copy_1.arr[i][k] = 0;
+                    }
+                    else if (copy_1.arr[i][j] != 0 && copy_1.arr[i][k]!=0 && copy_1.arr[i][j] != copy_1.arr[i][k]) {
+                        k = N;
+                        continue;
+                    }
+                    else if (copy_1.arr[i][j] !=0 && copy_1.arr[i][j] == copy_1.arr[i][k]) {
+                        copy_1.arr[i][j] *= 2;
+                        if (max_2 < copy_1.arr[i][j]) max_2 = copy_1.arr[i][j];
+                        copy_1.arr[i][k] = 0;
+                        k = N;
+                    }
+                }
+            }
+        }
+        map_1.push(make_pair(copy_1, 0));
+
+    }
+    if (a != 1) {
+        // ->
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                copy_1.arr[i][j] = map_0[i][j];
+            }
+        }
+
+        for (int i = 0; i < N; i++) {
+            for (int j = N - 1; j >= 0; j--) {
+                for (int k = j - 1; k >= 0; k--) {
+                    if (copy_1.arr[i][j] ==0 && copy_1.arr[i][k] != 0) {
+                        copy_1.arr[i][j] = copy_1.arr[i][k];
+                        copy_1.arr[i][k] = 0;
+                    }
+                    else if (copy_1.arr[i][j] != 0 && copy_1.arr[i][k] !=0 && copy_1.arr[i][j] != copy_1.arr[i][k]) {
+                        k = -1;
+                        continue;
+                    }
+                    else if (copy_1.arr[i][j] != 0 && copy_1.arr[i][j] == copy_1.arr[i][k]) {
+                        copy_1.arr[i][j] *= 2;
+                        if (max_2 < copy_1.arr[i][j]) max_2 = copy_1.arr[i][j];
+                        copy_1.arr[i][k] = 0;
+                        k = -1;
+                    }
+                }
+            }
+        }
+        map_1.push(make_pair(copy_1, 0));
+
+    }
+
+    if (a != 2) {
+        //^
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                copy_1.arr[i][j] = map_0[i][j];
+            }
+        }
+
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                for (int k = j + 1; k < N; k++) {
+                    if (copy_1.arr[j][i] == 0 && copy_1.arr[k][i] != 0) {
+                        copy_1.arr[j][i] = copy_1.arr[k][i];
+                        copy_1.arr[k][i] = 0;
+                    }
+                    else if (copy_1.arr[j][i] != 0 && copy_1.arr[k][i] !=0 && copy_1.arr[j][i] != copy_1.arr[k][i]) {
+                        k = N;
+                        continue;
+                    }
+                    else if (copy_1.arr[j][i]!= 0 && copy_1.arr[j][i] == copy_1.arr[k][i]) {
+                        copy_1.arr[j][i] *= 2;
+                        if (max_2 < copy_1.arr[j][i]) max_2 = copy_1.arr[j][i];
+
+                        copy_1.arr[k][i] = 0;
+                        k = N;
+                    }
+                }
+            }
+        }
+        map_1.push(make_pair(copy_1, 0));
+
+    }
+
+    if (a != 3) {
+        // V
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                copy_1.arr[i][j] = map_0[i][j];
+            }
+        }
+
+        for (int i = 0; i < N; i++) {
+            for (int j = N - 1; j >= 0; j--) {
+                for (int k = j - 1; k >= 0; k--) {
+                    if (copy_1.arr[j][i] == 0 && copy_1.arr[k][i] != 0) {
+                        copy_1.arr[j][i] = copy_1.arr[k][i];
+                        copy_1.arr[k][i] = 0;
+                    }
+                    else if (copy_1.arr[j][i] != 0 && copy_1.arr[k][i] != 0 && copy_1.arr[j][i] != copy_1.arr[k][i]) {
+                        k = -1;
+                        continue;
+                    }
+                    else if (copy_1.arr[j][i] != 0 && copy_1.arr[j][i] == copy_1.arr[k][i]) {
+                        copy_1.arr[j][i] *= 2;
+                        if (max_2 < copy_1.arr[j][i]) max_2 = copy_1.arr[j][i];
+                        copy_1.arr[k][i] = 0;
+                        k = -1;
+                    }
+                }
+            }
+        }
+        map_1.push(make_pair(copy_1, 0));
+    }
+
+}
+
+
+void bfs() {
+    int num_1 = 0;
+    int Q_size;
+
+    while (num_1 < 5) {
+        Q_size = map_1.size();
+        
+        for (int i = 0; i < Q_size; i++) {
+            move_1(map_1.front().first.arr, 5);
+            map_1.pop();
+        }
+        num_1++;
+    }
+}
+int main() {
+    cin >> N;
+    board_1 a;
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            cin >> a.arr[i][j];
+            if (max_2 < a.arr[i][j]) max_2 = a.arr[i][j];
+        }
+    }
+    map_1.push(make_pair(a, 5));
+    bfs();
+    cout << max_2;
+
+}
