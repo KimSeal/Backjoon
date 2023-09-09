@@ -1,0 +1,49 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int num_chk[20];
+int arr[20][20];
+int N;
+int result= 999999999;
+
+void make_max(){
+    int temp=0;
+    for(int i=0;i<N;i++){
+        for(int j=0;j<N;j++){
+            if(num_chk[i] && num_chk[j]){
+                temp+= arr[i][j];
+            }
+            else if(!num_chk[i] && !num_chk[j]){
+                temp -= arr[i][j];
+            }
+        }
+    }
+    if(temp<0) temp *= -1;
+    if(result > temp) result =temp;
+}
+
+void bfs(int a, int b){
+    if(b==N/2){
+        make_max();
+        return;
+    }
+    if(a==N || b>N/2){
+        //no half
+        return;
+    }
+    
+    bfs(a+1, b);
+    num_chk[a]=1;
+    bfs(a+1, b+1);
+    num_chk[a]=0;
+}
+int main(){
+    cin >> N;
+    for(int i=0;i<N;i++){
+        for(int j=0;j<N;j++){
+            cin >> arr[i][j];
+        }
+    }
+    bfs(0,0);
+    cout << result;
+}
