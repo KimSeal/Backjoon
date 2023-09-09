@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+long long int N, M;
+map<long long int, bool> vec_1;
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+
+    cin >> N >> M;
+    for (long long int i = N; i <= M; i++) {
+        vec_1[i] = false;
+    }
+
+    long long int i_num = 2;
+    int number_1 = 0;
+
+    while (i_num * i_num <= M) {
+        long long min_1 = N / (i_num * i_num);
+        if (min_1 * (i_num * i_num) != N) min_1++;
+
+        for (long long int i = min_1; (i * i_num * i_num) <= M; i++) {
+            if (vec_1[i * i_num * i_num] == false) {
+                vec_1[i * i_num * i_num] = true;
+            }
+        }
+        i_num++;
+    }
+
+    long long int result = 0;
+    for (long long int i = N; i <= M; i++) {
+        if (vec_1[i] == false) result++;
+    }
+    cout << result;
+}
