@@ -1,0 +1,30 @@
+#include <bits/stdc++.h>
+using namespace std;
+int N;
+vector<int> vec_0;
+vector<int> vec_1;
+long long int B, C, result;
+int main() {
+
+    cin >> N;
+    result = N;
+    int input;
+
+    for (int i = 0; i < N; i++) {
+        cin >> input;
+        vec_0.push_back(input);
+    }
+
+    cin >> B >> C;
+
+    for (int i = 0; i < N; i++) {
+        if (vec_0[i] >= B)vec_1.push_back(vec_0[i] - B);
+        else vec_1.push_back(0);
+    }
+
+    for (int i = 0; i < N; i++) {
+        result += vec_1[i] / C;
+        if (vec_1[i] % C != 0) result++;
+    }
+    cout << result;
+}
