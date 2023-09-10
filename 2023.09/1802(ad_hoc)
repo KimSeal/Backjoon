@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+using namespace std;
+int N, leng_1;
+string str_1;
+char arr[3010];
+string chk_0;
+
+void hello(int a, int b){
+    if(chk_0=="NO") return;
+    
+    for(int i=0; i<(b-a)/2; i++){
+        if(arr[a+i] == arr[b-i]) {chk_0="NO"; return;}
+    }
+    if(b - a == 2) return;
+    else {hello(a, (a+b)/2-1); hello((a+b)/2+1, b);}
+    
+}
+int main(){
+    cin >> N;
+    while(N--){
+        cin >> str_1;
+        leng_1 = str_1.length();
+        if(leng_1 == 1){cout << "YES\n"; continue;}
+        for(int i=0; i<leng_1 ;i++) arr[i]=str_1.c_str()[i];
+
+        chk_0 = "YES";
+        hello(0, leng_1-1);
+        
+        cout << chk_0 <<"\n";
+    }
+}
