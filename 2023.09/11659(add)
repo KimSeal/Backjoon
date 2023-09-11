@@ -1,0 +1,26 @@
+#include <bits/stdc++.h>
+using namespace std;
+int N, M;
+vector<long long int> input_1;
+
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    
+    int start_1, end_1;
+    long long int input, result;
+    cin >> N >> M;
+    result =0;
+    input_1.push_back(0);
+    for(int i=0;i<N;i++){
+        cin >> input;
+        result += input;
+        input_1.push_back(result);
+    }
+
+    for(int i=0;i<M;i++){
+        cin >> start_1 >> end_1;
+        cout << input_1[end_1] - input_1[start_1-1] <<"\n";
+    }
+}
