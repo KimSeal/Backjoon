@@ -1,0 +1,21 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int max_1 = -999999999;
+vector<int> vec_1;
+int main(){
+    int N, K, input_1, input_2;
+    cin >> N >> K;
+    input_1 = 0;
+    vec_1.push_back(0);
+    for(int i=0;i<N;i++){
+        cin >> input_2;
+        input_1 += input_2;
+        vec_1.push_back(input_1);
+    }
+    
+    for(int i=0; i+K <= N; i++){
+        if(max_1 < vec_1[i+K]-vec_1[i]) max_1 = vec_1[i+K] - vec_1[i];
+    }
+    cout << max_1;
+}
