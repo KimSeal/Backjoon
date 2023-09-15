@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+using namespace std;
+vector<long long int> vec_1;
+long long int count_1[1001];
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+
+    int N, M;
+    long long int result = 0;
+    long long int answer = 0;
+    long long int input_1;
+
+    cin >> N >> M;
+    vec_1.push_back(0);
+    for (int i = 0; i < N; i++) {
+        cin >> input_1;
+        result += input_1;
+        count_1[result % M]++;
+    }
+    for (int i = 0; i < 1001;i++) {
+        answer += count_1[i] * (count_1[i] - 1) / 2;
+    }
+    answer += count_1[0];
+    cout << answer;
+
+}
