@@ -1,0 +1,30 @@
+#include <bits/stdc++.h>
+using namespace std;
+long long int arr[1025][1025];
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    
+    int N, M;
+    cin >> N >> M;
+    long long int input_1, input_2, output_1;
+    for (int i = 1; i <= N; i++) {
+        input_1 = 0;
+        for (int j = 1; j <= N; j++) {
+            cin >> input_2;
+            input_1 += input_2;
+            arr[i][j] = input_1;
+        }
+    }
+
+    int x_1, x_2, y_1, y_2;
+    for (int i = 0; i < M; i++) {
+        output_1 = 0;
+        cin >> y_1 >> x_1 >> y_2 >> x_2;
+        for (int j = y_1; j <= y_2; j++) {
+            output_1 += arr[j][x_2] - arr[j][x_1 - 1];
+        }
+        cout << output_1 << "\n";
+    }
+}
