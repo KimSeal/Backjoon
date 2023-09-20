@@ -1,0 +1,23 @@
+#include <bits/stdc++.h>
+using namespace std;
+priority_queue<int> Q_1;
+
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    
+    int N, input_1;
+    cin >> N;
+    while(N--){
+        cin >> input_1;
+        if(input_1 == 0){
+            if(Q_1.size() ==0) { cout <<"0\n"; continue; }
+            cout << Q_1.top()<<"\n";
+            Q_1.pop();
+        }
+        else{
+            Q_1.push(input_1);
+        }
+    }
+}
