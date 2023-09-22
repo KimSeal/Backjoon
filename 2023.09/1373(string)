@@ -1,0 +1,20 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main() {
+    string str_1;
+    cin >> str_1;
+    long long int hello = 0;
+
+    while (str_1.length() % 3 != 0) {
+        str_1 = '0' + str_1;
+    }
+    for (int i = 0; i < str_1.length();) {
+        hello = 0;
+        if (str_1.c_str()[i] == '1')hello += 4;
+        if (str_1.c_str()[i + 1] == '1') hello += 2;
+        if (str_1.c_str()[i + 2] == '1') hello += 1;
+        i += 3;
+        cout << hello;
+    }
+}
