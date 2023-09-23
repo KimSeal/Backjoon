@@ -1,0 +1,14 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main(){
+    string str_1;
+    int result =1, N;
+    cin >> N;
+    cin >> str_1;
+    for(int i=0;i<str_1.length();i++){
+        if(str_1.c_str()[i] == 'S') result++;
+        else {i++; result++;}
+    }
+    if(result > N) result =N;
+    cout << result;
+}
