@@ -21,6 +21,9 @@ void dfs(int a, int b, long long int x, long long int y) {
 }
 
 int main() {
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
 	cin >> M;
 	long long int input_1, input_2;
 	while (M--) {
