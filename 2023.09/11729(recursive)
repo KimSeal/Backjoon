@@ -16,6 +16,9 @@ void recursive_1(int a, int b, int c, int d) {
 }
 
 int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
     cin >> N;
     recursive_1(1, 2, 3, 0);
     cout << result << "\n";
