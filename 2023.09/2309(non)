@@ -1,0 +1,27 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int hello[9];
+
+int main(){
+    int add_value=0, input_1;
+    int no_nan_1, no_nan_2;
+    for(int i=0;i<9;i++){
+        cin >> hello[i];
+        add_value += hello[i];
+    }
+    for(int i=0;i<8;i++){
+        for(int j=i+1;j<9;j++){
+            if(hello[i]+hello[j] == add_value - 100){
+                no_nan_1 = i;
+                no_nan_2 = j;
+            }
+        }
+    }
+    hello[no_nan_1]=0;
+    hello[no_nan_2]=0;
+    sort(hello, hello+9);
+    for(int i=2;i<9;i++){
+        cout << hello[i]<<"\n";
+    }
+}
