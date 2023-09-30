@@ -1,0 +1,59 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define INF 90000000000;
+
+int N, W;
+double M;
+int input_1, input_2;
+vector<pair<double, double>> vec_1;
+double dist_map[1000][1000];
+double dist_arr[1000];
+
+int main(){
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+	cin >> N >> W >> M;
+	for(int i = 0;i<N;i++){
+		cin >> input_1 >> input_2;
+		vec_1.push_back(make_pair(input_1, input_2));
+		dist_arr[i]=INF;
+	}
+	for(int i =0;i<N;i++){
+		for(int j =i+1;j<N;j++){
+			double dist_1 = sqrt((vec_1[i].first - vec_1[j].first) * (vec_1[i].first - vec_1[j].first)
+			+(vec_1[i].second - vec_1[j].second) * (vec_1[i].second - vec_1[j].second));
+			
+			if(dist_1 > M) dist_1 = INF;
+			
+			dist_map[i][j] = dist_1;
+			dist_map[j][i] = dist_1;
+		}
+	}
+	for(int i =0;i<W;i++){
+		cin >> input_1 >> input_2;
+		dist_map[input_1 - 1][input_2 - 1] = 0;
+		dist_map[input_2 - 1][input_1 - 1] = 0;
+	}
+	
+	priority_queue<pair<double, int>> PQ;
+	PQ.push(make_pair(0,0));
+	dist_arr[0] = 0;
+	
+	while(!PQ.empty()){
+		int Cur = PQ.top().second;
+		double cost = -1 * PQ.top().first;
+		PQ.pop();
+		
+		for(int i=0;i<N;i++){
+			
+			if(dist_arr[i] > cost + dist_map[Cur][i]){
+				dist_arr[i] = cost + dist_map[Cur][i];
+				PQ.push(make_pair(-1 * dist_arr[i], i));
+			}
+			
+		}
+	}
+	int result = dist_arr[N-1]*1000;
+	cout << result;
+}
