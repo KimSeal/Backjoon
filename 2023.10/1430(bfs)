@@ -1,0 +1,59 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int N;
+double R, D, X, Y;
+double result;
+
+vector<pair<double, double>> posit;
+double dist_arr[50][50];
+bool visited[50];
+
+queue<int> Q_1;
+
+void bfs(){
+	double energy = D;
+	while(!Q_1.empty()){
+		int size_1 = Q_1.size();
+		for(int i=0; i<size_1; i++){
+			result += D;
+			
+			for(int i =0;i<N;i++){
+				if(dist_arr[Q_1.front()][i] <= R && visited[i]==false){
+					Q_1.push(i);
+					visited[i] = true;
+				}
+			}
+			
+			Q_1.pop();
+		}
+		D /= 2;
+	}
+}
+
+int main(){
+	cin >> N >> R >> D >> X >> Y;
+	double input_1, input_2;
+	for(int i =0;i<N;i++){
+		cin >> input_1 >> input_2;
+		posit.push_back(make_pair(input_1, input_2));
+	}
+	for(int i=0;i<N;i++){
+		for(int j =i+1;j<N;j++){
+			double temp = sqrt( (posit[i].first - posit[j].first) * (posit[i].first - posit[j].first) + 
+							   (posit[i].second - posit[j].second) * (posit[i].second - posit[j].second) );
+			dist_arr[i][j] = temp;
+			dist_arr[j][i] = temp;
+		}
+	}
+	for(int i=0;i<N;i++){
+		double temp2 = sqrt( (X - posit[i].first) * (X - posit[i].first) + 
+							   (Y - posit[i].second) * (Y - posit[i].second) );
+		if(temp2 <= R) {
+			Q_1.push(i);
+			visited[i]= true;
+		}
+	}
+	bfs();
+	cout << result;
+}
