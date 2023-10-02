@@ -32,6 +32,9 @@ void bfs(){
 }
 
 int main(){
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
 	cin >> N >> R >> D >> X >> Y;
 	double input_1, input_2;
 	for(int i =0;i<N;i++){
