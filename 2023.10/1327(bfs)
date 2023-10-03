@@ -1,0 +1,44 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int N , K;
+string s;
+char c;
+int result = -1;
+
+int main(){
+    cin >> N >> K;
+    
+    for(int i=0;i<N;i++){
+        cin >> c;
+        s += c;
+    }
+    
+    queue< pair<string, int> > Q_1;
+    map<string, int> map_1;
+	
+    Q_1.push(make_pair(s,0));
+    sort(s.begin(), s.end());
+    while(!Q_1.empty()){
+        string temp = Q_1.front().first;
+		int value_1 = Q_1.front().second;
+		Q_1.pop();
+        if(temp == s) {
+            result = value_1;
+            break;
+        }
+		
+		if(!map_1.count(temp)){
+		map_1[temp] = 1;
+			
+        for(int i=0;i<=N-K;i++){
+            string temp_0 = temp.substr(i, K);
+			reverse(temp_0.begin(), temp_0.end());
+            string temp_1 = temp.substr(0, i) + temp_0 + temp.substr(i+K, N-i-K); 
+			Q_1.push(make_pair(temp_1, value_1 + 1));		
+        }
+		
+		}
+    }
+    cout << result;
+}
