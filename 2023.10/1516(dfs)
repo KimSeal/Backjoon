@@ -1,0 +1,44 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int N;
+vector<int> hello[501];
+int power_1[501];
+bool visited[501];
+
+int cal_value(int a){
+    if(visited[a]==true){
+        return power_1[a];
+    }
+    int max_1 = 0;
+    for(int j=0;j<hello[a].size();j++){
+		int temp;
+        if(visited[hello[a][j]]== false){
+			temp = cal_value(hello[a][j]);
+        }
+		else{
+			temp = power_1[hello[a][j]]; 
+		}
+		if(max_1 < temp){
+            max_1 = temp;
+        }
+    }
+    power_1[a] += max_1;
+	visited[a]=true;
+    return power_1[a];
+}
+int main(){
+    cin >> N;
+    for(int i =1;i<=N;i++){
+        cin >> power_1[i];
+        int input_1=0;
+        cin >> input_1;
+        while(input_1 != -1){
+            hello[i].push_back(input_1);
+            cin >> input_1;
+        }
+    }
+    for(int i=1;i<=N;i++){
+        cout << cal_value(i) <<"\n";
+    }
+}
