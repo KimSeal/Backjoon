@@ -1,0 +1,21 @@
+#include<bits/stdc++.h>
+using namespace std;
+long long int N, P, Q;
+map<long long int, long long int> map_1;
+long long int hello( long long int a){
+	if(a==0) return 1;
+	if(a==1) return 2;
+	if (map_1.find(a) != map_1.end()) {
+		return map_1[a];
+	}
+	long long int temp = hello(a/P) + hello(a/Q);
+	map_1[a]= temp;
+	return temp;
+}
+int main(){
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+    cin >> N >> P >> Q;
+    cout << hello(N);
+}
