@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int N;
+int result;
+int map_1[21][21];
+int chk = 0;
+
+int hello(int a, int b){
+    for(int i=0;i<N;i++){
+		if(a != i && b != i){
+			if(map_1[a][i] + map_1[i][b] < map_1[a][b]){
+            	chk =1;
+            	return 0;
+        	}
+        	if(map_1[a][i] + map_1[i][b] == map_1[a][b]){
+            	return map_1[a][b];
+        	}
+		}
+        
+    }
+    return 0;
+}
+int main(){
+    cin >> N;
+    for(int i=0;i<N;i++){
+        for(int j=0;j<N;j++){
+            cin >> map_1[i][j];
+            result += map_1[i][j];
+        }
+    }
+    result /= 2;
+    for(int i =0;i<N;i++){
+        for(int j=i+1;j<N;j++){
+            result -= hello(i, j);
+        }
+    }
+    if(chk == 1)cout << -1;
+    else cout << result;
+}
