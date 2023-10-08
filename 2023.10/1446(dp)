@@ -1,0 +1,22 @@
+#include<bits/stdc++.h>
+using namespace std;
+vector<pair<int, int>> vec_1[10001];
+int N, D;
+int input_1, input_2, input_3;
+int dp[10001];
+int main() {
+    cin >> N >> D;
+    for (int i = 0; i < N; i++) {
+        cin >> input_1 >> input_2 >> input_3;
+        vec_1[input_2].push_back(make_pair(input_1, input_3));
+    }
+    for (int i = 1; i <= D; i++) {
+        dp[i] = dp[i - 1] + 1;
+        for (int j = 0; j < vec_1[i].size(); j++) {
+            if (dp[i] > dp[vec_1[i][j].first] + vec_1[i][j].second) {
+                dp[i] = dp[vec_1[i][j].first] + vec_1[i][j].second;
+            }
+        }
+    }
+    cout << dp[D];
+}
