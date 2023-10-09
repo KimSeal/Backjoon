@@ -1,0 +1,33 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+double result_1, result_2;
+double per_a, per_b;
+int sosu[7] = { 2, 3, 5, 7, 11, 13, 17 };
+//2, 3, 5, 7, 11, 13, 17
+
+void dfs_1(double a, int b, int c, double d, bool hello) {
+    if (b == 18) {
+        for (int i = 0; i < 7; i++) {
+            if (c == sosu[i]) {
+                if (hello == true) result_1 += a;
+                if (hello == false) result_2 += a;
+                return;
+            }
+        }
+        return;
+    }
+    dfs_1(a * d, b + 1, c + 1, d, hello);
+    dfs_1(a * (1 - d), b + 1, c, d, hello);
+    return;
+}
+
+int main() {
+    cin >> per_a >> per_b;
+    per_a /= 100.0f;
+    per_b /= 100.0f;
+    dfs_1(1, 0, 0, per_a, true);
+    dfs_1(1, 0, 0, per_b, false);
+    double result = result_1 + result_2 - result_1 * result_2;
+    printf("%.9f", result);
+}
