@@ -1,0 +1,39 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int arr[50][5];
+int r1, c1, r2, c2;
+int max_length;
+
+void put_value(int y, int x, int input_1) {
+	if (r1 <= y && y <= r2 && c1 <= x && x <= c2) {
+		arr[y - r1][x - c1] = input_1;
+		if (max_length < to_string(input_1).size()) max_length = to_string(input_1).size();
+	}
+}
+int main() {
+	cin >> r1 >> c1 >> r2 >> c2;
+	int value_1 = 1;
+	int max_1 = max(max(abs(r1), abs(r2)), max(abs(c1), abs(c2)));
+	put_value(0, 0, value_1++);
+	for (int i = 1; i <= max_1;i++) {
+		for (int j = 0; j < 2*i;j++) {
+			put_value(i - 1- j, i, value_1++);
+		}
+		for (int j = 0; j < 2 * i; j++) {
+			put_value(i * -1, i - 1 - j, value_1++);
+		}
+		for (int j = 0; j < 2 * i; j++) {
+			put_value(i * -1 + 1 + j, -1*i , value_1++);
+		}
+		for (int j = 0; j < 2 * i; j++) {
+			put_value(i, -1*i + 1 + j, value_1++);
+		}
+	}
+	for (int i = 0; i <= (r2 - r1);i++) {
+		for (int j = 0; j <= (c2 - c1);j++) {
+			printf("%*d ", max_length, arr[i][j]);
+		}
+		cout << "\n";
+	}
+}
