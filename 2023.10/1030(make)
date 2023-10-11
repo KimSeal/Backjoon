@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+bool map_1[51][51];
+int s, N, K, R1, R2, C1, C2;
+
+bool hello(int b, int y_real , int x_real) {
+    if (b == 1) { return 0; }
+
+    int block_size = b/N;
+
+    int start_point = (N - K) / 2 * block_size;
+    int end_point = (N + K) / 2 * block_size;
+
+    if (y_real >= start_point && y_real < end_point && 
+        x_real >= start_point && x_real < end_point) {
+        return 1;
+    }
+
+    return hello(block_size, y_real % block_size , x_real % block_size);
+
+    
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+
+    cin >> s >> N >> K >> R1 >> R2 >> C1 >> C2;
+    int len_temp = 1;
+    while (s--) len_temp *= N;
+    for (int i = R1; i <= R2; i++) {
+        for (int j = C1; j <= C2; j++) {
+            cout << hello(len_temp, i, j);
+        }
+        cout << "\n";
+    }
+}
