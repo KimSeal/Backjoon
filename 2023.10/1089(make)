@@ -1,0 +1,101 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int N;
+int arr[5][36];
+int num_1[9];
+int num_chk[10][15] =
+                { {1,1,1,
+                  1,0,1,
+                  1,0,1,
+                  1,0,1,
+                  1,1,1 },
+                { 0,0,1,
+                  0,0,1,
+                  0,0,1,
+                  0,0,1,
+                  0,0,1 },
+                { 1,1,1,
+                  0,0,1,
+                  1,1,1,
+                  1,0,0,
+                  1,1,1 },
+                { 1,1,1,
+                  0,0,1,
+                  1,1,1,
+                  0,0,1,
+                  1,1,1 },
+                { 1,0,1,
+                  1,0,1,
+                  1,1,1,
+                  0,0,1,
+                  0,0,1 },
+                { 1,1,1,
+                  1,0,0,
+                  1,1,1,
+                  0,0,1,
+                  1,1,1 },
+                { 1,1,1,
+                  1,0,0,
+                  1,1,1,
+                  1,0,1,
+                  1,1,1 },
+                { 1,1,1,
+                  0,0,1,
+                  0,0,1,
+                  0,0,1,
+                  0,0,1 },
+                { 1,1,1,
+                  1,0,1,
+                  1,1,1,
+                  1,0,1,
+                  1,1,1 },
+                { 1,1,1,
+                  1,0,1,
+                  1,1,1,
+                  0,0,1,
+                  1,1,1 } };
+
+double num_make(int a) {
+    int temp[15];
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 3; j++) {
+            temp[i * 3 + j] = arr[i][4 * a + j];
+        }
+    }
+    double return_1 = 0;
+    double return_2 =0;
+    for (int i = 0; i < 10; i++) {
+        int chk = 0;
+        for (int j = 0; j < 15; j++) {
+            if (temp[j] == 1 && num_chk[i][j]==0) { chk = 1; break; }
+        }
+        if (chk == 0) { return_1 += i; return_2++; }
+    }
+    if (return_2 == 0)  return -1;
+    else return return_1 / return_2;
+}
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    cin >> N;
+    string str_1;
+    for (int i = 0; i < 5; i++) {
+        cin >> str_1;
+        for (int j = 0; j < 4*N-1; j++) {
+            if (str_1[j] == '#') arr[i][j] = 1;
+            else arr[i][j] = 0;
+        }
+    }
+    double result = 0;
+    for (int i = 0; i < N; i++) {
+        result *= 10;
+        double temp_1 = num_make(i);
+        if (temp_1 == -1) {
+            cout << -1; return 0;
+        }
+        result += temp_1;
+    }
+    cout << result;
+}
