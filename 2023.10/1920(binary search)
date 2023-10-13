@@ -1,0 +1,23 @@
+#include<bits/stdc++.h>
+using namespace std;
+int N, M, input_1;
+vector<int> vec_1;
+vector<int> vec_2;
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    
+    cin >> N;
+    for(int i=0;i<N;i++){
+        cin >> input_1;
+        vec_1.push_back(input_1);
+    }
+    sort(vec_1.begin(), vec_1.end());
+    cin >> M;
+    for(int i=0;i<M;i++){
+        cin >> input_1;
+        input_1 = (binary_search(vec_1.begin(), vec_1.end(), input_1)) ? 1: 0;
+        cout << input_1 <<"\n";
+    }
+}
