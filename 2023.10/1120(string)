@@ -1,0 +1,21 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+string a, b;
+int main() {
+
+    cin >> a >> b;
+    int max_1 = b.length();
+    string c = b;
+    for (int i = 0; i < a.length(); i++) {
+        c += ' ';
+    }
+    for (int i = 0; i <= b.length()-a.length(); i++) {
+        int max_2 = 0;
+        for (int j = 0; j < a.length(); j++) {
+            if (a[j] != c[i + j] && c[i + j] != ' ') max_2++;
+        }
+        if (max_2 < max_1) max_1 = max_2;
+    }
+    cout << max_1;
+}
