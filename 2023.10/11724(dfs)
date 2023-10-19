@@ -1,0 +1,34 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int a, b, input_1, input_2;
+vector<int> vec_1[1001];
+int visited[1001];
+
+void dfs(int hello) {
+    visited[hello] = 1;
+    for (int i = 0; i < vec_1[hello].size(); i++) {
+
+        if (visited[vec_1[hello][i]] == 0) {
+            dfs(vec_1[hello][i]);
+        }
+
+    }
+}
+
+int main() {
+    int result = 0;
+    cin >> a >> b;
+    for (int i = 0; i < b; i++) {
+        cin >> input_1 >> input_2;
+        vec_1[input_1].push_back(input_2);
+        vec_1[input_2].push_back(input_1);
+    }
+    for (int i = 1; i <= a; i++) {
+        if (visited[i] == 0) {
+            result++;
+            dfs(i);
+        }
+    }
+    cout << result;
+}
