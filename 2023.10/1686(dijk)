@@ -1,0 +1,56 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+priority_queue<pair<int, int>> hello;
+long double v, m, time_1, input_1, input_2;
+long double start_x, start_y, end_x, end_y;
+int dis_1[1011][1011];
+int dis_0[1011];
+vector<pair<long double, long double>> vec_1;
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+
+    cin >> v >> m;
+    time_1 = v * m * 60;
+    cin >> start_x >> start_y;
+    cin >> end_x >> end_y;
+    vec_1.push_back(make_pair(0, 0));
+    vec_1.push_back(make_pair(start_x, start_y));
+    vec_1.push_back(make_pair(end_x, end_y));
+    int temp_1 = 2;
+    while (cin >> input_1) {
+         cin >> input_2;
+        vec_1.push_back(make_pair(input_1, input_2));
+    }
+    for (int i = 1; i < vec_1.size(); i++) {
+        for (int j = i + 1; j < vec_1.size(); j++) {
+            long double temp = sqrt((vec_1[i].first - vec_1[j].first) * (vec_1[i].first - vec_1[j].first)
+                + (vec_1[i].second - vec_1[j].second) * (vec_1[i].second - vec_1[j].second));
+            if (temp <= time_1) {
+                dis_1[i][j] = 1;
+                dis_1[j][i] = 1;
+            }
+        }
+        dis_0[i] = 50000;
+    }
+    dis_0[1] = 0;
+    hello.push(make_pair(0, 1));
+    while (!hello.empty()) {
+        int cost = -1 * hello.top().first;
+        int Go_place = hello.top().second;
+        hello.pop();
+
+        for (int i = 1; i < vec_1.size(); i++) {
+            if (dis_0[i] > 1 + cost && dis_1[Go_place][i] == 1) {
+                dis_0[i] = 1 + cost;
+                hello.push(make_pair(-1 * (1 + cost), i));
+            }
+        }
+    }
+    if (dis_0[2] == 50000) cout << "No.";
+    else {
+        cout << "Yes, visiting "<<dis_0[2]-1<<" other holes.";
+    }
+}
