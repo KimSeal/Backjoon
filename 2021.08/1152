@@ -1,6 +1,9 @@
 #include<stdio.h>
 #include<string.h>
 int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
     char Input[1000000];
 	int Big=0;
 	scanf("%[^\n]s",Input);
