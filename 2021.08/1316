@@ -1,5 +1,8 @@
 #include<stdio.h>
 int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
     char Input[100];
 	int Num[26];
 	int i;
