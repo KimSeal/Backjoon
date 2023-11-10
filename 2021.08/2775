@@ -1,5 +1,8 @@
 #include<stdio.h>
 int main(){
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
 	int Num;
 	scanf("%d",&Num);
 	int A[Num];
