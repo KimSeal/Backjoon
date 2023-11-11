@@ -1,0 +1,83 @@
+#include<bits/stdc++.h>
+using namespace std;
+int N, input_1, input_2;
+int visited[1001];
+
+int root_1[1001];
+bool arr[1001][1001];
+
+int find(int x) {
+	if (root_1[x] == x) return x;
+	return root_1[x] = find(root_1[x]);
+}
+
+void unite(int a, int b) {
+	int temp1 = find(a);
+	int temp2 = find(b);
+	if (temp1 == 1) root_1[temp2] = temp1;
+	else if (temp2 == 1) root_1[temp1] = temp2;
+	else root_1[temp1] = temp2;
+}
+int main() {
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	cin >> N;
+	for (int i = 0; i <= N;i++) {
+		root_1[i] = i;
+	}
+	cin >> input_1 >> input_2;
+	while( !(input_1 == -1 && input_2 == -1) ) {
+		arr[input_1][input_2] = true;
+		arr[input_2][input_1] = true;
+		cin >> input_1 >> input_2;
+	}
+	vector<int> v;
+	for (int i = 1; i <= N;i++) {
+		v.clear();
+		for (int j = 1; j <= N; j++) {
+			if (i != j && !arr[i][j]) v.push_back(j);
+		}
+		for (int j = 1; j < v.size();j++) {
+			unite(v[j - 1], v[j]);
+		}
+	}
+	for (int i = 1; i <= N;i++) {
+		visited[find(i)]++;
+	}
+	v.clear();
+	int count_1 = 0;
+	for (int i = 1; i <= N;i++) {
+		if (visited[i] == 1) v.push_back(i);
+		else if (visited[i] > 1) count_1++;
+	}
+	if (!v.empty()) count_1++;
+	if (count_1 > 2) { cout << -1; return 0; }
+	for (int i = 1; i < v.size();i++) {
+		unite(v[i - 1], v[i]);
+	}
+	vector<int> vec_1, vec_2;
+	for (int i = 1; i <= N;i++) {
+		if (find(i) == 1) vec_1.push_back(i);
+		else vec_2.push_back(i);
+	}
+	for (int i = 0; i < vec_1.size();i++) {
+		for (int j = 0; j < i;j++) {
+			if (arr[vec_1[i]][vec_1[j]] == 0) { cout << -1; return 0; }
+		}
+	}
+	for (int i = 0; i < vec_2.size(); i++) {
+		for (int j = 0; j < i; j++) {
+			if (arr[vec_2[i]][vec_2[j]] == 0) { cout << -1; return 0; }
+		}
+	}
+	cout << "1\n";
+	sort(vec_1.begin(), vec_1.end());
+	sort(vec_2.begin(), vec_2.end());
+	for (int i = 0; i < vec_1.size(); i++) { cout << vec_1[i] << " "; }
+	cout << "-1\n";
+	//if (vec_2.size() == 0) { return 0; }
+	for (int i = 0; i < vec_2.size(); i++) { cout << vec_2[i] << " "; }
+	cout << "-1\n";
+}
