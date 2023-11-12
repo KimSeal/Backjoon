@@ -1,0 +1,45 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int arr[8];
+
+int main() {
+    int N;
+    string str;
+    cin >> N;
+        while (N--) {
+            cin >> str;
+            for (int i = 0; i < 8; i++) {
+                arr[i] = 0;
+            }
+            for (int i = 2; i < 40; i++) {
+                if (str[i - 2] == 'T' && str[i - 1] == 'T' && str[i] == 'T') {
+                    arr[0]++;
+                }
+                if (str[i - 2] == 'T' && str[i - 1] == 'T' && str[i] == 'H') {
+                    arr[1]++;
+                }
+                if (str[i - 2] == 'T' && str[i - 1] == 'H' && str[i] == 'T') {
+                    arr[2]++;
+                }
+                if (str[i - 2] == 'T' && str[i - 1] == 'H' && str[i] == 'H') {
+                    arr[3]++;
+                }
+                if (str[i - 2] == 'H' && str[i - 1] == 'T' && str[i] == 'T') {
+                    arr[4]++;
+                }
+                if (str[i - 2] == 'H' && str[i - 1] == 'T' && str[i] == 'H') {
+                    arr[5]++;
+                }
+                if (str[i - 2] == 'H' && str[i - 1] == 'H' && str[i] == 'T') {
+                    arr[6]++;
+                }
+                if (str[i - 2] == 'H' && str[i - 1] == 'H' && str[i] == 'H') {
+                    arr[7]++;
+                }
+            }
+            for (int i = 0; i < 8; i++) {
+                cout << arr[i] << " ";
+            }
+        }
+}
