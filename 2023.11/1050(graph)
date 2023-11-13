@@ -1,0 +1,74 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+const int limit = 1000000001;
+int main() {
+	vector<pair<string, vector<pair<int, string>>>> v_0;
+	int n, m;
+	string str_1;
+	int val_1;
+	map<string, int> cost;
+
+	cin >> n >> m;
+	
+	for (int i = 0; i < n;i++) {
+		cin >> str_1 >> val_1;
+		cost[str_1] = val_1;
+	}
+
+	for (int i = 0; i < m;i++) {
+		vector<pair<int, string>> v_1;
+		cin >> str_1;
+		int prev = 0;
+		int cur = str_1.find('=');
+
+		string str_0 = str_1.substr(prev, cur);
+		prev = cur + 1;
+
+		while (1) {
+			cur = str_1.find('+', prev);
+			string str_2;
+			if (cur == string::npos) {
+				cur = str_1.size();
+				str_2 = str_1.substr(prev + 1, cur - prev);
+			}
+			else str_2 = str_1.substr(prev+1, cur-prev-1);
+
+			v_1.push_back(make_pair(str_1[prev] - '0', str_2));
+			prev = cur + 1;
+			if (cost.find(str_2) == cost.end()) cost[str_2] = -1;
+			if (cur == str_1.size()) break;
+		}
+		if (cost.find(str_0) == cost.end()) cost[str_0] = -1;
+		v_0.push_back(make_pair(str_0, v_1));
+	}
+	
+	bool flag = true;
+	while (flag) {
+		flag = false;
+		for (int i = 0; i < v_0.size();i++) {
+			long long sum = 0;
+			string name = v_0[i].first;
+			for (int j = 0; j < v_0[i].second.size();j++) {
+				int count_1 = v_0[i].second[j].first;
+				string temp = v_0[i].second[j].second;
+				if (cost[temp] != -1) {
+					sum += count_1 * (long long)cost[temp];
+					if (sum >= limit) sum = limit;
+					
+				}
+				else { sum = -1; break; }
+			}
+			if (sum > 0) {
+				if (cost[name] == -1 || cost[name] > sum) {
+					cost[name] = sum;
+					flag = true;
+				}
+			}
+		}
+	}
+	if (cost.find("LOVE") == cost.end()) cout << "-1\n";
+	else cout << cost["LOVE"] << "\n";
+	return 0;
+	
+}
