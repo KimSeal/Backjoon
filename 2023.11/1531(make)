@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+using namespace std;
+int arr[101][101];
+int N, M;
+int input_arr[4];
+int result;
+void dup_1(int a, int b, int c, int d) {
+    for (int i = a; i <= c; i++) {
+        for (int j = b; j <= d; j++) {
+            arr[i][j]++;
+        }
+    }
+}
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    cin >> N >> M;
+    while (N--) {
+        cin >> input_arr[0] >> input_arr[1] >> input_arr[2] >> input_arr[3];
+        dup_1(input_arr[0], input_arr[1], input_arr[2], input_arr[3]);
+    }
+
+    for (int i = 1; i <= 100; i++) {
+        for (int j = 1; j <= 100; j++) {
+            if (arr[i][j] > M) result++;
+        }
+    }
+    cout << result;
+
+}
