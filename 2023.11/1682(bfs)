@@ -1,0 +1,94 @@
+#include<bits/stdc++.h>
+using namespace std;
+string str_1, str_2;
+set<string> vec_1;
+
+string A_0(string str_temp) {
+    char temp_0;
+    temp_0 = str_temp[7];
+    str_temp[7] = str_temp[0];
+    str_temp[0] = temp_0;
+
+    temp_0 = str_temp[6];
+    str_temp[6] = str_temp[1];
+    str_temp[1] = temp_0;
+
+    temp_0 = str_temp[5];
+    str_temp[5] = str_temp[2];
+    str_temp[2] = temp_0;
+
+    temp_0 = str_temp[4];
+    str_temp[4] = str_temp[3];
+    str_temp[3] = temp_0;
+
+    return str_temp;
+}
+
+string B_0(string str_temp) {
+    char temp_0 = str_temp[3];
+    str_temp[3] = str_temp[2];
+    str_temp[2] = str_temp[1];
+    str_temp[1] = str_temp[0];
+    str_temp[0] = temp_0;
+    
+    temp_0 = str_temp[4];
+    str_temp[4] = str_temp[5];
+    str_temp[5] = str_temp[6];
+    str_temp[6] = str_temp[7];
+    str_temp[7] = temp_0;
+    return str_temp;
+}
+
+string C_0(string str_temp) {
+    char temp_0 = str_temp[1];
+    str_temp[1] = str_temp[2];
+    str_temp[2] = str_temp[5];
+    str_temp[5] = str_temp[6];
+    str_temp[6] = temp_0;
+    return str_temp;
+}
+string D_0(string str_temp) {
+    char temp_0 = str_temp[0];
+    str_temp[0] = str_temp[4];
+    str_temp[4] = temp_0;
+    return str_temp;
+}
+
+int bfs(string input_0) {
+    queue<string> Q_0;
+    Q_0.push(input_0);
+    int count = 0;
+    int count_2 = 0;
+    while (1) {
+        int size_0 = Q_0.size();
+        
+        for (int i = 0; i < size_0; i++) {
+            string temp = Q_0.front();
+            Q_0.pop();
+            if (temp == str_2) return count;
+
+            if (vec_1.find(A_0(temp)) == vec_1.end()) { Q_0.push(A_0(temp)); vec_1.insert(A_0(temp));  }
+            if (vec_1.find(B_0(temp)) == vec_1.end()) { Q_0.push(B_0(temp)); vec_1.insert(B_0(temp));  }
+            if (vec_1.find(C_0(temp)) == vec_1.end()) { Q_0.push(C_0(temp)); vec_1.insert(C_0(temp));  }
+            if (vec_1.find(D_0(temp)) == vec_1.end()) { Q_0.push(D_0(temp)); vec_1.insert(D_0(temp));  }
+            //cout << temp << "\n";
+           
+        }
+        count++;
+        //cout << count_2<<"\n";
+    }
+}
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    string temp_1;
+    str_1 = "12345678";
+    vec_1.insert(str_1);
+    for (int i = 0; i < 8;i++) {
+        cin >> temp_1;
+        str_2 += temp_1;
+    }
+    //cout << str_2<<"\n";
+    cout << bfs(str_1);
+}
