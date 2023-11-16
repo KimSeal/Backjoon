@@ -1,0 +1,86 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+bool init_map[5][5];
+vector<pair<int,int>> init_dot;
+
+bool temp_123[5][5];
+bool visited[5][5];
+
+int result = 99999999;
+
+int move_0[4] = { 1, -1, 0, 0 };
+int move_1[4] = { 0,0,1,-1 };
+int possi(int y, int x) {
+	int count = 1;
+	int x_temp, y_temp;
+	visited[y][x] = true;
+	for (int i = 0; i < 4;i++) {
+		x_temp = x + move_0[i];
+		y_temp = y + move_1[i];
+		
+		if (!(x_temp >= 0 && x_temp < 5 && y_temp >= 0 && y_temp < 5)) {
+			continue;
+		}
+		//cout << y_temp << " " << x_temp;
+		if (temp_123[y_temp][x_temp] && !(visited[y_temp][x_temp])) {
+			count += possi(y_temp, x_temp);
+		}
+		//cout << "\n";
+		
+	}
+	/*
+	for (int i = 0; i < 5; i++) {
+		for (int j = 0; j < 5; j++) {
+			cout << visited[i][j]<<" ";
+		}
+		cout << "\n";
+	}
+	*/
+	//cout << count << "\n";
+	return count;
+}
+void dfs(int a, int b, int c, int d, int e) {
+	if (b >= result || a>init_dot.size()) return;
+
+	if(init_dot.size() == a){
+		
+		if (result > b) {
+			for (int i = 0; i < 5; i++) {
+				for (int j = 0; j < 5; j++) {
+					visited[i][j] = false;
+				}
+			}
+			if (possi(d, e) == init_dot.size()) {	
+				result = b;
+			}
+		}
+		
+		return;
+	}
+
+	for (int i = 0; i < 25;i++) {
+		int y = i / 5;
+		int x = i % 5;
+		
+		if (!temp_123[y][x]) {
+			temp_123[y][x] = true;
+			dfs(a + 1, b + abs(y - init_dot[a].first) + abs(x - init_dot[a].second), i, y, x);
+			temp_123[y][x] = false;
+		}
+		
+	}
+}
+int main() {
+	string str_0;
+	for (int i = 0; i < 5;i++) {
+		cin >> str_0;
+		for (int j = 0; j < 5;j++) {
+			init_map[i][j] = (str_0[j] == '.') ? false : true;
+			if (str_0[j] == '*') init_dot.push_back(make_pair(i, j));
+		}
+	}
+	dfs(0, 0, -1, 0, 0);
+	cout << result;
+
+}
