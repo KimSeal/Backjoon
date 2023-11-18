@@ -1,0 +1,23 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    set<string> set_0;
+    int N;
+    int answer = 0;
+    string str_0;
+    cin >> N;
+    for (int i = 0; i < N; i++) {
+        cin >> str_0;
+        set_0.insert(str_0);
+    }
+    for (auto i = set_0.begin(); i != set_0.end(); i++) {
+        bool sub_chk = true;
+        for (auto j = set_0.begin(); j != set_0.end(); j++) {
+            if (i != j && (* i).size() <= (*j).size() && (*j).substr(0, (*i).size()) == (*i)) {
+                sub_chk = false;
+            }
+        }
+        if (sub_chk) answer++;
+    }
+    cout << answer;
+}
