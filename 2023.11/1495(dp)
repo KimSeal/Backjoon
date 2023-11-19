@@ -1,0 +1,26 @@
+#include <bits/stdc++.h>
+using namespace std;
+bool dp[55][1005];
+int N, M, S;
+int vol[55];
+int main() {
+    cin >> N >> S >> M;
+    for (int i = 0; i < N;i++) {
+        cin >> vol[i];
+    }
+    if (S + vol[0] <= M) dp[1][S + vol[0]] = true;
+    if (S - vol[0] >= 0) dp[1][S - vol[0]] = true;
+    for (int i = 1; i < N;i++) {
+        for (int j = 0; j < 1001;j++) {
+            if (dp[i][j] && j + vol[i] <= M) dp[i+1][j + vol[i]] = true;
+            if (dp[i][j] && j - vol[i] >= 0) dp[i + 1][j - vol[i]] = true;
+        }
+    }
+    for (int i = 1000; i >= 0;i--) {
+        if (dp[N][i]) {
+            cout << i;
+            return 0;
+        }
+    }
+    cout << -1; return 0;
+}
