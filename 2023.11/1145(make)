@@ -1,0 +1,19 @@
+#include <bits/stdc++.h>
+using namespace std;
+int arr[5];
+int main(){
+    int N;
+    for(int i=0;i<5;i++){
+        cin >> arr[i];
+    }
+    for(int i=1;i>0;i++){
+        int count_0=0;
+        for(int j=0;j<5;j++){
+            if(i%arr[j] ==0) count_0++;
+        }
+        if(count_0 >=3) {
+            cout << i;
+            return 0;
+        }
+    }
+}
