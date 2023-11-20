@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+bool arr_x[55];
+bool arr_y[55];
+int main() {
+    int N, M;
+    cin >> N >> M;
+    string input_1;
+    int count_0 = 0;
+    int count_y = 0;
+
+    for (int i = 0; i < N; i++) {
+        cin >> input_1;
+        for (int j = 0; j < input_1.size(); j++) {
+            if (input_1[j] == 'X') {
+                arr_x[j] = true;
+                arr_y[i] = true;
+            }
+        }
+    }
+    for (int i = 0; i < M; i++) {
+        if (!arr_x[i]) count_0++;
+    }
+    for (int i = 0; i < N; i++) {
+        if (!arr_y[i]) count_y++;
+    }
+    cout << max(count_0, count_y);
+}
