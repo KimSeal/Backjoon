@@ -1,0 +1,33 @@
+#include<bits/stdc++.h>
+using namespace std;
+string str_0;
+
+int main() {
+    cin >> str_0;
+    if (str_0.size() == 1) {
+        int temp = str_0[0] - '0';
+        if (temp % 3 == 0) cout << "0\nYES";
+        else cout << "0\nNO";
+        return 0;
+    }
+    int temp = 1;
+    int result = 0;
+    for (int i = 0; i < str_0.size(); i++) {
+        result += str_0[i] - '0';
+    }
+    while (result > 9) {
+        int result_0 = result;
+        result = 0;
+        while (result_0 != 0) {
+
+            result += result_0 % 10;
+            result_0 /= 10;
+        }
+        temp++;
+    }
+    cout << temp;
+
+    if (result % 3 == 0) cout << "\nYES";
+    else cout << "\nNO";
+
+}
