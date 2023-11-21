@@ -1,0 +1,27 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    int N;
+    cin >> N;
+    int result = 0;
+    int front_0 = 0;
+    int back_0 =0;
+    int temp = 0;
+    while (back_0 < N) {
+        if (result < N) {
+            front_0++;
+            result += front_0;
+        }
+        else {
+            back_0++;
+            result -= back_0;
+        }
+        if (result == N) temp++;
+    }
+    cout << temp;
+}
