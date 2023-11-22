@@ -1,0 +1,82 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+unsigned long long int arr[5][60];
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    int N;
+    cin >> N;
+    unsigned long long int A, B, C, D;
+    
+    while (N--) {
+        for (int i = 0; i < 5;i++) {
+            for (int j = 0; j < 57;j++) {
+                arr[i][j] = 0;
+            }
+        }
+        cin >> A >> B >> C >> D;
+        while (D--) {
+            if (A < B) {
+                if (C < B) B--;
+                else C--;
+            }
+            else {
+                if (C < A) A--;
+                else C--;
+            }
+            if (A == 0 || B == 0 || C == 0) { cout << 0; return 0; }
+        }
+        for (int i = 0; A > 0;i++) {
+            arr[0][i] = A % 10;
+            A /= 10;
+        }
+        for (int i = 0; B > 0; i++) {
+            arr[1][i] = B % 10;
+            B /= 10;
+        }
+        for (int i = 0; C > 0; i++) {
+            arr[2][i] = C % 10;
+            C /= 10;
+        }
+        int temp = 0;
+        for (int i = 0; i < 60;i++) {
+            for (int j = 0; j < 60; j++) {
+                if (59 < i + j) continue;
+                arr[3][j+i] += (arr[0][i] * arr[1][j]);
+                arr[3][j+i] += temp;
+                temp = 0;
+                if (arr[3][j+i] > 10) {
+                    temp = arr[3][j+i] / 10;
+                    arr[3][j+i] %= 10;
+                }
+            }
+        }
+        
+
+        temp = 0;
+        for (int i = 0; i < 60; i++) {
+            for (int j = 0; j < 60; j++) {
+                if (59 < i + j) continue;
+                arr[4][j + i] += (arr[3][i] * arr[2][j]);
+                arr[4][j + i] += temp;
+                temp = 0;
+                if (arr[4][j + i] > 10) {
+                    temp = arr[4][j + i] / 10;
+                    arr[4][j + i] %= 10;
+                }
+            }
+        }
+
+
+        bool zero_chk = false;
+        for (int i = 59; i >= 0; i--) {
+            if (arr[4][i] != 0) zero_chk = true;
+            if (zero_chk) cout << arr[4][i];
+        }
+        if (!zero_chk) cout << 0;
+        cout << "\n";
+    }
+}
