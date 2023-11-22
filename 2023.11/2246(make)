@@ -1,0 +1,36 @@
+#include<bits/stdc++.h>
+using namespace std;
+struct temp_0 {
+    int money;
+    int dis;
+};
+vector<temp_0> vec_2;
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    int N;
+    cin >> N;
+    int A, B;
+    temp_0 temp;
+    for (int i = 0; i < N;i++) {
+        cin >> A >> B;
+        temp.dis = A;
+        temp.money = B;
+        vec_2.push_back(temp);
+    }
+    int result = 0;
+    for (int i = 0; i < N; i++) {
+        bool chk = true;
+        for (int j = 0; j < N;j++) {
+            if (i == j) continue;
+            if (vec_2[j].dis < vec_2[i].dis && vec_2[j].money <= vec_2[i].money) chk = false;
+            if (vec_2[j].dis <= vec_2[i].dis && vec_2[j].money < vec_2[i].money) chk = false;
+        }
+        if (chk) {
+            result++;
+        }
+    }
+    cout << result;
+}
