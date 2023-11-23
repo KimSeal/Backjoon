@@ -1,0 +1,62 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int R, C;
+string str_1;
+//int arr[751][751];
+int Left_arr[752][752];
+int Right_arr[752][752];
+int main() {
+    int result = 0;
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    cin>> R >> C;
+    bool zero_chk = false;
+    for (int i = 1; i <= R;i++) {
+        cin >> str_1;
+        for (int j = 1; j <= C;j++) {
+            if (str_1[j-1] == '1') {
+                zero_chk = true;
+                Left_arr[i][j] = 1;
+                Right_arr[i][j] = 1;
+            }
+        }
+    }
+    if (zero_chk == false) { cout << 0; return 0; }
+
+    for (int i = R; i >= 1;i--) {
+        for (int j = 1; j <= C; j++) {
+            if(Left_arr[i][j] == 1) Left_arr[i][j] += Left_arr[i+1][j-1];
+            if (Right_arr[i][j] == 1) Right_arr[i][j] += Right_arr[i + 1][j + 1];
+        }
+    }
+    /*
+    for (int i = 1; i <= R; i++) {
+        for (int j = 1; j <= C; j++) {
+            cout << Left_arr[i][j] << "/" << Right_arr[i][j] << " ";
+        }
+        cout << "\n";
+    }
+    */
+    for (int i = R; i >= 1; i--) {
+        for (int j = 1; j <= C; j++) {
+            if (Left_arr[i][j] == 1) Left_arr[i][j] += Left_arr[i + 1][j - 1];
+            if (Right_arr[i][j] == 1) Right_arr[i][j] += Left_arr[i + 1][j + 1];
+        }
+    }
+    for (int i = 1; i <=R; i++) {
+        for (int j = 1; j <= C; j++) {
+            int temp = min(Left_arr[i][j], Right_arr[i][j]);
+            if (temp == 0) continue;
+            while (temp >=1) {
+                if (Right_arr[i + (temp-1)][j - (temp-1)] >= temp && Left_arr[i + (temp-1)][j + (temp-1)] >= temp) {
+                    result = max(result, temp);
+                    break;
+                }
+                temp--;
+            }
+        }
+    }
+    cout << result;
+}
