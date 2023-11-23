@@ -1,0 +1,51 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+string arr_1;
+int N;
+int arr_1_0[85];
+string arr_2;
+int arr_2_0[85];
+int arr_3_0[85];
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    cin>> N;
+    for (int i = 0; i < N; i++) {
+        cin >> arr_1 >> arr_2;
+        for (int i = 84; i >= 0; i--) {
+            arr_1_0[i] = 0;
+            arr_2_0[i] = 0;
+            arr_3_0[i]=0;
+        }
+        for (int j = arr_1.size() - 1;j>=0; j--) {
+            if (arr_1[j] == '0') arr_1_0[arr_1.size() - j] = 0;
+            else arr_1_0[arr_1.size() - j] = 1;
+        }
+
+        for (int j = arr_2.size() - 1; j >= 0; j--) {
+            if (arr_2[j] == '0') arr_2_0[arr_2.size() - j] = 0;
+            else arr_2_0[arr_2.size() - j] = 1;
+        }
+
+        for (int i = 0; i < 85;i++) {
+            if (arr_1_0[i] == 0 && arr_2_0[i] == 0) arr_3_0[i] += 0;
+            if (arr_1_0[i] == 1 && arr_2_0[i] == 0) arr_3_0[i] += 1;
+            if (arr_1_0[i] == 0 && arr_2_0[i] == 1) arr_3_0[i] += 1;
+            if (arr_1_0[i] == 1 && arr_2_0[i] == 1) { arr_3_0[i] += 2; }
+
+            if (arr_3_0[i] >= 2) {
+                arr_3_0[i + 1] += 1;
+                arr_3_0[i] %= 2;
+            }
+        }
+        bool chk = false;
+        for (int i = 84; i > 0; i--) {
+            if (arr_3_0[i] == 1) chk = true;
+            if (chk) cout << arr_3_0[i];
+        }
+        if (!chk) cout << 0;
+        cout << "\n";
+    }
+}
