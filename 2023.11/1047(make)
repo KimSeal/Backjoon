@@ -1,0 +1,73 @@
+#include <bits/stdc++.h>
+using namespace std;
+int N;
+int input_0, input_1, input_2;
+
+struct tree_0 {
+    int length_0 = 0;
+    int x = 0;
+    int y = 0;
+};
+vector<tree_0> vec_0;
+vector<int> arr_x;
+vector<int> arr_y;
+int result = 45;
+
+int main() {
+    cin >> N;
+    tree_0 temp;
+    for (int i = 0; i < N; i++) {
+        cin >> input_0 >> input_1 >> input_2;
+        temp.y = input_0;
+        temp.x = input_1;
+        temp.length_0 = input_2;
+        arr_y.push_back(input_0);
+        arr_x.push_back(input_1);
+        vec_0.push_back(temp);
+    }
+    sort(arr_x.begin(), arr_x.end());
+    sort(arr_y.begin(), arr_y.end());
+    for (int a = 0; a < N; a++) {
+        for (int b = a; b < N; b++) {
+            for (int c = 0; c < N; c++) {
+                for (int d = c; d < N; d++) {
+                    vector<int> no_use_tree;
+                    int inner_tree = 0;
+                    int cur_tree = 0;
+                    int num_tree = 0;
+                    int need_tree = 2 * (arr_x[b] - arr_x[a] + arr_y[d] - arr_y[c]);
+
+                    for (int e = 0; e < N; e++) {
+                        if (vec_0[e].x >= arr_x[a] && vec_0[e].x <= arr_x[b] &&
+                            vec_0[e].y >= arr_y[c] && vec_0[e].y <= arr_y[d]) {
+                            inner_tree += vec_0[e].length_0;
+                            no_use_tree.push_back(vec_0[e].length_0);
+                        }
+                        else {
+                            cur_tree += vec_0[e].length_0;
+                            num_tree++;
+                        }
+                    }
+                    
+                    if (need_tree <= cur_tree) {
+                        result = min(result, num_tree);
+                        //cout <<  num_tree <<"\n";
+                    }
+                    else {
+                        if (inner_tree + cur_tree >= need_tree) {
+                            
+                            sort(no_use_tree.begin(), no_use_tree.end(), greater<int>());
+                            for (int i = 0; i < no_use_tree.size();i++) {
+                                num_tree++;
+                                cur_tree += no_use_tree[i];
+                                if (cur_tree >= need_tree) {
+                                    result = min(result, num_tree);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    
+    }}}}
+    cout << result;
+}
