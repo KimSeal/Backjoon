@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define INF 4000009999
+int N, M, X;
+long long int input_1, input_2;
+long long int arr[1001][10001];
+
+int main() {
+    for (int i = 0; i < 1001;i++) {
+        for (int j = 0; j < 10001;j++) {
+            arr[i][j] = INF;
+            if (i == j) arr[i][j] = 0;
+        }
+    }
+    cin >> N >> M >> X;
+    for (int i = 0; i < M;i++) {
+        cin >> input_1 >> input_2;
+        cin >> arr[input_1][input_2];
+    }
+
+    for (int k = 1; k <= N;k++) {
+        for (int i = 1; i <= N;i++) {
+            for (int j = 1; j <= N;j++) {
+                if (arr[i][j] > arr[i][k] + arr[k][j]) {
+                    arr[i][j] = arr[i][k] + arr[k][j];
+                }
+            }
+        }
+    }
+
+    long long int max_1 = 0;
+    for (int i = 1; i <= N;i++) {
+        if (max_1 < arr[i][X]+arr[X][i]) max_1 = arr[i][X] + arr[X][i];
+    }
+    cout << max_1;
+}
