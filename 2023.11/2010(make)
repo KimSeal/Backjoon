@@ -1,0 +1,13 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    int N, input_1;
+    int result =0;
+    cin >> N;
+    while(N--){
+        cin >> input_1;
+        result += (input_1-1);
+    }
+    result ++;
+    cout << result;
+}
