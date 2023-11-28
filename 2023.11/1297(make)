@@ -1,0 +1,13 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    double D, H, W;
+    cin >> D >> H >> W;
+    D *= D;
+    double temp = H * H + W * W;
+    double hello = D / temp;
+    double chk_1 = sqrt(hello);
+    double result_1 = chk_1 * H;
+    double result_2 = chk_1 * W;
+    cout << floor(result_1) << " " << floor(result_2);
+}
