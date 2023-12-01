@@ -1,0 +1,18 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    double a_x, a_y, b_x, b_y, c_x, c_y;
+    double dis[3];
+    cin >> a_x >> a_y >> b_x >> b_y >> c_x >> c_y;
+    if ((c_y - a_y) * (b_x - a_x) == (c_x - a_x) * (b_y - a_y)) { cout << -1; return 0; }
+    dis[0] = 2.0 * 
+        (sqrt((a_x - c_x) * (a_x - c_x) + (a_y - c_y) * (a_y - c_y))+
+        sqrt((c_x - b_x) * (c_x - b_x) + (c_y - b_y) * (c_y - b_y)));
+    dis[1] = 2.0 * (sqrt((a_x - b_x) * (a_x - b_x) + (a_y - b_y) * (a_y - b_y)) +
+        sqrt((c_x - b_x) * (c_x - b_x) + (c_y - b_y) * (c_y - b_y)));
+    dis[2] = 2.0 * (sqrt((a_x - b_x) * (a_x - b_x) + (a_y - b_y) * (a_y - b_y)) +
+        sqrt((a_x - c_x) * (a_x - c_x) + (a_y - c_y) * (a_y - c_y)));
+
+    sort(dis, dis + 3);
+    printf("%.17lf", dis[2]-dis[0]);
+}
