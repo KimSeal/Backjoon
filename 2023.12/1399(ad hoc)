@@ -1,0 +1,44 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int func_1(int x) {
+	if (x < 10) return x;
+	int sum_1 = 0;
+	while (x > 0) {
+		sum_1 += x % 10;
+		x /= 10;
+	}
+	return func_1(sum_1);
+}
+
+int main() {
+	int t;
+	cin >> t;
+	while (t--) {
+		queue<int> q;
+		int k, m;
+		int y = 0, x = 0, dir = 0;
+		int arr[10] = { 0, };
+		cin >> k >> m;
+		int num = 1;
+		while (k>0) {
+			if (arr[num]) {
+				while (q.front() != num) {
+					q.pop();
+				}
+				k %= (4 * q.size());
+				if (k == 0) break;
+			}
+			arr[num] = 1;
+			q.push(num);
+			if (dir == 0) y += num;
+			else if (dir == 1) x += num;
+			else if (dir == 2) y -= num;
+			else if (dir == 3) x -= num;
+			k--;
+			num = func_1(num * m);
+			dir = (dir + 1) % 4;
+		}
+		cout << x << " " << y << "\n";
+	}
+}
