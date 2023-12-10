@@ -1,0 +1,21 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main(){
+    string K;
+    int N;
+    cin >> K >> N;
+    for(int i=2;i<N;i++){
+        int temp =0;
+        int temp_2 = 1;
+        for(int j= K.size()-1; j>=0; j--){
+            temp = (temp + (K[j]-'0') * temp_2) % i;
+            temp_2 *=10;
+            temp_2 %=i;
+        }
+        if(temp == 0){
+            cout << "BAD " << i;
+            return 0;
+        }
+    }
+    cout<< "GOOD";
+}
