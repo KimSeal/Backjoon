@@ -1,0 +1,26 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main(){
+    int a_0, a_1, b_0, b_1;
+    cin >> a_0 >> b_0;
+    a_1 = 0;
+    b_1 = 0;
+    while(a_0 >0){
+        a_1 *=10;
+        a_1 += (a_0%10);
+        a_0 /= 10;
+    }
+    while(b_0 >0){
+        b_1 *=10;
+        b_1 += (b_0%10);
+        b_0 /= 10;
+    }
+    a_1 += b_1;
+    a_0=0;
+    while(a_1 >0){
+        a_0 *=10;
+        a_0 += (a_1%10);
+        a_1 /= 10;
+    }
+    cout << a_0;
+}
