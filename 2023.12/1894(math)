@@ -1,0 +1,25 @@
+#include <bits/stdc++.h>
+using namespace std;
+void func_1(double a, double b, double c, double d, double e, double f){
+	cout << fixed;
+	cout.precision(3);
+	cout << c-a+e << " " << d-b+f<<"\n";
+}
+int main(){
+    double a_0, a_1, b_0, b_1, c_0, c_1, d_0, d_1;
+    while(cin >> a_0 >> a_1 >> b_0 >> b_1 >> c_0 >> c_1 >> d_0 >> d_1){
+		if(a_0 == c_0 && a_1 == c_1){
+			func_1(a_0,a_1,b_0,b_1,d_0,d_1);
+		}
+		else if(a_0 == d_0 && a_1 == d_1){
+			func_1(a_0,a_1,b_0,b_1,c_0,c_1);
+		}
+		else if(b_0 == c_0 && b_1 == c_1){
+			func_1(b_0,b_1,a_0,a_1,d_0,d_1);
+		}
+		else if(b_0 == d_0 && b_1 == d_1){
+			func_1(b_0,b_1,a_0,a_1,c_0,c_1);
+		}
+	}
+
+}
