@@ -1,0 +1,10 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main(){
+    char ch1;
+    cin >> ch1;
+    if(ch1 == 'N' || ch1 == 'n'){
+        cout << "Naver D2";
+    }
+    else cout << "Naver Whale";
+}
