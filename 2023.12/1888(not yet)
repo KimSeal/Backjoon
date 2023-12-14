@@ -1,0 +1,88 @@
+#include <bits/stdc++.h>
+using namespace std;
+int arr1[100][100];
+int arr2[100][100];
+int N, K;
+int num_0;
+
+int dx[4]= {1,-1,0,0};
+int dy[4] = {0,0,1,-1};
+int visited[5001];
+queue<pair<pair<int,int>, int>> Q_0;
+
+int find_root(int a){
+	if(visited[a]==0) return a;
+	return find_root(visited[a]);
+}
+void span_1(){
+	int temp = Q_0.size();
+	while(temp--){
+		int y = Q_0.front().first.first;
+		int x = Q_0.front().first.second;
+		int t = Q_0.front().second;
+		for(int i=y-t;i<=y+t;i++){
+			for(int j=x-t;j<=x+t;j++){
+				if(i>=0 && i<N && j>=0 && j<K){
+					if(t > arr1[i][j]){
+						arr1[i][j] = t;
+						arr2[i][j] = arr2[y][x];
+						Q_0.push(make_pair(make_pair(i, j), t));
+					}
+				}
+			}
+		}
+		Q_0.pop();
+	}
+}
+void bfs(int y, int x){
+	if(arr1[y][x] == 0) return;
+	num_0++;
+	queue<pair<int, int>> Q_1;
+	Q_1.push(make_pair(y, x));
+	while(!Q_1.empty()){
+		y = Q_1.front().first;
+		x = Q_1.front().second;
+		//cout << y << x;
+		Q_1.pop();
+		for(int i=0;i<4;i++){
+			//cout << y+dy[i] << x+dx[i] <<  arr1[y+dy[i]][x+dx[i]] << arr2[y+dy[i]][x+dx[i]] <<"\n";
+			if(y+dy[i] >= 0 && y+dy[i] < N && x+dx[i] >= 0 && x+dx[i] < K && 
+			   arr1[y+dy[i]][x+dx[i]] != 0 && arr2[y+dy[i]][x+dx[i]] == 0){
+				//cout << "hello";
+				arr2[y+dy[i]][x+dx[i]] = num_0;
+				Q_1.push(make_pair(y+dy[i],x+dx[i]));
+			}
+		}
+	}
+}
+int main(){
+	cin >> N >>K;
+	string str_1;
+	for(int i=0;i<N;i++){
+		cin >> str_1;
+		for(int j=0;j<K;j++){
+			arr1[i][j] = str_1[j]-'0';
+			Q_0.push(make_pair(make_pair(i, j), arr1[i][j]));
+		}
+	}
+	while(num_0 != 1){
+		num_0=0;
+		for(int i=0;i<N;i++){
+			for(int j=0;j<K;j++){
+				if(arr1[i][j] != 0 && arr2[i][j] == 0){
+					bfs(i, j);
+				}
+			}
+		}
+		span_1();
+	}
+	
+	
+	cout << "\n";
+	for(int i=0;i<N;i++){
+		for(int j=0;j<K;j++){
+			cout << arr2[i][j] <<" ";
+		}
+		cout << "\n";
+	}
+}
