@@ -1,0 +1,21 @@
+#include <bits/stdc++.h>
+//using namespace std;
+int N;
+double x[35];
+double y[35];
+double max_0;
+int main(){
+    cin >> N;
+    for(int i=0;i<N;i++){
+        cin >> y[i] >> x[i];
+    }
+    for(int i=0;i<N;i++){
+        for(int j=i+1;j<N;j++){
+            for(int k=j+1;k<N;k++){
+                double temp = (x[i] * y[j] + x[j] * y[k] + x[k] * y[i]) - (y[i] * x[j] + y[j] * x[k] + y[k] * x[i]);
+                if(temp > max_0) max_0 = temp;
+            }
+        }
+    }
+    printf("%.9f", max_0/2.0);
+}
