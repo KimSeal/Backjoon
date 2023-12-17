@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+long long int N, r, c_0;
+long long int result;
+void slice_4(long long int a, long long int b, long long int c) {
+    if (a == 1) {
+        result += b * 2 + c;
+        return;
+    }
+    long long int temp_a = pow(2, a) /2;
+    if (temp_a > b) {
+        if (temp_a > c) {
+            slice_4(a - 1, b, c);
+        }
+        else {
+            result += temp_a * temp_a;
+            slice_4(a - 1, b, c - temp_a);
+        }
+    }
+    else {
+        if (temp_a > c) {
+            result += temp_a * temp_a * 2;
+            slice_4(a - 1, b - temp_a, c);
+        }
+        else {
+            result += temp_a * temp_a * 3;
+            slice_4(a - 1, b - temp_a , c - temp_a);
+        }
+    }
+}
+int main() {
+    cin >> N >> r >> c_0;
+    slice_4(N, r, c_0);
+    cout << result;
+    
+}
