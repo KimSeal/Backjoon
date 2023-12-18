@@ -1,0 +1,21 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+	int N, K;
+	cin >> N >> K;
+	int temp, answer;
+	if (N <= K) { cout << 0; return 0; }
+	answer = 0;
+	while (1) {
+		temp = N;
+		int cnt = 0;
+		while (temp > 0) {
+			if (temp % 2 !=0) cnt++;
+			temp /= 2;
+		}
+		if (K >= cnt) break;
+		N++;
+		answer++;
+	}
+	cout << answer;
+}
