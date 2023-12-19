@@ -1,0 +1,32 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+    string str_1;
+    vector<int> vec_1;
+    for (int i = 0; i < 5; i++) {
+        cin >> str_1;
+        for (int j = 0; j < str_1.size(); j++) {
+            if (vec_1.size() <= j) {
+                vec_1.push_back(str_1[str_1.size() - 1 - j] - '0');
+            }
+            else {
+                vec_1[j] += (str_1[str_1.size() - 1 - j] - '0');
+            }
+        }
+
+        for (int j = 0; j < vec_1.size(); j++) {
+            if (vec_1[j] > 9) {
+                if (j == vec_1.size() - 1) {
+                    vec_1.push_back(1);
+                }
+                else {
+                    vec_1[j + 1]++;
+                }
+                vec_1[j] %= 10;
+            }
+        }
+    }
+    for (int i = vec_1.size() - 1; i >= 0; i--) {
+        cout << vec_1[i];
+    }
+}
