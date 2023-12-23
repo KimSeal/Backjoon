@@ -1,0 +1,24 @@
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+int main() {
+	int N, R1, C1, R2, C2;
+	cin >> N >> R1 >> C1 >> R2 >> C2;
+	for (int i = R1; i <= R2;i++) {
+		for (int j = C1; j <= C2;j++) {
+			int temp_y = i % (2 * N - 1);
+			int temp_x = j % (2 * N - 1);
+			int temp_str = (((abs(N - 1 - temp_y) + abs(N - 1 - temp_x)) % 26));
+			if (temp_y+temp_x < N-1 || (2*N-2-temp_y) + (2*N-2-temp_x) < N-1 ||
+				(2 * N - 2 - temp_y) + temp_x < N - 1 || temp_y + (2 * N - 2 - temp_x) < N - 1) {
+				cout << ".";
+			}
+			else {
+				char str_1 = 'a' + temp_str;
+				cout << str_1;
+			}
+		}
+		cout << "\n";
+	}
+}
