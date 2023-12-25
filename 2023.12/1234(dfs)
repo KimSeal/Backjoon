@@ -1,0 +1,53 @@
+#include <bits/stdc++.h>
+using namespace std;
+int N, red, blue, green;
+long long int result;
+
+long long int arr_2[5] = {2,6,20, 70, 252};
+long long int arr_3[3] = {6, 90, 1680};
+
+void func_1(int temp_N, int r1, int b1, int g1, long long int temp_res) {
+	if (temp_N > N) {
+		//cout << temp_res << "\n";
+		result += temp_res;
+		return;
+	}
+	if (r1 >= temp_N) {
+		func_1(temp_N + 1, r1 - temp_N, b1, g1, temp_res);
+		//cout << "level1_red\n";
+	}
+	if (b1 >= temp_N) {
+		func_1(temp_N + 1, r1, b1 - temp_N, g1, temp_res);
+		//cout << "level1_blue\n";
+	}
+	if (g1 >= temp_N) {
+		func_1(temp_N + 1, r1, b1, g1 - temp_N, temp_res);
+		//cout << "level1_green\n";
+	}
+
+	if (temp_N % 2 == 0) {
+		if (r1 >= temp_N / 2 && b1 >= temp_N / 2) {
+			func_1(temp_N + 1, r1 - temp_N / 2, b1 - temp_N / 2, g1, temp_res * arr_2[temp_N/2-1]);
+			//cout << "level2_red_blue\n";
+		}
+		if (r1 >= temp_N / 2 && g1 >= temp_N / 2) {
+			func_1(temp_N + 1, r1 - temp_N / 2, b1, g1 - temp_N / 2, temp_res * arr_2[temp_N / 2 - 1]);
+			//cout << "level2_red_green\n";
+		}
+		if (b1 >= temp_N / 2 && g1 >= temp_N / 2) {
+			func_1(temp_N + 1, r1, b1 - temp_N / 2, g1 - temp_N / 2, temp_res * arr_2[temp_N / 2 - 1]);
+			//cout << "level2_blue_green\n";
+		}
+	}
+	if (temp_N % 3 == 0) {
+		if (r1 >= temp_N / 3 && b1 >= temp_N / 3 && g1 >= temp_N / 3) {
+			func_1(temp_N + 1, r1 - temp_N / 3, b1 - temp_N / 3, g1 - temp_N / 3, temp_res * arr_3[temp_N / 3 - 1]);
+		}
+	}
+}
+int main() {
+	cin >> N >> red >> blue >> green;
+	func_1(1, red, blue, green, 1);
+	cout << result;
+	system("pause");
+}
