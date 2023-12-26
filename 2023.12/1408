@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+using namespace std;
+int time_arr[6];
+
+bool cmp_1() {
+	if (time_arr[0] == time_arr[3]) {
+		if (time_arr[1] == time_arr[4]) {
+			return time_arr[1] < time_arr[5];
+		}
+		else return time_arr[1] < time_arr[4];
+	}
+	else return time_arr[0] < time_arr[3];
+}
+int main() {
+	string str_1, str_2;
+	cin >> str_1 >> str_2;
+
+	time_arr[0] = 10 * (str_1[0] - '0') + (str_1[1] - '0');
+	time_arr[1] = 10 * (str_1[3] - '0') + (str_1[4] - '0');
+	time_arr[2] = 10 * (str_1[6] - '0') + (str_1[7] - '0');
+
+	time_arr[3] = 10 * (str_2[0] - '0') + (str_2[1] - '0');
+	time_arr[4] = 10 * (str_2[3] - '0') + (str_2[4] - '0');
+	time_arr[5] = 10 * (str_2[6] - '0') + (str_2[7] - '0');
+	if (cmp_1() == false) {
+		time_arr[3] += 24;
+	}
+	if (time_arr[2] > time_arr[5]) {
+		time_arr[5] += 60;
+		time_arr[4]--;
+	}
+	time_arr[5] -= time_arr[2];
+
+	if (time_arr[1] > time_arr[4]) {
+		time_arr[4] += 60;
+		time_arr[3]--;
+	}
+	time_arr[4] -= time_arr[1];
+	time_arr[3] -= time_arr[0];
+	if (time_arr[3] < 10) cout << "0";
+	cout << time_arr[3] << ":";
+	if (time_arr[4] < 10) cout << "0";
+	cout << time_arr[4] << ":";
+	if (time_arr[5] < 10) cout << "0";
+	cout << time_arr[5];
+	system("pause");
+}
