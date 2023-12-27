@@ -1,0 +1,21 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+int arr[10];
+int max_0;
+
+int main() {
+	string str_1;
+	cin >> str_1;
+	for (int i = 0; i < str_1.size(); i++) {
+		if (str_1[i] == '9') str_1[i] = '6';
+		arr[str_1[i] - '0']++;
+	}
+	if (arr[6] % 2 == 1) arr[6]++;
+	arr[6] /= 2;
+
+	for (int i = 0; i<9; i++) {
+		if (max_0< arr[i]) max_0 = arr[i];
+	}
+	cout << max_0;
+}
