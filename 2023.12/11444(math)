@@ -1,0 +1,61 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+long long int N;
+long long int arr[2][2] = { { 1,1 }, { 1,0 } };
+long long int temp_result[2][2];
+
+void fibb(long long int temp) {
+	if (temp == 1) {
+		temp_result[0][0] = 1;
+		temp_result[1][0] = 1;
+		temp_result[0][1] = 1;
+		temp_result[1][1] = 0;
+		return;
+	}
+	fibb(temp / 2);
+	long long int return_arr[2][2];
+	long long int return_arr2[2][2];
+	long long int temp_arr[2][2];
+	temp_arr[0][0] = temp_result[0][0];
+	temp_arr[1][0] = temp_result[1][0];
+	temp_arr[0][1] = temp_result[0][1];
+	temp_arr[1][1] = temp_result[1][1];
+
+	for (int i = 0; i<2; i++) {
+		for (int j = 0; j<2; j++) {
+			return_arr[i][j] = 0;
+			for (int k = 0; k<2; k++) {
+				return_arr[i][j] += (temp_arr[i][k] * temp_arr[k][j]);
+				return_arr[i][j] %= 1000000007;
+			}
+		}
+	}
+	if (temp % 2 == 1) {
+		for (int i = 0; i<2; i++) {
+			for (int j = 0; j<2; j++) {
+				return_arr2[i][j] = 0;
+				for (int k = 0; k<2; k++) {
+					return_arr2[i][j] += (return_arr[i][k] * arr[k][j]);
+					return_arr2[i][j] %= 1000000007;
+				}
+			}
+		}
+		temp_result[0][0] = return_arr2[0][0];
+		temp_result[1][0] = return_arr2[1][0];
+		temp_result[0][1] = return_arr2[0][1];
+		temp_result[1][1] = return_arr2[1][1];
+		return;
+	}
+	temp_result[0][0] = return_arr[0][0];
+	temp_result[1][0] = return_arr[1][0];
+	temp_result[0][1] = return_arr[0][1];
+	temp_result[1][1] = return_arr[1][1];
+	return;
+}
+int main() {
+	cin >> N;
+	fibb(N);
+	cout << temp_result[0][1];
+}
