@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+	bool chk_1 = false;
+	long long int G, big_0, small_0, gap_0;
+	cin >> G;
+	gap_0 = 0;
+	big_0 = 1;
+	small_0 = 1;
+	while (1) {
+		gap_0 = big_0 * big_0 - small_0 * small_0;
+		
+		if (gap_0 == G) {
+			chk_1 = true;
+			cout << big_0 << "\n";
+		}
+		if (gap_0 > G && big_0 - small_0 == 1) break;
+
+		if (gap_0 <= G) {
+			big_0++;
+		}
+		else {
+			small_0++;
+		}
+	}
+	if (!chk_1) cout << -1;
+}
