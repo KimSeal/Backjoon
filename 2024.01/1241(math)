@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+	int N;
+	cin >> N;
+	vector<int> arr_1(N);
+	int max_1 = 0;
+	for (int i = 0; i < N;i++) {
+		cin >> arr_1[i];
+		if (max_1 < arr_1[i]) max_1 = arr_1[i];
+	}
+	vector<int> arr_3(max_1 + 1);
+	for (int i = 0; i < N;i++) {
+		arr_3[arr_1[i]]++;
+	}
+	for (int i = 0; i < N; i++) {
+		int temp = arr_1[i];
+		int result = 0;
+		for (int k = 1; k*k <= temp;k++) {
+			if (temp % k == 0) {
+				result += arr_3[k];
+				if(k != temp/k) result += arr_3[temp / k];
+			}
+		}
+		cout << result-1<<"\n";
+	}
+}
