@@ -1,0 +1,31 @@
+#include <bits/stdc++.h>
+using namespace std;
+struct alpha_0{
+    int arr[26];    
+};
+vector<alpha_0> vec_0;
+string str_0;
+int word_arr[26];
+
+int main(){
+    alpha_0 temp;
+    cin >> str_0;
+    while(str_0.compare("-") != 0){
+        for(int i=0;i<26;i++)
+            temp.arr[i]=0;
+        for(int i=0;i<str_0.size();i++)
+            temp.arr[str_0[i]-'0']++;
+        vec_0.push_back(temp);
+        cin >> str_0;
+    }
+    
+    cin >> str_0;
+    while(str_0.compare("#") != 0){
+        for(int i=0;i<26;i++)
+            word_arr[i]=0;
+        for(int i=0;i<str_0.size();i++)
+            word_arr[str_0[i]-'0']++;
+        
+        cin >> str_0;
+    }
+}
