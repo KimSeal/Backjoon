@@ -25,7 +25,16 @@ int main(){
             word_arr[i]=0;
         for(int i=0;i<str_0.size();i++)
             word_arr[str_0[i]-'0']++;
-        
+        for(int i=0;i<vec_0.size();i++){
+            bool chk_0 = false;
+            for(int j=0;j<26;j++){
+                if(word_arr[j]< vec_0[i].arr[j]){
+                    chk_0 = true;
+                    break;
+                }
+            }
+            if(chk_0) continue;
+        }
         cin >> str_0;
     }
 }
