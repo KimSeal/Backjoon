@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int result, box_num, book_num, box_weight, book_weight;
+
+int main(){
+    int N, M, input_1;
+    vector<int> book_1;
+    vector<int> boxes_1;
+    cin >> N >> M;
+    for(int i=0;i<N;i++){
+        cin >> input_1;
+        boxes_1.push_back(input_1);
+    }
+    for(int i=0;i<M;i++){
+        cin >> input_1;
+        book_1.push_back(input_1);
+    }
+    box_weight = boxes_1[0];
+    book_weight = book_1[0];
+    
+    while(book_num < book_1.size()){
+        if(box_weight < book_1[book_num]) {
+            result += box_weight;
+            box_num++;
+            box_weight = boxes_1[box_num];
+        }
+        else if(box_weight >= book_1[book_num]){
+            box_weight -= book_1[book_num];
+            book_num++;
+        }
+    }
+	result += box_weight;
+    box_num++;
+	while(box_num < boxes_1.size()){
+		result += boxes_1[box_num];
+		box_num++;
+	}
+    cout << result;
+}
