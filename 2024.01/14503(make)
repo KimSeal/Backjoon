@@ -1,0 +1,55 @@
+#include <bits/stdc++.h>
+using namespace std;
+int temp_map[50][50];
+int visited[50][50];
+int N, M, cur_y, cur_x, cur_dir, result;
+
+int dy[4]={-1, 0, 1, 0};
+int dx[4] = {0,1,0,-1};
+
+int main(){
+	cin >> N >> M;
+	cin >> cur_y >> cur_x >> cur_dir;
+	
+	for(int i=0;i<N;i++){
+		for(int j=0;j<M;j++){
+			cin >> temp_map[i][j];
+			if(temp_map[i][j] == 1) visited[i][j] = 1;
+		}
+	}
+	
+	while(1){
+		if(visited[cur_y][cur_x] == 0){
+			//cout << "num1!\n";
+			result++;
+			visited[cur_y][cur_x]=1;
+		}
+		bool chk_0=false;
+		for(int i=0;i<4;i++){
+			if(cur_y+dy[i] >= 0 && cur_y+dy[i] < N &&
+			  cur_x+dx[i] >= 0 && cur_x+dx[i] < M && visited[cur_y+dy[i]][cur_x+dx[i]]==0){
+				chk_0 = true; break;
+			}
+		}
+		
+		if(!chk_0){
+			//cout << "num2!\n";
+			if(temp_map[cur_y+dy[(cur_dir+2)%4]][cur_x+dx[(cur_dir+2)%4]] == 1) break;
+			else {
+				cur_y +=dy[(cur_dir+2)%4];
+				cur_x += dx[(cur_dir+2)%4];
+			}
+		}
+		else if(chk_0) {
+			//cout << "num3!\n";
+			cur_dir -= 1;
+			if(cur_dir <0) cur_dir=3;
+			if(cur_y+dy[cur_dir] >= 0 && cur_y+dy[cur_dir] < N &&
+			  cur_x+dx[cur_dir] >= 0 && cur_x+dx[cur_dir] < M && visited[cur_y+dy[cur_dir]][cur_x+dx[cur_dir]]==0){
+				cur_y +=dy[cur_dir];
+				cur_x += dx[cur_dir];
+			}
+		}
+	}
+	cout << result;
+}
