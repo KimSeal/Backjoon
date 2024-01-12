@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>
+using namespace std;
+int N, M;
+int temp_map[504][504];
+
+int leng(int y, int x){
+	int result_0 = temp_map[y+1][x+1] + temp_map[y][x+1] + temp_map[y+1][x]
+		+ max( max(temp_map[y+2][x], temp_map[y+2][x+1]) , max(temp_map[y][x+2], temp_map[y+1][x+2]) );
+	///0111케이스
+	int result_2 = temp_map[y][x] + temp_map[y+1][x] + temp_map[y+1][x+1]
+		+ max( max(temp_map[y+2][x], temp_map[y+2][x+1]) , temp_map[y+1][x+2] );
+	///1011케이스
+	int result_3 = temp_map[y][x] + temp_map[y][x+1] + temp_map[y+1][x+1]
+		+ max( max(temp_map[y][x+2], temp_map[y+1][x+2]) , temp_map[y+2][x+1] );
+	///1101케이스
+	int result_4 = temp_map[y][x] + temp_map[y][x+1] + temp_map[y+1][x]
+		+ max(temp_map[y][x+2], temp_map[y+2][x]);
+	///1110케이스
+	int result_5 = temp_map[y][x] +  max(temp_map[y][x+1] + temp_map[y][x+2] + max(temp_map[y][x+3], temp_map[y+1][x+2]),
+	temp_map[y+1][x] + temp_map[y+2][x] + max(temp_map[y+3][x], temp_map[y+2][x+1]));
+	//1100, 1010 케이스
+	int result_6 = temp_map[y+1][x+1]+ max(temp_map[y+1][x] + temp_map[y+1][x+2] + temp_map[y][x+2],
+										  temp_map[y][x+1] + temp_map[y+2][x+1] + temp_map[y+2][x]);
+	//0101 0011 케이스
+	int result_7 = max( max(max(result_0,result_4) , max(result_2, result_3)) , max(result_5, result_6));
+	return max(result_7, (temp_map[y][x] + temp_map[y+1][x] + temp_map[y+1][x+1] + temp_map[y][x+1]));
+	//1111케이스
+
+}
+
+int main(){
+	cin >> N >> M;
+	
+	for(int i=0;i<N;i++){
+		for(int j=0;j<M;j++){
+			cin >> temp_map[i][j];
+		}
+	}
+	int result=0;
+	for(int i=0;i<N;i++){
+		for(int j=0;j<M;j++){
+			result = max(result , leng(i, j));
+		}
+	}
+	cout << result;
+}
