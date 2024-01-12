@@ -1,0 +1,65 @@
+#include <bits/stdc++.h>
+using namespace std;
+int temp_map[8][8];
+int N, M, result;
+struct map_toy{
+	int virus_map[8][8];
+};
+
+map_toy init_map;
+int dx[4] = {-1,1,0,0};
+int dy[4] ={0,0,-1,1};
+
+vector<pair<int, int>> vec_virus;
+vector<pair<int, int>> vec_wall;
+queue<pair<int,int>> Q_1;
+
+int bfs(int y0, int x0, int y1, int x1, int y2, int x2){
+	int zero_result=0;
+	map_toy temp_toy = init_map;
+	temp_toy.virus_map[y0][x0] = 1;
+	temp_toy.virus_map[y1][x1] = 1;
+	temp_toy.virus_map[y2][x2] = 1;
+	for(int i=0;i<vec_virus.size();i++){
+		Q_1.push(make_pair(vec_virus[i].first, vec_virus[i].second));	
+	}
+	while(!Q_1.empty()){
+		int temp_y = Q_1.front().first;
+		int temp_x = Q_1.front().second;
+		for(int i=0;i<4;i++){
+			if(temp_y+dy[i] >= 0 && temp_y+dy[i] < N && temp_x+dx[i] >= 0 && temp_x+dx[i] < M 
+			   && temp_toy.virus_map[temp_y+dy[i]][temp_x+dx[i]] == 0){
+				temp_toy.virus_map[temp_y+dy[i]][temp_x+dx[i]] =2;
+				Q_1.push(make_pair(temp_y+dy[i], temp_x+dx[i]));
+			}
+		}
+		Q_1.pop();
+	}
+	for(int i=0;i<N;i++){
+		for(int j=0;j<M;j++){
+			if(0==temp_toy.virus_map[i][j]){
+				zero_result++;
+			}
+		}
+	}
+	return zero_result;
+}
+int main(){
+	cin >> N >> M;
+	for(int i=0;i<N;i++){
+		for(int j=0;j<M;j++){
+			cin >> init_map.virus_map[i][j];
+			if(init_map.virus_map[i][j] == 2) vec_virus.push_back(make_pair(i,j));
+			if(init_map.virus_map[i][j] == 0) vec_wall.push_back(make_pair(i,j));
+		}
+	}
+	
+	for(int i=0;i<vec_wall.size();i++){
+		for(int j=i+1;j<vec_wall.size();j++){
+			for(int k=j+1;k<vec_wall.size();k++){
+				result = max(result, bfs(vec_wall[i].first, vec_wall[i].second, vec_wall[j].first, vec_wall[j].second, vec_wall[k].first, vec_wall[k].second));
+			}
+		}
+	}
+	cout << result;
+}
