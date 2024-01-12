@@ -1,0 +1,22 @@
+#include <bits/stdc++.h>
+using namespace std;
+int N;
+int talk_0[15];
+int pay_0[15];
+int result;
+void recur_0(int day, int money){
+	if(day==N) {
+		result = (result > money) ? result : money;
+		return;
+	}
+	if(day + talk_0[day] <= N) recur_0(day+ talk_0[day], money+ pay_0[day]);
+	recur_0(day+1, money);
+}
+int main(){
+	cin >> N;
+	for(int i=0;i<N;i++){
+		cin >> talk_0[i] >> pay_0[i];
+	}
+	recur_0(0,0);
+	cout << result;
+}
