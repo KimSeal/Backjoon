@@ -1,0 +1,60 @@
+import java.io.*;
+
+
+public class Main {
+    static int [][] wheel = new int [4][8];
+    static int [] pointArr = {2,2,2,2};
+    static int [] score = {1,2,4,8};
+    static BufferedReader br = new BufferedReader( new InputStreamReader(System.in));
+    static StringBuilder sb = new StringBuilder();
+    static int N, input_0, input_1;
+    public static void roll(int x, int dir, int push){
+        //System.out.print("first roll" + x + " " + dir + ": ");
+        if(x != 1 && wheel[x-2][pointArr[x-2]] != wheel[x-1][(pointArr[x-1] + 4) % 8] && push == -1){
+            roll(x-1, -1 * dir, -1);
+            pointArr[x-2] += dir;
+            if(pointArr[x-2] < 0 || pointArr[x-2] >7) pointArr[x-2] = (pointArr[x-2]+8)%8;
+            
+        }
+        
+        if(x != 4 && wheel[x][(pointArr[x]+4)%8] != wheel[x-1][pointArr[x-1]] && push == 1){
+            roll(x+1, -1 * dir, 1);
+            pointArr[x] += dir;
+            if(pointArr[x] < 0 || pointArr[x] >7) pointArr[x] = (pointArr[x]+8)%8;
+            //System.out.print((x+1) + " roll" + (-1*dir) + "//");
+            
+        }
+        
+    }
+    
+    public static void main(String[] args) throws IOException{
+        String hello;
+        for(int i=0;i<4;i++){
+            hello = br.readLine().trim();
+            for(int j=0;j<8;j++)
+                if(hello.charAt(j) == '1') wheel[i][j] = 1;
+
+        }
+        N = Integer.parseInt(br.readLine().trim());
+        String[] temp = new String[2];
+        for(int i =0;i<N;i++){
+            hello = br.readLine().trim();
+            temp = hello.split(" ");
+            //System.out.println(temp[0] + temp[1]);
+            int x = Integer.parseInt(temp[0]);
+            int y = Integer.parseInt(temp[1]);
+            roll(x, y, -1);
+            roll(x, y, 1);
+            pointArr[x - 1] -= y;
+            if(pointArr[x-1] < 0 || pointArr[x-1] >7) pointArr[x-1] = (pointArr[x-1]+8)%8;
+        }
+        int result =0; 
+        for(int i =0;i<4;i++){
+            if(wheel[i][(pointArr[i] + 6) % 8] == 1){
+                result += score[i];
+            }
+        }
+        sb.append(result);
+        System.out.println(sb);
+    }
+}
