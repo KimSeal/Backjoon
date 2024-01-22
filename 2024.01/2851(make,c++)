@@ -1,0 +1,17 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main(){
+    int input_1;
+    int result_1=0, result_2=0;
+    for(int i=0;i<10;i++){
+        result_1 = result_2;
+        cin >> input_1;
+        result_2 += input_1;
+        if(abs(result_1 - 100) < abs(result_2 - 100) ) {
+            result_2 = result_1;
+            break;
+        }
+    }
+    cout << result_2;
+    
+}
