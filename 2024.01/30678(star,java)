@@ -1,0 +1,43 @@
+import java.util.Scanner;
+
+public class Main {
+	static boolean [][] starArr = { {false, false, true, false, false},
+			{false, false, true, false, false},
+			{true, true, true, true, true},
+			{false, true, true, true, false},
+			{false, true, false, true, false}};
+	static boolean [][] printArr = new boolean[3130][3130];
+	
+	public static void recurStar(int size0, int y, int x) {
+		if(size0 == 0) {
+			printArr[y][x] = true;
+			return;
+		}
+		for(int i=0;i<5;i++) {
+			for(int j=0;j<5;j++) {
+				if(starArr[i][j] == true) {
+					recurStar(size0-1, y + i * (int)Math.pow(5, size0-1) , x + j * (int)Math.pow(5, size0-1));
+				}
+			}
+		}
+	}
+    public static void main(String[] args) {
+    	int N;
+    	Scanner sc = new Scanner(System.in);
+    	StringBuilder sb = new StringBuilder();
+    	N = sc.nextInt();
+    	recurStar(N, 0, 0);
+    	for(int i=0;i<Math.pow(5, N);i++) {
+			for(int j=0;j<Math.pow(5, N);j++) {
+				if(printArr[i][j] == true) {
+					sb.append("*");
+				}
+				else if(printArr[i][j] == false) {
+					sb.append(" ");
+				}
+			}
+			sb.append("\n");
+		}
+    	System.out.print(sb);
+    }
+}
