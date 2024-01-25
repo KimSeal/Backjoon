@@ -1,0 +1,77 @@
+import java.util.Scanner;
+
+public class Main {
+	static boolean [][] printArr = new boolean[3000][3000];
+	
+	public static void recurStar(int size0, int y, int x) {
+		if(size0 == 0) {
+			printArr[y][x] = true;
+			return;
+		}
+		int temp = (int)Math.pow(2,size0);
+		if(size0 % 2 == 1) {
+			for(int i=0;i< temp-1;i++) {
+				printArr[y+i][x+temp-2-i] = true;
+			}
+			for(int i=1;i< temp-1;i++) {
+				printArr[y+i][x+temp-2+i] = true;
+			}
+			for(int i=1;i< 2*temp-4;i++) {
+				printArr[y+temp-2][x+i] = true;
+			}
+			recurStar(size0-1, y+temp/2-1, x+temp/2);
+		}
+		else {
+			for(int i=0;i< temp-1;i++) {
+				printArr[y+i][x+2*temp-4-i] = true;
+			}
+			for(int i=0;i< temp-1;i++) {
+				printArr[y+i][x+i] = true;
+			}
+			for(int i=1;i< 2*temp-4;i++) {
+				printArr[y+0][x+i] = true;
+			}
+			recurStar(size0-1, y+1, x+temp/2);
+		}
+		
+	}
+    public static void main(String[] args) {
+    	int N;
+    	Scanner sc = new Scanner(System.in);
+    	StringBuilder sb = new StringBuilder();
+    	N = sc.nextInt();
+    	if(N==1) {
+    		System.out.print("*");
+    		return;
+    	}
+    	recurStar(N, 0, 0);
+    	if(N % 2 == 1) {
+    		for(int i=0;i<Math.pow(2,N)-1;i++) {
+    			for(int j=0;j<=Math.pow(2, N)-2 + i;j++) {
+    				if(printArr[i][j] == true) {
+    					sb.append("*");
+    				}
+    				else if(printArr[i][j] == false) {
+    					sb.append(" ");
+    				}
+    			}
+    			if(i != Math.pow(2, N)-2)sb.append("\n");
+    		}
+    	}
+    	else {
+    		for(int i=0;i<Math.pow(2,N)-1;i++) {
+    			for(int j=0;j<2*Math.pow(2, N)-3-i;j++) {
+    				if(printArr[i][j] == true) {
+    					sb.append("*");
+    				}
+    				else if(printArr[i][j] == false) {
+    					sb.append(" ");
+    				}
+    			}
+    			if(i != Math.pow(2, N)-2)sb.append("\n");
+    		}
+    	}
+    	
+    	System.out.print(sb);
+    }
+}
