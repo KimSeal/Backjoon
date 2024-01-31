@@ -1,0 +1,88 @@
+import java.io.*;
+
+public class 1244_스위치켜고끄기_김상우 {
+	/*
+	 * 1. 사용자로부터 스위치 갯수와 스위치의 상태를 입력받는다.
+	 * 2. 받은 숫자 기반으로 스위치의 상태를 저장할 배열을 만들고 스위치 상태를 넣는다.
+	 * 3. 사용자로부터 명령어의 갯수를 받고 그 수만큼 명령어를 받는다.
+	 * 4. 명령어의 성별과 값에 따라 함수를 실행한다.
+	 * 		4.1 남자의 경우 값의 배수에 해당하는 포인터를 모두 반전한다.
+	 * 		4.2 여자의 경우 값을 중심으로 좌우가 대칭이면서 가장 많은 스위치를 포함하는 구간을 찾아서,
+	 * 			그 구간에 속한 스위치의 상태를 모두 바꾼다.
+	 * 5. 최종 스위치의 상태를 출력한다.
+	 */
+	
+	//사용자로부터 입력을 받을 BufferedReader
+	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	//최종 문자열을 저장할 StringBuilder
+	static StringBuilder sb = new StringBuilder(); 
+	
+	static boolean[] switchArray;
+	static int switchLength;
+	
+	//4.1 남자의 경우 값의 배수에 해당하는 포인터를 모두 반전한다.
+	public static void SwitchMale(int switchNumber) {
+		//배열 내 모든 배수 탐색
+		for(int idx = switchNumber-1; idx < switchLength; idx += switchNumber)
+			//스위치 반전
+			switchArray[idx] = !switchArray[idx];
+	}
+	//4.2 여자의 경우 값을 중심으로 좌우가 대칭이면서 가장 많은 스위치를 포함하는 구간을 찾아서,
+	//그 구간에 속한 스위치의 상태를 모두 바꾼다.
+	public static void SwitchFemale(int switchNumber) {
+		//실제 배열 내 위치 조정
+		switchNumber--;
+		switchArray[switchNumber] = !switchArray[switchNumber];
+		for(int idx = 1; idx < switchLength; idx++) {
+			//대칭이 아니거나 배열 밖으로 벗어났으면 함수 종료
+			if(	switchNumber - idx < 0 || switchNumber +idx >= switchLength ||
+					switchArray[switchNumber+idx] != switchArray[switchNumber-idx] ) return;
+			
+			//스위치 반전
+			switchArray[switchNumber+idx] = !switchArray[switchNumber+idx];
+			switchArray[switchNumber-idx] = !switchArray[switchNumber-idx];
+		}
+	}
+	public static void main(String[] args) throws IOException {
+		//1. 사용자로부터 스위치 갯수와 스위치의 상태를 입력받는다.
+		switchLength = Integer.parseInt(br.readLine().trim());
+		String switchInit = br.readLine().trim();
+		String [] switchInitAfterSplit = switchInit.split(" ");
+		
+		//2. 받은 숫자 기반으로 스위치의 상태를 저장할 배열을 만든다.
+		switchArray = new boolean[switchLength];
+		for(int idx= 0; idx < switchLength; idx++)
+			switchArray[idx] = (switchInitAfterSplit[idx].equals("0")) ? false : true;
+		
+		//3. 사용자로부터 명령어의 갯수를 받고 그 수만큼 명령어를 받는다.
+		int commandNumber = Integer.parseInt(br.readLine().trim());
+		
+		for(int idx = 0;idx < commandNumber; idx++) {
+			//4. 명령어의 성별과 값에 따라 함수를 실행한다.
+			String commandBeforeSplit = br.readLine().trim();
+			String[] command = commandBeforeSplit.split(" ");
+			
+			//4.1 남자의 경우 값의 배수에 해당하는 포인터를 모두 반전한다.
+			if(command[0].equals("1")) SwitchMale(Integer.parseInt(command[1]));
+			
+			//4.2 여자의 경우 값을 중심으로 좌우가 대칭이면서 가장 많은 스위치를 포함하는 구간을 찾아서,
+			//그 구간에 속한 스위치의 상태를 모두 바꾼다.
+			else SwitchFemale(Integer.parseInt(command[1]));
+		}
+		//switch 상태에 따른 String builder에 문자 추가
+		for(int idx=0;idx<switchLength;idx++) {
+			//스위치가 켜져있을 경우 1추가 
+			if(switchArray[idx]) sb.append("1");
+			//스위치가 켜져있을 경우 0추가 
+			else sb.append("0");
+			//20개 마다 줄바꿈 처리
+			if(idx % 20 == 19) sb.append("\n");
+			//마지막 스위치 제외 공백 추가 
+			if( idx % 20 != 19 && idx != switchLength-1)sb.append(" ");
+			
+		}
+		//최종 결과 출력
+		System.out.print(sb);
+	}
+
+}
