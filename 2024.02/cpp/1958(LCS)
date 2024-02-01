@@ -1,0 +1,35 @@
+#include <bits/stdc++.h>
+using namespace std;
+int dp[101][101][101];
+string str0,str1, str2;
+
+int LCS_string(string str0, string str1, string str2){
+	int str0Length = str0.size();
+	int str1Length = str1.size();
+	int str2Length = str2.size();
+	for(int colIdx =1; colIdx < str0Length+1; colIdx++){
+		for(int rowIdx = 1;rowIdx<str1Length+1; rowIdx++){
+			for(int extraIdx = 1;extraIdx < str2Length+1;extraIdx++){
+				
+				if(str0[colIdx-1] == str1[rowIdx-1] && str1[rowIdx-1] == str2[extraIdx-1]){
+					dp[colIdx][rowIdx][extraIdx] = dp[colIdx-1][rowIdx-1][extraIdx-1] +1;
+				}
+				else{
+					dp[colIdx][rowIdx][extraIdx] = max(dp[colIdx-1][rowIdx][extraIdx],max(dp[colIdx][rowIdx-1][extraIdx], dp[colIdx][rowIdx][extraIdx-1]) );
+				}
+			}
+			
+		}
+	}
+	return dp[str0Length][str1Length][str2Length];
+}
+
+int main(){
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	cin >> str0 >> str1 >> str2;
+	cout << LCS_string(str0, str1, str2);
+	
+}
