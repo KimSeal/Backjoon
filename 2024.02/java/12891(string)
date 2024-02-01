@@ -1,0 +1,71 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+/*
+ * 1. 문자열의 길이와 비밀번호의 길이, 사용될 DNA 문자열, 최소 알파벳 수를 입력받는다.
+ * 2. 초기 문자열의 가장 선두에 있는 알파벳(A,C,G,T)의 수를 비밀번호 길이만큼 구하고 유효한지 확인한다.
+ * 3. 가장 앞에있던 알파벳의 수를 1 낮추고, 기존 문자열의 뒤에 있던 알파벳의 수를 1 증가한 후 유효한지 확인한다.
+ * 	   이를 문자열 끝에 도달할 때 까지 반복한다.
+ * 4. 유효횟수의 결과를 출력한다.
+ */
+public class o12891 {
+	
+	static int originStringLength, passwordLength, result;
+	static String inputStr;
+	static int[] alphabetNum = new int[4];
+	static int[] curAlphabetNum = new int[4];
+	
+	//사용자로부터 입력을 받을 BufferedReader
+	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	//최종 문자열을 저장할 StringBuilder
+	static StringBuilder sb = new StringBuilder();
+	
+	//문자열 내 index번째에 해당하는 알파벳을 찾아 숫자로 변환하는 method
+	public static int alphaToDigit(int idx) {
+		switch(inputStr.charAt(idx)) {
+			case 'A': return 0;
+			case 'C': return 1;
+			case 'G': return 2;
+			case 'T': return 3;
+		}
+		return 0;
+	}
+	
+	//비밀번호 유효 여부 확인 method
+	public static int useCheck() {
+		for(int idx =0;idx<4;idx++)
+			if(curAlphabetNum[idx] < alphabetNum[idx])
+				return 0;
+		return 1;
+	}
+	
+	public static void main(String[] args) throws IOException {
+		//1. 문자열의 길이와 비밀번호의 길이, 사용될 DNA 문자열, 최소 알파벳 수를 입력받는다.
+		String[] firstInput = br.readLine().trim().split(" ");
+		inputStr = br.readLine().trim();
+		String[] thirdInput = br.readLine().trim().split(" ");
+		
+		//문자열을 정수로 변환하는 작업
+		originStringLength = Integer.parseInt(firstInput[0]);
+		passwordLength = Integer.parseInt(firstInput[1]);
+		for(int idx = 0;idx<4;idx++)
+			alphabetNum[idx] = Integer.parseInt(thirdInput[idx]);
+		
+		//2. 초기 문자열의 가장 선두에 있는 알파벳(A,C,G,T)의 수를 비밀번호 길이만큼 구하고 유효한지 확인한다.
+		for(int idx =0; idx< passwordLength; idx++)
+			curAlphabetNum[alphaToDigit(idx)]++;
+		result += useCheck();
+		
+		//3. 가장 앞에있던 알파벳의 수를 1 낮추고, 기존 문자열의 뒤에 있던 알파벳의 수를 1 증가한 후 유효한지 확인한다.
+		// 	   이를 문자열 끝에 도달할 때 까지 반복한다.
+		for(int idx =1; idx <= originStringLength - passwordLength;idx++) {
+			curAlphabetNum[alphaToDigit(idx-1)]--;
+			curAlphabetNum[alphaToDigit(idx+passwordLength-1)]++;
+			result += useCheck();
+		}
+		//4. 유효횟수의 결과를 출력한다.
+		System.out.println(result);
+
+	}
+
+}
