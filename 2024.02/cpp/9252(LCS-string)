@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+using namespace std;
+int dp[1001][1001];
+string str0,str1;
+
+int main(){
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	cin >> str0 >> str1;
+	int str0Length = str0.size();
+	int str1Length = str1.size();
+
+	for(int colIdx =1; colIdx < str0Length+1; colIdx++){
+		for(int rowIdx = 1;rowIdx<str1Length+1; rowIdx++){
+			if(str0[colIdx-1] == str1[rowIdx-1]){
+				dp[colIdx][rowIdx] = dp[colIdx-1][rowIdx-1] +1;
+			}
+			else{
+				if(dp[colIdx-1][rowIdx] > dp[colIdx][rowIdx-1]){
+					dp[colIdx][rowIdx] = dp[colIdx-1][rowIdx];
+				}
+				else{
+					dp[colIdx][rowIdx] = dp[colIdx][rowIdx-1];
+				}
+			}
+		}
+	}
+	string result = "";
+	int pointY = str0Length;
+	int pointX = str1Length;
+	while(pointY>0 && pointX > 0){
+		if(dp[pointY][pointX] != dp[pointY-1][pointX] && dp[pointY][pointX] != dp[pointY][pointX-1] ){
+			result = str0[pointY-1] + result;
+			pointY--;
+			pointX--;
+		}
+		else if(dp[pointY][pointX] == dp[pointY-1][pointX] ){
+			pointY--;
+		}
+		else{
+			pointX--;
+		}
+	}
+	cout << dp[str0Length][str1Length]<<"\n"<< result;
+}
