@@ -1,0 +1,41 @@
+#include <bits/stdc++.h>
+using namespace std;
+int parentArr[1000001];
+
+int findParent(int x){
+	if(parentArr[x] ==0) return x;
+	else return findParent(parentArr[x]);
+}
+
+void union0(int x, int y){
+	int xParent = findParent(x);
+	int yParent = findParent(y);
+
+	if(xParent==yParent) return;
+	
+	else {
+		if(xParent > yParent) parentArr[yParent] = xParent;
+		else parentArr[xParent] = yParent;
+	}
+}
+
+
+
+int main(){
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+	int N, M;
+	int input0, input1, input2;
+	cin >> N >> M;
+	while(M--){
+		cin >> input0 >> input1 >> input2;
+		if(input0 == 0){
+			union0(input1, input2);
+		}
+		else {
+			if(findParent(input1) == findParent(input2)) cout << "YES\n";
+			else cout << "NO\n";
+		}
+	}
+}
