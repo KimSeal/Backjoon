@@ -2,7 +2,7 @@
 using namespace std;
 int dp[101][101][101];
 string str0,str1, str2;
-
+//temp
 int LCS_string(string str0, string str1, string str2){
 	int str0Length = str0.size();
 	int str1Length = str1.size();
