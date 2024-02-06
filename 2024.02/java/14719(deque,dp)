@@ -1,0 +1,58 @@
+import java.io.*;
+import java.util.*;
+
+class block {
+	int height;
+	int rowNum;
+	block(int a, int b){
+		this.height = a;
+		this.rowNum =b;
+	}
+}
+public class rain {
+	//사용자로부터 입력을 받을 BufferedReader
+	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	//최종 문자열을 저장할 StringBuilder
+	static StringBuilder sb = new StringBuilder();
+	static int firstNum[] = new int [500];
+	static int lastNum[] = new int [500];
+	
+	public static void main(String[] args) throws IOException{
+		// TODO Auto-generated method stub
+		int mapHeight, mapRow;
+		String[] inputStr = br.readLine().trim().split(" ");
+		mapHeight = Integer.parseInt(inputStr[0]);
+		mapRow = Integer.parseInt(inputStr[1]);
+		inputStr = br.readLine().trim().split(" ");
+		Deque<block> queue = new LinkedList<block>();
+		Deque<block> queue2 = new LinkedList<block>();
+		int blockNum = 0;
+		for(int idx =0; idx<inputStr.length; idx++) {
+			int temp = Integer.parseInt(inputStr[idx]);
+			blockNum += temp;
+			if(queue.isEmpty() || temp > queue.peekLast().height) {
+				queue.addLast(new block(temp, idx));
+				//System.out.println("queue1 add " + idx +" : "+temp );
+			}
+			temp = Integer.parseInt(inputStr[inputStr.length-idx-1]);
+			if(queue2.isEmpty() || temp > queue2.peekLast().height) {
+				queue2.addLast(new block(temp, inputStr.length-idx-1));
+				//System.out.println("queue2 add" + (inputStr.length-idx-1) + " : "+temp);
+			}
+		}
+		int currentEmpty = queue.getLast().height * mapRow - blockNum;
+		int curHeight =0;
+		while(!queue.isEmpty()) {
+			currentEmpty -= (queue.getFirst().height-curHeight) * queue.getFirst().rowNum ;
+			curHeight = queue.getFirst().height;
+			queue.pollFirst();
+		}
+		while(!queue2.isEmpty()) {
+			currentEmpty -= (queue2.getFirst().height-curHeight) * (mapRow-1 - queue2.getFirst().rowNum) ;
+			curHeight = queue2.getFirst().height;
+			queue2.pollFirst();
+		}
+		System.out.println(currentEmpty);
+	}
+
+}
