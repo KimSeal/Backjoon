@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-
+//temp
 long long int N, M;
 map<long long int, bool> vec_1;
 
