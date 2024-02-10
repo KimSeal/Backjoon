@@ -1,0 +1,39 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.Stack;
+
+class tower{
+	int height;
+	int number;
+	tower(int height, int number){
+		this.height = height;
+		this.number = number;
+	}
+}
+public class Main {
+	//사용자로부터 입력을 받을 BufferedReader
+	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	//최종 문자열을 저장할 StringBuilder
+	static StringBuilder sb = new StringBuilder();
+	//데이터들이 오갈 큐 선언
+	static Stack<tower> stack = new Stack<tower>();
+	public static void main(String[] args) throws IOException{
+		// TODO Auto-generated method stub
+		int towerNum = Integer.parseInt(br.readLine().trim());
+		String [] towerHeight = br.readLine().trim().split(" ");
+		int curInput;
+		stack.push(new tower(999999999,0));
+		for(int idx=1;idx<=towerNum;idx++) {
+			curInput = Integer.parseInt(towerHeight[idx-1]);
+			while(stack.peek().height < curInput){
+				stack.pop();
+			}
+			sb.append(stack.peek().number);
+			if(idx!= towerNum) sb.append(" ");
+			stack.push(new tower(curInput, idx));
+		}
+		System.out.println(sb);
+	}
+
+}
