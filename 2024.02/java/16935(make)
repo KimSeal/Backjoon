@@ -1,0 +1,118 @@
+import java.io.*;
+
+public class Main {
+	//사용자로부터 입력을 받을 BufferedReader
+	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	//최종 문자열을 저장할 StringBuilder
+	static StringBuilder sb = new StringBuilder();
+	static int [][] arr0, arr1;
+	static int colLen, rowLen, comNum;
+	public static void swap() {
+		int temp = colLen;
+		colLen = rowLen;
+		rowLen = temp;
+	}
+	public static void copy0() {
+		for(int colIdx = 0;colIdx<colLen;colIdx++) {
+			for(int rowIdx = 0;rowIdx<rowLen;rowIdx++) {
+				arr0[colIdx][rowIdx] = arr1[colIdx][rowIdx];
+			}
+		}
+	}
+	public static void method1() {
+		for(int colIdx = 0;colIdx<colLen;colIdx++) {
+			for(int rowIdx = 0;rowIdx<rowLen;rowIdx++) {
+				arr1[colIdx][rowIdx] = arr0[colLen-1-colIdx][rowIdx];
+			}
+		}
+		copy0();
+	}
+	public static void method2() {
+		for(int colIdx = 0;colIdx<colLen;colIdx++) {
+			for(int rowIdx = 0;rowIdx<rowLen;rowIdx++) {
+				arr1[colIdx][rowIdx] = arr0[colIdx][rowLen - 1- rowIdx];
+			}
+		}
+		copy0();
+	}
+	public static void method3() {
+//		arr1 = new int[arr0[0].length][arr0.length];
+		for(int colIdx = 0;colIdx<colLen;colIdx++) {
+			for(int rowIdx = 0;rowIdx<rowLen;rowIdx++) {
+				arr1[rowIdx][colLen-1-colIdx] = arr0[colIdx][rowIdx];
+			}
+		}
+		swap();
+		//arr0 = new int[colLen][rowLen];
+		copy0();
+	}
+	public static void method4() {
+		//arr1 = new int[arr0[0].length][arr0.length];
+		for(int colIdx = 0;colIdx<rowLen;colIdx++) {
+			for(int rowIdx = 0;rowIdx<colLen;rowIdx++) {
+				arr1[colIdx][rowIdx] = arr0[rowIdx][rowLen-1-colIdx];
+			}
+		}
+		swap();
+		//arr0 = new int[arr1.length][arr1[0].length];
+		copy0();
+	}
+	public static void method5() {
+		for(int colIdx=0; colIdx<colLen/2; colIdx++) {
+			for(int rowIdx =0;rowIdx<rowLen/2;rowIdx++) {
+				arr1[colIdx][rowIdx] = arr0[colIdx + colLen/2][rowIdx]; 
+				arr1[colIdx][rowIdx + rowLen/2] = arr0[colIdx][rowIdx]; 
+				arr1[colIdx + colLen/2][rowIdx+ rowLen/2] = arr0[colIdx][rowIdx + rowLen/2]; 
+				arr1[colIdx + colLen/2][rowIdx] = arr0[colIdx + colLen/2][rowIdx+rowLen/2]; 
+			}
+		}
+		copy0();
+	}
+	public static void method6() {
+		for(int colIdx=0; colIdx<colLen/2; colIdx++) {
+			for(int rowIdx =0;rowIdx<rowLen/2;rowIdx++) {
+				arr1[colIdx][rowIdx] = arr0[colIdx][rowIdx + rowLen/2];
+				arr1[colIdx][rowIdx + rowLen/2] = arr0[colIdx + colLen/2][rowIdx+rowLen/2]; 
+				arr1[colIdx + colLen/2][rowIdx+ rowLen/2] =  arr0[colIdx + colLen/2][rowIdx]; 
+				arr1[colIdx + colLen/2][rowIdx] =arr0[colIdx][rowIdx];  
+			}
+		}
+		copy0();
+	}
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+		String [] inputStr = br.readLine().trim().split(" ");
+		colLen = Integer.parseInt(inputStr[0]);
+		rowLen = Integer.parseInt(inputStr[1]);
+		comNum = Integer.parseInt(inputStr[2]);
+		int longOne = colLen > rowLen ? colLen :rowLen;
+		arr0 = new int [longOne][longOne];
+		arr1 = new int [longOne][longOne];
+		for(int colIdx = 0;colIdx<colLen;colIdx++) {
+			inputStr = br.readLine().trim().split(" ");
+			for(int rowIdx = 0;rowIdx<rowLen;rowIdx++) {
+				arr0[colIdx][rowIdx] = Integer.parseInt(inputStr[rowIdx]);
+			}
+		}
+		inputStr = br.readLine().trim().split(" ");
+		for(int idx=0;idx< comNum;idx++) {
+			switch(Integer.parseInt(inputStr[idx])) {
+				case 1: method1(); break;
+				case 2: method2(); break;
+				case 3: method3(); break;
+				case 4: method4(); break;
+				case 5: method5(); break;
+				case 6: method6(); break;
+			}
+		}
+		for(int colIdx = 0;colIdx<colLen;colIdx++) {
+			for(int rowIdx = 0;rowIdx<rowLen;rowIdx++) {
+				sb.append(arr0[colIdx][rowIdx]);
+				if(rowIdx != arr0[0].length-1) sb.append(" ");
+			}
+			sb.append("\n");
+		}
+		System.out.print(sb);
+	}
+
+}
