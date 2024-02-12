@@ -1,0 +1,58 @@
+import java.io.*;
+import java.io.InputStreamReader;
+
+/*class blackPoint{
+	boolean chk=false;
+	int upPoint=-1;
+	int downPoint=101;
+	blackPoint(){
+		this.chk = false;
+		this.upPoint = -1;
+		this. downPoint= 101;
+	}
+}*/
+public class Main {
+	//사용자로부터 입력을 받을 BufferedReader
+	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	//최종 문자열을 저장할 StringBuilder
+	static StringBuilder sb = new StringBuilder();
+	static int [][] paper = new int[100][100];
+	//static blackPoint [] bigPaper = new blackPoint[100];
+	public static void main(String[] args) throws IOException {
+		int commandNum = Integer.parseInt(br.readLine().trim());
+		/*
+		for(int idx=0;idx<100;idx++) {
+			bigPaper[idx] = new blackPoint();
+		}*/
+		for(int testCase =0;testCase<commandNum;testCase++) {
+			String [] inputStr = br.readLine().trim().split(" ");
+			int input0 = Integer.parseInt(inputStr[0]);
+			int input1 =Integer.parseInt(inputStr[1]);
+			for(int colIdx=input1;colIdx<input1+10;colIdx++) {
+				for(int rowIdx=input0;rowIdx<input0+10;rowIdx++) {
+					paper[colIdx][rowIdx] = 1;
+				}
+			}
+			/*for(int idx = 0;idx<10;idx++) {
+				bigPaper[input0+idx].chk =true;
+				bigPaper[input0+idx].upPoint = (bigPaper[input0+idx].upPoint > input1+10 ) ? bigPaper[input0+idx].upPoint : input1+10; 
+				bigPaper[input0+idx].downPoint = (bigPaper[input0+idx].downPoint < input1 ) ? bigPaper[input0+idx].downPoint : input1; 
+			}*/
+			
+		}
+		int result = 0;
+		for(int colIdx=0;colIdx<100;colIdx++) {
+			for(int rowIdx=0;rowIdx<100;rowIdx++) {
+				result += paper[colIdx][rowIdx];
+			}
+		}
+		/*
+		for(int idx=0;idx<100;idx++) {
+			//System.out.println(bigPaper[idx].upPoint + " "+ bigPaper[idx].downPoint);
+			//if(bigPaper[idx].chk)result += bigPaper[idx].upPoint - bigPaper[idx].downPoint;
+		}*/
+		System.out.println(result);
+
+	}
+
+}
