@@ -1,0 +1,54 @@
+import java.io.*;
+
+public class b1107_리모콘 {
+
+	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	static boolean []chk = new boolean[10];
+	static boolean chkDigit(int input) {
+		String tempStr = Integer.toString(input);
+		for(int idx=0;idx<tempStr.length();idx++) {
+			if(chk[tempStr.charAt(idx) - '0']) return false;
+			input /= 10;
+		}
+		return true;
+	}
+	public static void main(String[] args) throws IOException{
+		int input = Integer.parseInt(br.readLine().trim());
+		int buttonNum = Integer.parseInt(br.readLine().trim());
+		if(buttonNum>0) {
+			String[] buttonStr = br.readLine().trim().split(" ");
+			for(int idx=0;idx<buttonNum;idx++) {
+				chk[Integer.parseInt(buttonStr[idx])] = true;
+			}
+		}
+		
+		if(buttonNum == 10) {
+			System.out.println(Math.abs(100-input));
+			return;
+		}
+		
+		int tempInput = input;
+		int underResult = 0;
+		while(tempInput>=0) {
+			if(chkDigit(tempInput)) break;
+			tempInput--;
+		}
+		
+		underResult = input - tempInput;
+		underResult += Integer.toString(tempInput).length();
+		if(tempInput<0) underResult= 999999999;
+		
+		tempInput = input;
+		int upperResult = 0;
+		while(tempInput<=1000000) {
+			if(chkDigit(tempInput)) break;
+			tempInput++;
+		}
+		upperResult = tempInput - input;
+		upperResult += Integer.toString(tempInput).length();
+		int result = (upperResult > underResult)? underResult : upperResult;
+		result = (result > Math.abs(100-input))?  Math.abs(100-input) : result;
+		System.out.println(result);
+	}
+
+}
