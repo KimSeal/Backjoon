@@ -1,0 +1,59 @@
+import java.io.*;
+import java.util.*;
+/*
+ * 1. 플레이어로부터 맵의 크기와 위치를 입력받는다.
+ * 2. 재귀함수를 호출해 결과를 받는다.
+ * 3. 재귀함수는 다음과 같이 동작한다.
+ * 		3.1 기저고전 : 탐색 공간이 0이되면 종료한다.
+ * 		3.2 전처리 : 현재 위치가 4분면 중 어느곳에 있냐에 따라 값을 업데이트 해준다.
+ * 		3.3 재귀함수 호출 : 이동된 4분면을 기준으로 재귀함수 호출
+ * 4. 결과를 출력한다.
+ */
+public class b1074_Z_김상우 {
+	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	//결과, 맵 사이즈, 탐색 포인트에 대한 변수
+	static long result;
+	static long mapSize, rowPoint, colPoint;
+	static void recur_0(long size, long curRow, long curCol) {
+		//3.1 기저고전 : 탐색 공간이 0이되면 종료한다.
+		if(size == 0) return;
+		
+		long halfLen  = 1 << (size-1);
+		//3.2 전처리 : 현재 위치가 4분면 중 어느곳에 있냐에 따라 값을 업데이트 해준다.
+		if(halfLen > curRow) {
+			if(halfLen > curCol) {
+				//3.3 재귀함수 호출 : 이동된 4분면을 기준으로 재귀함수 호출
+				recur_0(size-1, curRow, curCol);
+			}
+			else {
+				result += halfLen * halfLen;
+				//3.3 재귀함수 호출 : 이동된 4분면을 기준으로 재귀함수 호출
+				recur_0(size-1, curRow, curCol - halfLen);
+			}
+		}
+		else {
+			if(halfLen > curCol) {
+				result += halfLen * halfLen * 2;
+				//3.3 재귀함수 호출 : 이동된 4분면을 기준으로 재귀함수 호출
+				recur_0(size-1, curRow - halfLen, curCol);
+			}
+			else {
+				result += halfLen * halfLen * 3;
+				//3.3 재귀함수 호출 : 이동된 4분면을 기준으로 재귀함수 호출
+				recur_0(size-1, curRow - halfLen, curCol - halfLen);
+			}
+		}
+	}
+	public static void main(String[] args) throws IOException {
+		//1. 플레이어로부터 맵의 크기와 위치를 입력받는다.
+		String[] firstStr = br.readLine().trim().split(" ");
+		mapSize = Integer.parseInt(firstStr[0]);
+		rowPoint = Integer.parseInt(firstStr[1]);
+		colPoint = Integer.parseInt(firstStr[2]);
+		//2. 재귀함수를 호출해 결과를 받는다.
+		recur_0(mapSize, rowPoint, colPoint);
+		//4. 결과를 출력한다.
+		System.out.println(result);
+	}
+
+}
