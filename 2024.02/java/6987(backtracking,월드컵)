@@ -1,0 +1,94 @@
+package backjoon;
+import java.io.*;
+/*
+ * 0. 총 테스트 케이스는 4회로 1번부터 5번까지 4번 반복한다.
+ * 1. 사용자로부터 승부 결과에 대한 내용을 입력 받는다.
+ * 2. 입력 받을 때 승,무,패의 합이 5가 아니라면 에러처리를 한다.
+ * 3. 합에 문제가 없을 경우 combination 함수를 통해 모든 경우에 대해 처리한다.
+ * 4. combination함수의 경우 다음과 같이 동작한다.
+ * 		4.1 기저조건1 	: 이미 올바른 경우를 찾았을 경우 정지한다.
+ * 		4.2 기저조건2 	: 모든 플레이어가 적절한 결과를 가졌을 경우 이를 반영하고 종료한다.
+ * 		4.3 전처리	1	: 만약 해당 플레이어에 대해 배정이 끝날 경우 다음 플레이어로 넘어간다.
+ * 		4.4 전처리2	: 플레이어 본인과의 승패결과는 7로 처리한다.
+ * 		4.5 재귀 호출	: 기존 배정된 플레이어의 결과와 대응되고 사용할 수 있는 승패 결과라면 해당 변수에 대해 재귀 호출 
+ * 5. stringbuilder에 결과를 업로드한다.
+ * 6. stringbuilder내용을 출력한다.
+ */
+public class b6987_월드컵_김상우 {
+	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	static StringBuilder sb = new StringBuilder();
+	//사용자 입력을 저장할 변수
+	static int [][] battle = new int[6][3];
+	//배정된 승패결과가 담길 변수
+	static String [] number = new String[6];
+	//테스트별 최종 결과
+	static int finalResult=0;
+	//테스트 종료 여부 확인
+	static boolean endChk;
+	//4. combination함수의 경우 다음과 같이 동작한다.
+	static void combination(int player, String result, int count) {
+		//4.1 기저조건1 	: 이미 올바른 경우를 찾았을 경우 정지한다.
+		if(endChk) return;
+		//4.3 전처리	1	: 만약 해당 플레이어에 대해 배정이 끝날 경우 다음 플레이어로 넘어간다.
+		if(count == 6) {
+			number[player] = result;
+			player += 1;
+			count =0;
+			result = "";
+		}
+		//4.2 기저조건2 	: 모든 플레이어가 적절한 결과를 가졌을 경우 이를 반영하고 종료한다.
+		if(player == 6) {
+			finalResult = 1;
+			endChk = true;
+			return;
+		}
+		//4.4 전처리2	: 플레이어 본인과의 승패결과는 7로 처리한다.
+		if(count == player) {
+			combination(player, result+"7", count+1);
+			return;
+		}
+		//4.5 재귀 호출	: 기존 배정된 플레이어의 결과와 대응되고 사용할 수 있는 승패 결과라면 해당 변수에 대해 재귀 호출 
+		for(int idx=0;idx<3;idx++) {
+			if(battle[player][idx] > 0 ) {
+				if( (player<count) || (number[count].charAt(player) == '2' && idx == 1) ||
+				( number[count].charAt(player) == '1' && idx == 2) ||
+				( number[count].charAt(player) == '3' && idx == 0)) { 
+					battle[player][idx]--;
+					combination(player, result+Integer.toString(idx+1), count+1);
+					battle[player][idx]++;
+				}
+			}
+		}
+	}
+	
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+		boolean chk;
+		//0. 총 테스트 케이스는 4회로 1번부터 5번까지 4번 반복한다.
+		for(int testCase=0;testCase<4;testCase++) {
+			//각 테스트를 취한 초기화
+			endChk = false;
+			chk= false;
+			finalResult =0;
+			//1. 사용자로부터 승부 결과에 대한 내용을 입력 받는다.
+			String[] temp = br.readLine().trim().split(" ");
+			for(int idx =0;idx < 6;idx++) {
+				battle[idx][0] = Integer.parseInt(temp[idx*3]);
+				battle[idx][1] = Integer.parseInt(temp[idx*3+1]);
+				battle[idx][2] = Integer.parseInt(temp[idx*3+2]);
+				//2. 입력 받을 때 승,무,패의 합이 5가 아니라면 에러처리를 한다.
+				if(battle[idx][0] + battle[idx][1] + battle[idx][2] != 5) {
+					chk = true;
+					finalResult=0;
+					break;
+				}
+			}
+			//3. 합에 문제가 없을 경우 combination 함수를 통해 모든 경우에 대해 처리한다.
+			if(!chk)combination(0,"",0);
+			//5. stringbuilder에 결과를 업로드한다.
+			sb.append(finalResult).append(" ");
+		}
+		//6. stringbuilder내용을 출력한다
+		System.out.println(sb);
+	}
+}
