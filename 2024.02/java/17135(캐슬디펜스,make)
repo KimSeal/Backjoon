@@ -1,0 +1,139 @@
+package backjoon;
+
+/*
+ * 1. 사용자로부터 배열의 크기와 거리를 입력받는다.
+ * 2. 배열 정보를 입력받는다.
+ * 3. 완전탐색을 통해 궁수를 배치할 수 있는 모든 경우에 대해 해치우는 적의 수를 구한다.
+ * 4. 해치울 수 있는 적의 수를 구하는 메소드는 다음과 같이 동작한다.
+ * 		4.1 모든 몬스터를 리스트에 담고 조건에 따라 저격하는 몬스터를 구한다.
+ * 		4.2 저격되는 몬스터를 제거하고 모든 적을 한칸 내린다. 
+ * 		4.3 결과를 업데이트한다. 이를 맵의 세로 길이만큼 반복한다.
+ * 5. 결과를 출력한다.
+ */
+import java.io.*;
+import java.util.*;
+
+//적에 대한 정보
+class Enemy {
+	int x;
+	int y;
+	Enemy(int y, int x){
+		this.y = y;
+		this.x = x;
+	}
+}
+public class b17135_캐슬디펜스_김상우 {
+	static List<Enemy> list = new ArrayList<Enemy>();
+	static List<Enemy> tempList = new ArrayList<Enemy>();
+	static int [][] stage;
+	static int maxRow, maxCol, distance;
+	static int result=0;
+	
+	//3. 완전탐색을 통해 궁수를 배치할 수 있는 모든 경우에 대해 해치우는 적의 수를 구한다.
+	static void combo() {
+		
+		for(int idx0=0;idx0<maxCol;idx0++) {
+			for(int idx1=idx0+1;idx1<maxCol;idx1++) {
+				for(int idx2=idx1+1;idx2<maxCol;idx2++) {
+					//System.out.println(idx0 + " " +idx1 + " "+idx2);
+					gaming(idx0, idx1, idx2);
+					
+				}	
+			}
+		}
+	}
+	//4. 해치울 수 있는 적의 수를 구하는 메소드는 다음과 같이 동작한다.
+	static void gaming(int a, int b, int c) {
+		//4.1 모든 몬스터를 리스트에 담고 조건에 따라 저격하는 몬스터를 구한다.
+		tempList.clear();
+		for(Enemy enemy : list) {
+			tempList.add(new Enemy(enemy.y, enemy.x));
+		}
+		//반복을 위한 궁수 위치 배열, 결과저장, 임의 적 저장 변수
+		int [] archPoint = {a,b,c};
+		int tempResult =0;
+		Enemy temp;
+		//모든 적이 내려올때까지 확인
+		for(int waveIdx=0; waveIdx<=maxRow; waveIdx++) {
+			//각 궁수가 가리키는 적에 대한 정보
+			int[] hit_mon = {999999,999999, 999999};
+			Enemy[] ene_list = {new Enemy(-999999,999999), new Enemy(-999999,999999), new Enemy(-999999,999999)};
+			
+			//모든 적과 궁수의 거리 비교 및 업데이트
+			for(int enemyIdx=0;enemyIdx<tempList.size();enemyIdx++) {
+				temp =tempList.get(enemyIdx);
+				for(int idx=0;idx<3;idx++) {
+					//거리보다 먼 경우
+					if(maxRow-(temp.y) + Math.abs(temp.x-archPoint[idx]) > distance) {
+						continue;
+					}
+					//거리가 업데이트 되는 경우
+					if(maxRow-ene_list[idx].y + Math.abs(ene_list[idx].x-archPoint[idx]) > maxRow-(temp.y) + Math.abs(temp.x-archPoint[idx])) {
+						ene_list[idx] = temp;
+						hit_mon[idx] = enemyIdx;
+					}
+					//거리가 같으나 좌측에 있는 경우
+					else if (maxRow-ene_list[idx].y + Math.abs(ene_list[idx].x-archPoint[idx]) == maxRow-(temp.y) + Math.abs(temp.x-archPoint[idx]) 
+					&& ene_list[idx].x > temp.x){
+						ene_list[idx] = temp;
+						hit_mon[idx] = enemyIdx;
+					}
+				}
+				
+			}
+			//거리 정렬
+			Arrays.sort(hit_mon);
+			//각 궁수에 대한 처리(같은 적 바라볼 경우 포함)
+			if(hit_mon[0] < 900000 && hit_mon[0] != hit_mon[1]) {
+				tempResult++;
+				tempList.remove(hit_mon[0]);
+				hit_mon[1]--;
+				hit_mon[2]--;
+				
+			}
+			if(hit_mon[1] < 900000 && hit_mon[1] != hit_mon[2]) {
+				tempResult++;
+				tempList.remove(hit_mon[1]);
+				hit_mon[2]--;
+				
+			}
+			if(hit_mon[2] < 900000) {
+				tempResult++;
+				tempList.remove(hit_mon[2]);
+			}
+			//4.2 저격되는 몬스터를 제거하고 모든 적을 한칸 내린다. 
+			int sizeTemp = tempList.size();
+			for(int idx=0;idx<sizeTemp;idx++) {
+				tempList.get(idx).y++;
+				if(tempList.get(idx).y >= maxRow) {
+					tempList.remove(idx--);
+					sizeTemp--;
+				}
+			}
+		}
+		//4.3 결과를 업데이트한다. 이를 맵의 세로 길이만큼 반복한다.
+		result = (result > tempResult) ? result : tempResult;
+	}
+	public static void main(String[] args) throws IOException {
+		// 1. 사용자로부터 배열의 크기와 거리를 입력받는다.
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		String[] firstStr = br.readLine().trim().split(" ");
+		maxRow = Integer.parseInt(firstStr[0]);
+		maxCol = Integer.parseInt(firstStr[1]);
+		distance = Integer.parseInt(firstStr[2]);
+		stage = new int[maxRow][maxCol];
+		//2. 배열 정보를 입력받는다.
+		for(int rowIdx=0;rowIdx<maxRow;rowIdx++) {
+			firstStr = br.readLine().trim().split(" ");
+			for(int colIdx=0;colIdx<maxCol;colIdx++) {
+				stage[rowIdx][colIdx] = Integer.parseInt(firstStr[colIdx]);
+				if(stage[rowIdx][colIdx] == 1) list.add(new Enemy(rowIdx, colIdx));
+			}
+		}
+		//3. 완전탐색을 통해 궁수를 배치할 수 있는 모든 경우에 대해 해치우는 적의 수를 구한다.
+		combo();
+		//5. 결과를 출력한다.
+		System.out.println(result);
+	}
+
+}
