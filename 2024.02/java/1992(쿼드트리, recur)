@@ -1,0 +1,47 @@
+import java.io.*;
+public class Main {
+	static boolean [][] stage;
+	static int mapSize;
+	static StringBuilder sb = new StringBuilder();
+	static void recur_0(int y, int x, int size) {
+		if(size==0) return;
+		boolean temp = stage[y][x];
+		boolean chk = true;
+		
+		for(int rowIdx=0;rowIdx<size;rowIdx++) {
+			for(int colIdx=0;colIdx<size;colIdx++) {
+				if(temp != stage[y+rowIdx][x+colIdx]) {
+					chk = false;
+					break;
+				}
+			}
+			if(!chk) break;
+		}
+		
+		if(chk) {sb.append( (temp) ? "1" : "0" );} 
+		else {
+			sb.append("(");
+			recur_0(y, x, size/2);
+			recur_0(y, x+size/2, size/2);
+			recur_0(y+size/2, x, size/2);
+			recur_0(y+size/2, x+size/2, size/2);
+			sb.append(")");
+		}
+	}
+	public static void main(String[] args) throws IOException{
+		// TODO Auto-generated method stub
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		mapSize = Integer.parseInt(br.readLine().trim());
+		stage = new boolean[mapSize][mapSize];
+		String inputStr;
+		for(int idx=0;idx<mapSize;idx++) {
+			inputStr = br.readLine().trim();
+			for(int rowIdx = 0;rowIdx<mapSize;rowIdx++) {
+				if(inputStr.charAt(rowIdx) == '1') stage[idx][rowIdx] = true;
+			}
+		}
+		recur_0(0,0,mapSize);
+		System.out.println(sb);
+	}
+
+}
