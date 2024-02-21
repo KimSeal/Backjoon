@@ -1,0 +1,57 @@
+import java.io.*;
+import java.util.*;
+/*
+ * 1. 사용자로부터 학생수와 줄 수를 입력받는다.
+ * 2. 뒤에 두어야 하는 학생의 정보와 앞에 둔 학생의 수를 저장할 배열을 만든다.
+ * 3. 사용자로부터 순서에 대해 입력받고 이를 통해 위 배열을 업데이트 한다.
+ * 4. 앞에 아무 학생도 두지 않아도 되는 학생들을 queue에 넣는다.
+ * 5. 이후 BFS를 통해 앞에 둔 학생들을 제거해 가며 string builder에 등록된 학생들을 더한다.
+ * 6. String builder를 출력한다.
+ */
+public class Main {
+	static BufferedReader br = new BufferedReader (new InputStreamReader(System.in));
+	static StringBuilder sb = new StringBuilder();
+
+
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+		//1. 사용자로부터 학생수와 줄 수를 입력받는다.
+		String [] inputStr = br.readLine().trim().split(" ");
+		int studentNum = Integer.parseInt(inputStr[0]);
+		int compareNum = Integer.parseInt(inputStr[1]);
+		
+		//2. 뒤에 두어야 하는 학생의 정보와 앞에 둔 학생의 수를 저장할 배열을 만든다.
+		List<Integer> list[] = new ArrayList[studentNum+1];
+		int lineNum[] = new int[studentNum+1];		
+		for(int idx=1;idx<=studentNum;idx++) {
+			list[idx] = new ArrayList<Integer>();
+		}
+		
+		int tempNum;
+		
+		//3. 사용자로부터 순서에 대해 입력받고 이를 통해 위 배열을 업데이트 한다.
+		while(compareNum-->0) {
+			inputStr = br.readLine().trim().split(" ");
+			tempNum = Integer.parseInt(inputStr[1]);
+			list[Integer.parseInt(inputStr[0])].add(tempNum);
+			lineNum[tempNum]++;
+		}
+		
+		//4. 앞에 아무 학생도 두지 않아도 되는 학생들을 queue에 넣는다.
+		Queue<Integer> queue = new LinkedList<Integer>();
+		for(int i=1;i<=studentNum;i++) {
+			if(lineNum[i] == 0 ) queue.offer(i);
+		}
+		//5. 이후 BFS를 통해 앞에 둔 학생들을 제거해 가며 string builder에 등록된 학생들을 더한다.
+		while(!queue.isEmpty()) {
+			tempNum = queue.poll();
+			sb.append(tempNum + " ");
+			for(int dest : list[tempNum]) {
+				if(lineNum[dest]-- == 1) queue.offer(dest);
+			}
+		}
+		//6. String builder를 출력한다.
+		System.out.print(sb);
+	}
+
+}
