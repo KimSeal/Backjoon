@@ -1,0 +1,93 @@
+import java.io.*;
+import java.util.*;
+/*
+ * 1. 사용자로부터 치즈가 담긴 장소의 크기를 입력받는다.
+ * 2. 사용자로부터 치즈의 상태를 입력받는다.
+ * 3. bfs를 통해 규칙에 맞추어 가장자리를 제거한다.
+ * 4. 치즈가 남지 않게 되었을 경우, 해당 시간과 제거된 치즈를 출력한다.
+ */
+
+//좌표를 저장하는 클래스
+class point{
+	int x;
+	int y;
+	point(int y, int x){
+		this.x = x;
+		this.y = y;
+	}
+}
+public class b2636_치즈_김상우 {
+	static int visited[][];
+	static int[] dx = {0,1,0,-1};
+	static int [] dy = {-1,0,1,0};
+	static int colLen, rowLen;
+	static int [][] stage; 
+	static int result=0;
+	static int time=0, cheeseNum=0;
+	static Queue<point> queue = new LinkedList<point>();
+	public static int bfs() {
+		int delCheese=0;
+		//방문 체크
+		visited = new int [colLen][rowLen];
+		//없어지는 치즈 추후 제거
+		List<point> list = new ArrayList<>();
+		queue.offer(new point(0,0));
+		point tempPoint;
+		//모든 곳을 탐색했을 경우에 대한 bfs
+		while(!queue.isEmpty()) {
+			tempPoint = queue.poll();
+			for(int idx=0;idx<4;idx++) {
+				//이동 가능한지 여부 확인
+				if(tempPoint.y+dy[idx] >= 0 && tempPoint.y+dy[idx] < colLen &&
+						tempPoint.x+dx[idx] >= 0 && tempPoint.x+dx[idx] < rowLen &&
+						visited[tempPoint.y+dy[idx]][tempPoint.x+dx[idx]] == 0) {
+					visited[tempPoint.y+dy[idx]][tempPoint.x+dx[idx]] = 1;
+					//빈공간일 경우 그냥 이동
+					if(stage[tempPoint.y+dy[idx]][tempPoint.x+dx[idx]] == 0) {
+						queue.offer(new point(tempPoint.y+dy[idx], tempPoint.x+dx[idx]));
+					}
+					//치즈일경우 추후 제거만
+					else if(stage[tempPoint.y+dy[idx]][tempPoint.x+dx[idx]] == 1) {
+						list.add(new point(tempPoint.y+dy[idx], tempPoint.x+dx[idx]));
+						delCheese++;
+					}
+				}
+			}
+		}
+		for(point temp : list) {
+			stage[temp.y][temp.x] = 0;
+		}
+		return delCheese;
+	}
+	public static void main(String[] args) throws IOException{
+		// TODO Auto-generated method stub
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		//1. 사용자로부터 치즈가 담긴 장소의 크기를 입력받는다.
+		String [] inputStr = br.readLine().trim().split(" ");		
+		colLen = Integer.parseInt(inputStr[0]);
+		rowLen = Integer.parseInt(inputStr[1]);
+		stage = new int [colLen][rowLen];
+		//2. 사용자로부터 치즈의 상태를 입력받는다.
+		for(int colIdx=0;colIdx<colLen;colIdx++) {
+			inputStr = br.readLine().trim().split(" ");
+			for(int rowIdx =0;rowIdx<rowLen;rowIdx++) {
+				stage[colIdx][rowIdx] = Integer.parseInt(inputStr[rowIdx]);
+				if(stage[colIdx][rowIdx] == 1) result++;
+			}
+		}
+		//3. bfs를 통해 규칙에 맞추어 가장자리를 제거한다.
+		while(result>0) {
+			time++;
+			cheeseNum = bfs();
+			//남은 치즈와 제거된 치즈의 수가 같은 경우
+			if(result == cheeseNum) {
+				break;
+			}
+			result -= cheeseNum;
+		}
+		//4. 치즈가 남지 않게 되었을 경우, 해당 시간과 제거된 치즈를 출력한다.
+		System.out.print(time + "\n"+ cheeseNum);
+	}
+
+}
