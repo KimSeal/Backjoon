@@ -1,0 +1,60 @@
+import java.util.*;
+import java.io.*;
+
+public class 램프 {
+	static Map<String, Integer> map =new HashMap<>();
+	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+	static class line implements Comparable<line>{
+		String col;
+		int value;
+		line(String col, int value){
+			this.col = col;
+			this.value = value;
+		}
+		@Override
+		public int compareTo(line o) {
+			return Integer.compare(this.value, o.value);
+		}
+		
+	}
+	public static void main(String[] args) throws IOException{
+		// TODO Auto-generated method stub
+		int colNum, rowNum;
+		String[] inputStr = br.readLine().trim().split(" ");
+		colNum = Integer.parseInt(inputStr[0]);
+		rowNum = Integer.parseInt(inputStr[1]);
+		String input0;
+		for(int idx=0;idx<colNum;idx++) {
+			input0 = br.readLine().trim();
+			if(map.containsKey(input0)) {
+				map.replace(input0, map.get(input0)+1);
+			}
+			else {
+				map.put(input0, 1);
+			}
+		}
+		int switchNum = Integer.parseInt(br.readLine().trim());
+		
+		List<line> list = new ArrayList<>();
+		for(String key : map.keySet()) {
+			list.add(new line(key, map.get(key)));
+		}
+		Collections.sort(list, Comparator.reverseOrder());
+		int result =0, zeronum;
+		for(line temp : list) {
+			//System.out.println(temp.col + " " + temp.value);
+			zeronum =0;
+			for(int idx=0;idx<rowNum;idx++) {
+				if(temp.col.charAt(idx) == '0') zeronum++;
+			}
+
+			if((switchNum >= zeronum) && (switchNum - zeronum)%2  == 0 ) {
+				result = temp.value;
+				break;
+			}
+		}
+		System.out.println(result);
+	}
+
+}
