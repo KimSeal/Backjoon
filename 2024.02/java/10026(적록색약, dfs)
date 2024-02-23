@@ -1,0 +1,87 @@
+
+import java.io.*;
+/*
+ * 1. 사용자로부터 그림의 변 길이를 입력받는다.
+ * 2. 사용자로부터 그림에 대한 정보를 입력받는다.
+ * 3. DFS를 이용해 각 경우에 따라 색을 구분한다.
+ * 4. 결과를 출력한다.
+ */
+public class b10026_적록색약_김상우 {
+	static boolean visited[][];
+	static char drawing[][];
+	static int Length;
+	static int [] dx = {0,1,0,-1};
+	static int[] dy = {-1,0,1,0};
+
+	static BufferedReader br = new BufferedReader (new InputStreamReader(System.in));
+	static StringBuilder sb = new StringBuilder();
+	static public boolean dfs(int y, int x, char ch) {
+		//방문한 곳이면 가지 않는다.
+		if(visited[y][x]) return false;
+		//방문 표시
+		visited[y][x] = true;
+		//갈 수 잇고 같은 문자면 이동
+		for(int idx=0;idx<4;idx++) {
+			if(y+dy[idx] >=0  && y + dy[idx]<Length &&
+					x+dx[idx] >=0  && x + dx[idx]<Length &&
+					ch == drawing[y+dy[idx]][x + dx[idx]])
+			dfs(y + dy[idx], x+dx[idx], ch);
+		}
+		return true;
+	}
+	
+	static public boolean dfs2(int y, int x, char ch) {
+		if(visited[y][x]) return false;
+		visited[y][x] = true;
+		for(int idx=0;idx<4;idx++) {
+			//그림 내의 위치 확인
+			if(y+dy[idx] >=0  && y + dy[idx]<Length &&
+					x+dx[idx] >=0  && x + dx[idx]<Length) {
+				//같거나 녹/적이 교차하는 경우에 대해 처리
+				if(ch == drawing[y+dy[idx]][x + dx[idx]] || 
+					(ch =='R' && drawing[y+dy[idx]][x + dx[idx]] == 'G') ||
+					(ch =='G' && drawing[y+dy[idx]][x + dx[idx]] == 'R') ) {
+					dfs2(y + dy[idx], x+dx[idx], ch);
+				}
+			}	
+		}
+		return true;
+	}
+	
+	public static void main(String[] args) throws IOException{
+		// TODO Auto-generated method stub
+		//1. 사용자로부터 그림의 변 길이를 입력받는다.
+		Length = Integer.parseInt(br.readLine().trim());
+		String inputStr;
+		//2. 사용자로부터 그림에 대한 정보를 입력받는다.
+		drawing = new char [Length][Length];
+		for(int idx=0;idx<Length;idx++) {
+			inputStr = br.readLine().trim();
+			for(int rowIdx=0;rowIdx<Length;rowIdx++) {
+				drawing[idx][rowIdx] = inputStr.charAt(rowIdx);
+			}
+		}
+		//3. DFS를 이용해 각 경우에 따라 색을 구분한다.
+		visited = new boolean [Length][Length];
+		int result=0;
+		//일반인의 경우
+		for(int idx=0;idx<Length;idx++) {
+			for(int rowIdx=0;rowIdx<Length;rowIdx++) {
+				if(dfs(idx, rowIdx, drawing[idx][rowIdx])) result++;
+			}
+		}
+		sb.append(result + " ");
+		visited = new boolean [Length][Length];
+		result=0;
+		//적록색약의 경우
+		for(int idx=0;idx<Length;idx++) {
+			for(int rowIdx=0;rowIdx<Length;rowIdx++) {
+				if(dfs2(idx, rowIdx, drawing[idx][rowIdx])) result++;
+			}
+		}
+		//4. 결과를 출력한다.
+		sb.append(result);
+		System.out.print(sb);
+	}
+
+}
