@@ -1,0 +1,93 @@
+import java.io.*;
+import java.util.*;
+/*
+ * 1. 사용자로부터 도시의 너비와 치킨집 수를 입력받는다.
+ * 2. 사용자로부터 도시 정보를 입력받고 집과 치킨 집의 정보를 따로 저장한다.
+ * 3. 치킨 집을 최대 수 만큼 고르는 모든 경우에 대해 모든 집 거리를 구해 업데이트한다.
+ * 4. 거리를 출력한다.
+ */
+class chkPoint {
+	int x;
+	int y;
+	chkPoint(int y, int x){
+		this.y = y;
+		this.x = x;
+	}
+}
+
+public class Main {
+	static int result = 999999999;
+	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	static int cityLength, chickenHouse, chkHouseNum;
+	static int cityMap[][];
+	static int[] chickenSelect;
+	static List<chkPoint> homeList = new ArrayList<>();
+	static List<chkPoint> chickenList = new ArrayList<>();
+	//치킨집 고르기
+	public static void combi(int curSel, int curPoint) {
+		//기저조건 1 : 지정된 치킨 집 만큼 골랐을 때, 거리 측정 시작
+		if(curSel == chickenHouse) {
+			chickenStreet();
+			return;
+		}
+		if(chickenHouse - curSel > chkHouseNum- curPoint) return;
+		/*
+		//기저조건 2 : 다 고르지 못했는데 마지막 원소에 도달시 포기
+		if(curPoint == chkHouseNum) return;
+		*/
+		//조합 생성
+		for(int idx=curPoint;idx<chkHouseNum;idx++) {
+			chickenSelect[curSel] = idx;
+			combi(curSel+1, idx+1);
+		}
+	}
+	
+	public static void chickenStreet() {
+		int tempResult=0; 
+		int tempMin, tempDist;
+		chkPoint tempPoint;
+		//모든 집들에 대해 조사
+		for(chkPoint pointHome : homeList) {
+			tempMin=999999999;
+			//가장 가까운 치킨 집 탐색
+			for(int chkIdx=0;chkIdx<chickenHouse;chkIdx++) {
+				tempDist = Math.abs(pointHome.x - chickenList.get(chickenSelect[chkIdx]).x) +
+						Math.abs(pointHome.y - chickenList.get(chickenSelect[chkIdx]).y );
+				tempMin = (tempMin < tempDist) ? tempMin : tempDist ;
+			}
+			tempResult += tempMin;
+			if (result < tempResult) return;
+		}
+		//치킨 거리값 출력 후 업데이트
+		result = (result < tempResult) ? result : tempResult;
+		return;
+	}
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+		//1. 사용자로부터 도시의 너비와 치킨집 수를 입력받는다.
+		String [] inputStr = br.readLine().trim().split(" ");
+		cityLength = Integer.parseInt(inputStr[0]);
+		chickenHouse = Integer.parseInt(inputStr[1]);
+		cityMap = new int [cityLength][cityLength];
+		//조합을 지정
+		chickenSelect = new int[chickenHouse];
+		
+		//2. 사용자로부터 도시 정보를 입력받고 집과 치킨 집의 정보를 따로 저장한다.
+		for(int colIdx=0;colIdx<cityLength;colIdx++) {
+			inputStr = br.readLine().trim().split(" ");
+			for(int rowIdx =0;rowIdx<cityLength;rowIdx++) {
+				cityMap[colIdx][rowIdx] = Integer.parseInt(inputStr[rowIdx]);
+				//치킨집과 집들에 관해 따로 저장
+				if(cityMap[colIdx][rowIdx] == 1) homeList.add(new chkPoint(colIdx, rowIdx));
+				if(cityMap[colIdx][rowIdx] == 2) chickenList.add(new chkPoint(colIdx, rowIdx));				
+			}
+		}
+        chkHouseNum = chickenList.size();
+		
+        //3. 치킨 집을 최대 수 만큼 고르는 모든 경우에 대해 모든 집 거리를 구해 업데이트한다.
+        combi(0,0);
+        
+        //4. 거리를 출력한다.
+		System.out.print(result);
+	}
+}
