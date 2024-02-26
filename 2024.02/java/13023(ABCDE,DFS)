@@ -1,0 +1,65 @@
+import java.io.*;
+import java.util.*;
+/*
+ * 1. 사용자로부터 사람의 수와 간선의 수를 입력받는다.
+ * 2. 모든 간선에 대해 맞는 list를 만들어준다. 간선의 수도 같이 기록한다.
+ * 3. 모든 노드에 대해 깊이가 5인 경우까지 dfs가 유지되는 지 확인한다.
+ * 		3.1 기저조건 1: 5명이 연속해서 친구이면 반환
+ * 		3.2 기저조건 2: list에 더이상 간선이 없어 탐색이 불가능하면 반환
+ * 		3.3 전처리     	: 방문 여부 및 노드 갯수를 업데이트
+ * 		3.4 후처리		: 전처리에 대한 해제
+ * 4. dfs가 유지되었다면 결과를 출력한다.
+ */
+public class Main {
+	static int nodeNum, commandNum,lineNum[];
+	static List<Integer>[] list;
+	static boolean [] visited;
+	
+	public static boolean findFriend(int curNode, int depth){
+		//3.1 기저조건 1: 5명이 연속해서 친구이면 반환
+		if(depth==4) return true;
+		//3.2 기저조건 2: list에 더이상 간선이 없어 탐색이 불가능하면 반환
+		if(lineNum[curNode]==0) return false;
+		//3.3 전처리     	: 방문 여부 및 노드 갯수를 업데이트
+		visited[curNode] = true;
+		for(int idx : list[curNode]) {
+			if(!visited[idx]) {
+				lineNum[idx]--;
+				if(findFriend(idx, depth+1)) return true; 
+				//3.4 후처리		: 전처리에 대한 해제
+				lineNum[idx]++;
+			}
+		}
+		visited[curNode] = false;
+		return false;
+	}
+	public static void main(String[] args) throws IOException{
+		//1. 사용자로부터 사람의 수와 간선의 수를 입력받는다.
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		String [] inputStr = br.readLine().trim().split(" ");
+		nodeNum = Integer.parseInt(inputStr[0]);
+		commandNum = Integer.parseInt(inputStr[1]);
+		int tempNum1, tempNum2;
+		lineNum = new int[nodeNum];
+		visited = new boolean[nodeNum];
+		//2. 모든 간선에 대해 맞는 list를 만들어준다. 간선의 수도 같이 기록한다.
+		list = new ArrayList[nodeNum];
+		for(int idx=0;idx<nodeNum;idx++) list[idx] = new ArrayList<>();
+		for(int idx=0;idx<commandNum;idx++) {
+			inputStr = br.readLine().trim().split(" ");
+			tempNum1 = Integer.parseInt(inputStr[0]);
+			tempNum2 = Integer.parseInt(inputStr[1]);
+			list[tempNum1].add(tempNum2);
+			list[tempNum2].add(tempNum1);
+		}
+		for(int idx=0;idx<nodeNum;idx++)lineNum[idx] = list[idx].size();
+		//3. 모든 노드에 대해 깊이가 5인 경우까지 dfs가 유지되는 지 확인한다.
+		for(int idx=0;idx<nodeNum;idx++) {
+			if(findFriend(idx, 0)) {
+				////4. dfs가 유지되었다면 결과를 출력한다.
+				System.out.print(1); return;
+			}
+		}
+		System.out.print(0);
+	}
+}
