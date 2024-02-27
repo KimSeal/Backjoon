@@ -1,0 +1,56 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	static StringBuilder sb = new StringBuilder();
+	static int passwordLen, useWordNum, selNumArr[];
+	static boolean [] visit;
+	static List<Character> list = new ArrayList<>();
+	public static void combination(int selNum, int curPoint) {
+		if(selNum == passwordLen) {
+			int moCount=0, zaCount=0;
+			char tempChar;
+			String tempStr = "";
+			for(int temp : selNumArr) {
+				tempChar = list.get(temp);
+				if(tempChar == 'a' ||tempChar == 'e' ||
+						tempChar == 'i' ||tempChar == 'o' ||
+						tempChar == 'u') {
+					moCount++;
+				}
+				else zaCount++;
+				tempStr += tempChar;
+			}
+			if(moCount >0 && zaCount >1) sb.append(tempStr + "\n");
+			return;
+		}
+		if(useWordNum - curPoint < passwordLen - selNum) {
+			return;
+		}
+		
+		for(int idx=curPoint;idx<useWordNum;idx++) {
+			if(visit[idx]) continue;
+			visit[idx] = true;
+			selNumArr[selNum] = idx;
+			combination(selNum+1, idx+1);
+			visit[idx] = false;
+		}
+	}
+	public static void main(String[] args) throws IOException {
+		String [] inputStr = br.readLine().trim().split(" ");
+		passwordLen = Integer.parseInt(inputStr[0]);
+		useWordNum = Integer.parseInt(inputStr[1]);
+		visit = new boolean[useWordNum];
+		selNumArr = new int [passwordLen];
+		inputStr = br.readLine().trim().split(" ");
+
+		for(int idx=0;idx<useWordNum;idx++) {
+			list.add(inputStr[idx].charAt(0));
+		}
+		Collections.sort(list);
+		combination(0,0);
+		System.out.print(sb);
+	}
+
+}
