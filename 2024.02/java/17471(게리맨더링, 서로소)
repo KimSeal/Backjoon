@@ -1,0 +1,75 @@
+import java.util.*;
+import java.io.*;
+/*
+ * 1. 사용자로부터 도시수, 사람수, 입력을 받는다.
+ * 2. 
+ */
+public class Main {
+	static public class Edge2 {
+		int from;
+		int to;
+		Edge2(int a, int b){
+			this.from = a;
+			this.to = b;
+		}
+	}
+	static int personNum[] = new int[11];
+	static int parents[] = new int [11];
+	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	static List<Edge2> list = new ArrayList<Edge2>();
+	static int cityNum, aParent, bParent, groupNum, comp1, result, selNum;
+	public static void main(String[] args) throws IOException{
+		cityNum = Integer.parseInt(br.readLine().trim());
+		String [] inputStr = br.readLine().trim().split(" ");
+		for(int idx=0;idx<cityNum;idx++) personNum[idx+1] = Integer.parseInt(inputStr[idx]);
+		int temp, tempSize;
+		for(int cityIdx=1;cityIdx<=cityNum;cityIdx++) {
+			inputStr = br.readLine().trim().split(" ");
+			tempSize = Integer.parseInt(inputStr[0]);
+			for(int lineIdx =1;lineIdx<= tempSize;lineIdx++) {
+				temp = Integer.parseInt(inputStr[lineIdx]);
+				if(cityIdx<temp) list.add(new Edge2(cityIdx, temp));
+			}
+		}
+		System.out.print(completeFind());
+	}
+	public static int completeFind() {
+		selNum=1;
+		result =999999999;
+		while(selNum < (1<<cityNum)-1) {
+			comp1 =0;
+			for(int idx=0;idx<=cityNum;idx++) parents[idx] = idx;
+			if(suroso(selNum)) {
+				for(int idx=0;idx<cityNum;idx++) {
+					if((selNum & (1 << idx)) ==0) comp1+=personNum[idx+1];
+					else comp1-= personNum[idx+1];
+				}
+				comp1 = (comp1 < 0) ? comp1*-1 : comp1; 
+				result = (result < comp1)  ? result : comp1;
+			}
+			selNum++;
+		}
+		return (result == 999999999) ? -1 : result;
+	}
+	public static boolean suroso(int input) {
+		for(Edge2 tempEdge : list) {
+			if( ((input & (1<<(tempEdge.from-1)))==0) == ((input & (1<<(tempEdge.to-1)))==0) ) {
+				aParent = findParent(tempEdge.from);
+				bParent = findParent(tempEdge.to);
+				if(aParent == bParent) continue;
+				parents[bParent] = aParent;
+			}
+		}
+		groupNum =0;
+		for(int idx=1;idx<=cityNum;idx++) {
+			if(findParent(idx) == idx) groupNum++;
+			if(groupNum>2) return false;
+		}
+		if(groupNum!=2) return false;
+		return true;
+	}
+	public static int findParent(int idx) {
+		if(parents[idx] == idx) return idx;
+		else return parents[idx] = findParent(parents[idx]);
+	}
+}
