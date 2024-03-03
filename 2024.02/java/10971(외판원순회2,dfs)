@@ -1,0 +1,46 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	static int len = 0, line[][];
+	static boolean visit[] = new boolean [10];
+	static int minLen = 999999999;
+	static void dfs(int startNum, int curNum, int selNum, int result) {
+		if(result>minLen) return;
+		if(selNum==len) {
+			if(line[curNum][startNum] == 0) {
+				return;
+			}
+			result += line[curNum][startNum];
+			minLen = (result > minLen) ?  minLen : result;
+			return;
+		}
+		for(int idx=0;idx<len;idx++) {
+			if(idx != startNum && !visit[idx] && line[curNum][idx]!=0) {
+				visit[idx]= true;
+				dfs(startNum, idx, selNum+1, result + line[curNum][idx]);
+				visit[idx] = false;
+			}
+		}
+	}
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+		len = Integer.parseInt(br.readLine().trim());
+		line = new int[10][10];
+		String [] input;
+		for(int colIdx=0;colIdx<len;colIdx++) {
+			input = br.readLine().trim().split(" ");
+			for(int rowIdx=0;rowIdx<len;rowIdx++) {
+				line[colIdx][rowIdx] = Integer.parseInt(input[rowIdx]);
+			}
+		}
+		for(int idx=0;idx<len;idx++) {
+			visit[idx]= true;
+			dfs(idx, idx, 1, 0);
+			visit[idx] = false;
+		}
+		System.out.println(minLen);
+	}
+
+}
