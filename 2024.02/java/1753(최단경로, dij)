@@ -1,0 +1,83 @@
+import java.io.*;
+import java.util.*;
+public class Main {
+	static class Point implements Comparable<Point>{
+		long dist;
+		int node;
+		Point(long dist, int node){
+			this.dist = dist;
+			this.node = node;
+		}
+		@Override
+		public int compareTo(Point o){
+			return Long.compare(this.dist, o.dist);
+		}
+	}
+	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	static int nodeNum, lineNum, startPoint;
+	static ArrayList<Point>[] lineVal;
+	static long [] dist;
+	static PriorityQueue<Point> pq = new PriorityQueue<>();
+	public static void dij() {
+		pq.add(new Point(0, startPoint));
+		int visitNum=0;
+		boolean visited[] = new boolean[nodeNum+1];
+		dist[startPoint] = 0;
+		
+		while(!pq.isEmpty()) {
+			Point temp = pq.poll();
+			
+			//if(visited[temp.node]) continue;
+			//System.out.println(temp.dist + " "+ temp.node);
+			//visited[temp.node] = true;
+			//visitNum++;
+			//if(visitNum == nodeNum) {
+			//	System.out.print(temp.dist);
+			//	break;
+			//}
+			for(Point tempLine : lineVal[temp.node]) {
+				//System.out.println(tempLine.node);
+				if(//!visited[tempLine.node] && 
+						temp.dist + tempLine.dist < dist[tempLine.node]) {
+					dist[tempLine.node] = temp.dist + tempLine.dist;
+					pq.add(new Point(dist[tempLine.node], tempLine.node));
+					//System.out.println(dist[tempLine.node] +" "+ tempLine.node );
+				}
+			}
+		}
+		for(int idx=1; idx<=nodeNum;idx++) {
+			System.out.println((dist[idx] == 999999999999L) ? "INF" : dist[idx]);
+		}
+	}
+	public static void main(String[] args) throws IOException{
+		// TODO Auto-generated method stub
+		String [] input;
+		
+		input = br.readLine().trim().split(" ");
+		nodeNum = Integer.parseInt(input[0]);
+		lineNum = Integer.parseInt(input[1]);
+		startPoint = Integer.parseInt(br.readLine().trim());
+		lineVal =  new ArrayList[nodeNum+1];
+		for(int idx=1;idx<=nodeNum;idx++) {
+			lineVal[idx] = new ArrayList<Point>();
+		}
+		dist = new long[nodeNum+1];
+		for(int idx=1;idx<=nodeNum;idx++) {
+			dist[idx] = 999999999999L;
+		}
+		int input0, input1, input2;
+		for(int idx=0;idx<lineNum;idx++) {
+			input = br.readLine().trim().split(" ");
+			input0 = Integer.parseInt(input[0]);
+			input1 = Integer.parseInt(input[1]);
+			input2 = Integer.parseInt(input[2]);
+			lineVal[input0].add(new Point(input2, input1));
+		}
+		
+		dij();
+		
+		
+		
+	}
+
+}
