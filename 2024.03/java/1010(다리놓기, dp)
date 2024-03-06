@@ -1,0 +1,28 @@
+import java.io.*;
+public class Main {
+	public static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+	
+	public static long com(long [][] dp, int k, int n) {
+		if(n==0 || k==n) return dp[k][n] = 1;
+		if(dp[k][n] != 0) return dp[k][n];
+		return dp[k][n] = com(dp, k-1, n) + com(dp, k-1, n-1);
+	}
+	
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+		int testNum = Integer.parseInt(br.readLine().trim());
+		String [] inputStr;
+		int input0, input1;
+		for(int idx=0;idx<testNum;idx++) {
+			
+			inputStr =	br.readLine().trim().split(" ");
+			input0 = Integer.parseInt(inputStr[0]);
+			input1 = Integer.parseInt(inputStr[1]);
+			long dp [][] = new long [input1+1][input0+1];
+			com(dp, input1, input0);
+			System.out.println(dp[input1][input0]);
+		}
+	}
+
+}
