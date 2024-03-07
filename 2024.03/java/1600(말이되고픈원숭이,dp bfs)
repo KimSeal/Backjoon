@@ -1,0 +1,93 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+	public static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	static int moveNum;
+	static int colLen, rowLen, result = 999999999;
+	static boolean[][] stage;
+	static boolean [][][] dp;
+	static int dx[] = {1, 2, 2, 1, -1, -2, -2, -1};
+	static int dy[] = {-2, -1, 1, 2, 2, 1, -1, -2};
+	static int dx2[] = {0,1,0,-1};
+	static int dy2[] = {-1,0,1,0};
+	static class point{
+		int y;
+		int x;
+		int z;
+		point(int y, int x, int z){
+			this.y = y;
+			this.x = x;
+			this.z = z;
+			
+		}
+	}
+	static void bfs() {
+		Queue<point> queue = new LinkedList<>();
+		queue.add(new point(0,0,0));
+		int resultTemp =0;
+		boolean chk= false;
+		while(!queue.isEmpty()) {
+			int tempSize = queue.size();
+			dp[0][0][0]=true;
+			for(int testIdx=0;testIdx<tempSize;testIdx++) {
+				point Point = queue.poll();
+				//System.out.println(Point.y + " " + Point.x + " " + Point.z);
+				
+				if(Point.y == colLen-1 && Point.x == rowLen-1) {
+					chk = true;
+					break;
+				}
+				for(int idx=0;idx<4;idx++) {
+					if(Point.y+dy2[idx] >= 0 && Point.y + dy2[idx]<colLen && 
+							Point.x+dx2[idx] >= 0 && Point.x + dx2[idx]<rowLen &&
+							!stage[Point.y+dy2[idx]][Point.x+dx2[idx]] && 
+							!dp[Point.y+dy2[idx]][Point.x+dx2[idx]][Point.z] ) {
+						dp[Point.y+dy2[idx]][Point.x+dx2[idx]][Point.z] =true;
+						//System.out.println(Point.z + "put2");
+						queue.add(new point(Point.y+dy2[idx],Point.x+dx2[idx],Point.z));
+					}
+				}
+				for(int idx=0;idx<8;idx++) {
+					
+					if(Point.z+1 <= moveNum && Point.y+dy[idx] >= 0 && Point.y + dy[idx]<colLen && 
+							Point.x+dx[idx] >= 0 && Point.x + dx[idx]<rowLen &&
+							!stage[Point.y+dy[idx]][Point.x+dx[idx]] && 
+							!dp[Point.y+dy[idx]][Point.x+dx[idx]][Point.z+1] ) {
+						dp[Point.y+dy[idx]][Point.x+dx[idx]][Point.z+1] =true;
+						//System.out.println(Point.z + "put");
+						queue.add(new point(Point.y+dy[idx],Point.x+dx[idx],Point.z+1));
+					}
+				}
+			}
+			if(chk) {
+				result = resultTemp;
+				break;
+			}
+			resultTemp++;
+			
+		}
+		
+		
+	}
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+		moveNum = Integer.parseInt(br.readLine().trim());
+		String [] input = br.readLine().split(" ");
+		rowLen = Integer.parseInt(input[0]);
+		colLen = Integer.parseInt(input[1]);
+		stage = new boolean[colLen][rowLen];
+		dp = new boolean[colLen][rowLen][moveNum+1];
+		for(int colIdx =0;colIdx<colLen;colIdx++) {
+			input = br.readLine().trim().split(" ");
+			for(int rowIdx=0;rowIdx<rowLen;rowIdx++) {
+				if(Integer.parseInt(input[rowIdx]) == 1) {
+					stage[colIdx][rowIdx] = true;
+				}
+			}
+		}
+		
+		bfs();
+		System.out.println((result == 999999999)?-1:result);
+	}
+}
