@@ -1,0 +1,35 @@
+import java.io.*;
+/*
+ * 1. 사용자로부터 맵 크기와 벽 위치를 입력받는다.
+ * 2. 가장 위쪽은 가로만 연결 가능하므로 이에 대해 처리한다.
+ * 3. 3 종류의 파이프가 들어가는 경우에 대한 계산을 한다.
+ * 4. 우측하단의 값을 처리한다.
+ */
+public class Main {
+	public static void main(String[] args) throws IOException {
+		BufferedReader br =new BufferedReader(new InputStreamReader(System.in));
+		//1. 사용자로부터 맵 크기와 벽 위치를 입력받는다.
+		int homeSize = Integer.parseInt(br.readLine().trim());
+		boolean wall[][] = new boolean [homeSize][homeSize];
+		int dp[][][] = new int [homeSize][homeSize][3]; 
+
+		String[] input;
+		for(int colIdx=0;colIdx<homeSize;colIdx++) {
+			input = br.readLine().trim().split(" ");
+			for(int rowIdx=0;rowIdx<homeSize;rowIdx++) if(Integer.parseInt(input[rowIdx]) == 1) wall[colIdx][rowIdx] = true;
+		}
+		//2. 가장 위쪽은 가로만 연결 가능하므로 이에 대해 처리한다.
+		for(int idx=1;idx<homeSize && !wall[0][idx-1];idx++)dp[0][idx][0] =1;
+		//3. 3 종류의 파이프가 들어가는 경우에 대한 계산을 한다.
+		for(int colIdx=1;colIdx<homeSize;colIdx++) {
+			for(int rowIdx=2;rowIdx<homeSize;rowIdx++) {
+				if(wall[colIdx][rowIdx]) continue;
+				if(!wall[colIdx][rowIdx-1]) dp[colIdx][rowIdx][0] = dp[colIdx][rowIdx-1][0] + dp[colIdx][rowIdx-1][1];
+				if(!wall[colIdx][rowIdx-1] && !wall[colIdx-1][rowIdx-1] && !wall[colIdx-1][rowIdx]) dp[colIdx][rowIdx][1] = dp[colIdx-1][rowIdx-1][0] +  dp[colIdx-1][rowIdx-1][1]+  dp[colIdx-1][rowIdx-1][2];
+				if(!wall[colIdx-1][rowIdx]) dp[colIdx][rowIdx][2] = dp[colIdx-1][rowIdx][1] +  dp[colIdx-1][rowIdx][2];
+			}
+		}
+		//4. 우측하단의 값을 처리한다.
+		System.out.print(dp[homeSize-1][homeSize-1][0]+dp[homeSize-1][homeSize-1][1]+dp[homeSize-1][homeSize-1][2]);
+	}
+}
