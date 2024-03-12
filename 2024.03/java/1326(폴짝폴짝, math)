@@ -1,0 +1,63 @@
+package backjoon;
+import java.io.*;
+import java.util.*;
+
+public class Main {
+	static class Point{
+		int count;
+		int place;
+		Point(int count, int place){
+			this.count= count;
+			this.place = place;
+		}
+	}
+	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	static Queue<Point> queue = new LinkedList<>();
+	static int length, start, end;
+	static int bridge[];
+	static boolean visited[];
+	public static void main(String[] args) throws IOException{
+		// TODO Auto-generated method stub
+		length = Integer.parseInt(br.readLine().trim());
+		bridge = new int[length];
+		visited = new boolean[length];
+		String input[] = br.readLine().trim().split(" ");
+		for(int i=0;i<length;i++) {
+			bridge[i] = Integer.parseInt(input[i]);
+		}
+		input = br.readLine().trim().split(" ");
+		start= Integer.parseInt(input[0]);
+		end= Integer.parseInt(input[1])-1;
+		
+		if(start==end) {System.out.print(0);return;}
+		int result = -1;
+		queue.add(new Point(0, start-1));
+		visited[start-1]=true;
+		while(!queue.isEmpty()) {
+			Point temp =queue.poll();
+			if(temp.place==end) {
+				result = temp.count;
+				break;
+			}
+			int jump = bridge[temp.place];
+			int curPoint=temp.place + jump;
+			while(curPoint<length) {
+				if(!visited[curPoint]) {
+					visited[curPoint]=true;
+					queue.add(new Point(temp.count+1, curPoint));
+				}
+				curPoint+= jump;
+			}
+			curPoint=temp.place - jump;
+			while(curPoint>=0) {
+				if(!visited[curPoint]) {
+					visited[curPoint]=true;
+					queue.add(new Point(temp.count+1, curPoint));
+				}
+				curPoint-= jump;
+			}
+		}
+		System.out.print(result);
+	}
+
+}
