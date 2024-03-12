@@ -1,0 +1,31 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	static int length;
+	public static void main(String[] args) throws IOException{
+		// TODO Auto-generated method stub
+		length = Integer.parseInt(br.readLine().trim());
+		if(length==1) {
+			System.out.println(3);
+			return;
+		}
+		long visit[] = new long[length+1];
+		visit[0] = 1; visit[1]=2; visit[2]=4;
+		
+		for(int i=3;i<=length;i++) {
+			visit[i] = (visit[i-1] + visit[i-2]+visit[i-3])%1000000;
+		}
+		long result = visit[length];
+		int temp = length-1;
+		while(temp>=0) {
+			result +=(visit[temp] * visit[length-1-temp]);
+			result %= 1000000;
+			temp--;
+		}
+		System.out.println(result);
+		
+	}
+
+}
