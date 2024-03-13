@@ -1,0 +1,73 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	static int length, initX, initY, mineX, mineY;
+	public static void main(String[] args) throws IOException{
+		// TODO Auto-generated method stub
+		String input[] = br.readLine().trim().split(" ");
+		length = Integer.parseInt(input[0]);
+		initX = Integer.parseInt(input[1]);
+		initY = Integer.parseInt(input[2]);
+		mineX = Integer.parseInt(input[3]);
+		mineY = Integer.parseInt(input[4]);
+		mineX -= initX;
+		mineY -= initY;
+		if(mineX<0 || mineY<0) {
+			System.out.println(-1);
+			return;
+		}
+		boolean chk=false;
+		int Rnum=-1, Unum=-1;
+		int moveNum = (mineX+mineY)/length;
+		int moveNum2 = (mineX+mineY) - moveNum * length;
+		int tempY, tempX;
+		for(int i=0;i<=moveNum2;i++) {
+			tempY = mineY-i;
+			tempX = mineX-(moveNum2-i);
+			if(moveNum==0 || (tempY%moveNum ==0 && tempX%moveNum==0)) {
+				if(moveNum==0) {
+					Rnum = mineX;
+					Unum = mineY;
+					for(int j=0;j<mineX;j++) {
+						System.out.print("R");
+					}
+					for(int j=0;j<mineY;j++) {
+						System.out.print("U");
+					}
+					for(int j=0;j<length-mineX-mineY;j++) {
+						System.out.print("R");
+					}
+					chk =true;
+					break;
+				}
+				else{
+					Rnum = tempX/moveNum;
+					Unum = tempY/moveNum;
+					if(Rnum>= mineX-tempX && Unum>= mineY-tempY) {
+						for(int j=0;j<mineX-tempX;j++) {
+							System.out.print("R");
+						}
+						for(int j=0;j<mineY-tempY;j++) {
+							System.out.print("U");
+						}
+						for(int j=0;j<Rnum-(mineX-tempX);j++) {
+							System.out.print("R");
+						}
+						for(int j=0;j<Unum-(mineY-tempY);j++) {
+							System.out.print("U");
+						}
+						chk =true;
+						break;
+					}
+				}
+				
+			}
+		}
+		if(!chk) {
+			System.out.println(-1);
+		}
+	}
+
+}
