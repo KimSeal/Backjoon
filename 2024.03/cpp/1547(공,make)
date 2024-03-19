@@ -1,0 +1,18 @@
+#include <bits/stdc++.h>
+//using namespace std;
+int ball=1;
+void swap(int a, int b) {
+    if (!a && !b) return;
+    if (ball == a) ball = b;
+    else if (ball == b) ball = a;
+}
+int main() {
+    int N;
+    cin >> N;
+    int input0, input1;
+    while (N--) {
+        cin >> input0 >> input1;
+        swap(input0 , input1);
+    }
+    cout << ball;
+}
