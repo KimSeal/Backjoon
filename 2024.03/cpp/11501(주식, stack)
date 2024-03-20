@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    long N, M, input0;
+    stack<int> stk;
+    cin >> N;
+    while (N--) {
+        cin >> M;
+        while (M--) {
+            cin >> input0;
+            stk.push(input0);
+        }
+        long result = 0;
+        long top = 0;
+        while (!stk.empty()) {
+            if (top < stk.top()) {
+                top = stk.top();
+            }
+            else {
+                result += top - stk.top();
+            }
+            stk.pop();
+        }
+        cout << result << "\n";
+    }
+}
