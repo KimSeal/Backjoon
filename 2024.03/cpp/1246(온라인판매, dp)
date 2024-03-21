@@ -1,0 +1,31 @@
+#include <iostream>
+using namespace std;
+
+int arr[1000001];
+int main() {
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+	long N, M;
+	cin >> N >> M;
+	long input0;
+	long Pernum=0;
+	while (M--) {
+		cin >> input0;
+		arr[input0]++;
+		Pernum++;
+	}
+	long temp;
+	long eggVal=0;
+	long MaxValue = 0;
+	for (long i = 1; i < 1000001;i++) {
+		Pernum -= arr[i - 1];
+		temp = Pernum * i;
+		if (Pernum > N) temp = N * i;
+		if (MaxValue < temp) {
+			MaxValue = temp;
+			eggVal=i;
+		}
+	}
+	cout << eggVal << " " << MaxValue;
+}
