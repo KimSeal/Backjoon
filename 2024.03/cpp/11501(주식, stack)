@@ -1,6 +1,11 @@
 #include <bits/stdc++.h>
 using namespace std;
 //stack대신 배열을 쓴 version
+
+//뒤에서 부터 다음 조건을 이용해 탐색
+//최댓값보다 큰 값이 나온 경우, 해당 값으로 최댓값 변경
+//최댓값보다 작은 값이 나온 경우, 최댓값-해당값 만큼 결과에 더하기
+
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
