@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<cmath>
+//대각선 길이에 대한 출력
 int main(){
 	int a,d,e;
 	scanf("%d",&a);
