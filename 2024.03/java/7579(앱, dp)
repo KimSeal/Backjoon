@@ -1,0 +1,38 @@
+import java.io.*;
+
+public class Main {
+	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	static long[][] dp = new long[10001][101];
+	static long mem[] = new long[101];
+	static int cost[] = new int[101];
+	public static void main(String[] args) throws IOException{
+		// TODO Auto-generated method stub
+		String str[] = br.readLine().trim().split(" ");
+		int appNum = Integer.parseInt(str[0]);
+		long needMemory = Long.parseLong(str[1]);
+		
+		str = br.readLine().trim().split(" ");
+		for(int idx=0;idx<appNum;idx++) {
+			mem[idx+1] = Integer.parseInt(str[idx]);
+		}
+		
+		str = br.readLine().trim().split(" ");
+		for(int idx=0;idx<appNum;idx++) {
+			cost[idx+1] = Integer.parseInt(str[idx]);
+		}
+		
+		for(int col =0;col<=10000;col++) {
+			for(int row =1;row<=appNum;row++) {
+				if(col<cost[row]) dp[col][row] = dp[col][row-1];
+				else {
+					dp[col][row] = (dp[col][row-1] > dp[col-cost[row]][row-1]+mem[row] )?
+							dp[col][row-1] : dp[col-cost[row]][row-1]+mem[row];
+				}
+			}
+			if(dp[col][appNum]>= needMemory) {
+				System.out.println(col);
+				return;
+			}
+		}
+	}
+}
