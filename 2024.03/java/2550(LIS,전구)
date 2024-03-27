@@ -1,0 +1,51 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	public static void main(String[] args) throws IOException{
+		// TODO Auto-generated method stub
+		int num = Integer.parseInt(br.readLine().trim());
+		int firstArr[] = new int [num+1];
+		
+		int secondArrOrigin[] = new int [num+1];
+
+		int secondArr[] = new int [num+1];
+		int[] LIS = new int [num+2];
+		int LISnum[] = new int [num+2];
+		String str[] = br.readLine().trim().split(" ");
+		for(int idx=0;idx<num;idx++) {
+			firstArr[Integer.parseInt(str[idx])] = idx+1;
+		}
+		
+		str = br.readLine().trim().split(" ");
+		for(int idx=0;idx<num;idx++) {
+			secondArr[idx+1] = firstArr[Integer.parseInt(str[idx])];
+			secondArrOrigin[idx+1] = Integer.parseInt(str[idx]);
+			LIS[idx+1] = 100000;
+		}
+		int maxLen = 0;
+		for(int idxArr=1;idxArr<=num;idxArr++) {
+			for(int idxLis=1;idxLis<=num;idxLis++) {
+				if(secondArr[idxArr] < LIS[idxLis]) {
+					LIS[idxLis] = secondArr[idxArr];
+					LISnum[idxArr] = idxLis;
+					if(maxLen<idxLis) maxLen=idxLis;
+					break;
+				}
+			}
+		}
+		System.out.println(maxLen);
+		PriorityQueue<Integer> pq = new PriorityQueue<>();
+		for(int idx=num;idx>0;idx--) {
+			if(LISnum[idx]== maxLen) {
+				pq.add(secondArrOrigin[idx]);
+				maxLen--;
+			}
+		}
+		while(!pq.isEmpty()) {
+			System.out.print(pq.poll() + " ");
+		}
+	}
+
+}
