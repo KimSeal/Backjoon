@@ -1,0 +1,76 @@
+import java.io.*;
+import java.util.PriorityQueue;
+
+public class Main {
+	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	static int dy[] = {-1,0,1,0};
+	static int dx[] = {0,1,0,-1};
+	static class space implements Comparable<space>{
+		int y, x;
+		int dist;
+		space(){
+			
+		}
+		space(int y, int x, int dist){
+			this.y = y;
+			this.x = x;
+			this.dist  = dist;
+		}
+		@Override
+		public int compareTo(space o){
+			return this.dist - o.dist; 
+		}
+	}
+	public static void main(String[] args) throws IOException{
+		
+		//1. 사용자로부터 앱 개수와 필요 메모리, 각 앱의 사용 메모리와 비용을 입력받는다.
+		//2. split과 Integer.parseInt를 통해 정수 값으로 변경한다.
+		int [][] inputMap = new int[125][125];
+		boolean nodeDist[] = new boolean[125*125];
+		PriorityQueue<space> pq = new PriorityQueue<>();
+		int testCase=0;
+		int input;
+		while(true) {
+
+			input = Integer.parseInt(br.readLine().trim());
+			if(input==0) break;
+			
+			for(int col=0;col<input;col++) {
+				String inputStr[] = br.readLine().trim().split(" ");
+				for(int row =0;row<input;row++) {
+					inputMap[col][row] = Integer.parseInt(inputStr[row]);
+				}
+			}
+
+			for(int i=0;i<input*input;i++) {
+				nodeDist[i] = false;
+			}
+			pq.clear();
+			pq.add(new space(0,0,inputMap[0][0]));
+			
+			while(!pq.isEmpty()) {
+				space a = pq.poll();
+				if(a.y == input-1 && a.x==input-1) {
+					System.out.println("Problem " + (++testCase) + ": " + a.dist);
+					break;
+				}
+				if(nodeDist[a.y*input+a.x]) {
+					continue;
+				}
+				nodeDist[a.y*input+a.x] = true;
+				
+				for(int dir=0;dir<4;dir++) {
+					if(a.y+dy[dir] >=0 && a.y+dy[dir]<input &&
+							a.x+dx[dir]>=0 && a.x+dx[dir]<input &&
+							!nodeDist[(a.y+dy[dir])*input+a.x+dx[dir]]) {
+						pq.add(new space(a.y+dy[dir], a.x+dx[dir], a.dist + inputMap[a.y+dy[dir]][a.x+dx[dir]] ));
+					}
+				}
+
+			}
+			
+			//System.out.println("Problem " + (++testCase) + ": " + result);
+			
+		}
+	}
+}
