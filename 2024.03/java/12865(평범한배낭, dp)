@@ -1,0 +1,35 @@
+import java.io.*;
+public class Main {
+	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	static long[][] dp = new long[100001][101];
+	static int value[] = new int[101];
+	static int weight[] = new int[101];
+	public static void main(String[] args) throws IOException{
+		
+		//1. 사용자로부터 앱 개수와 필요 메모리, 각 앱의 사용 메모리와 비용을 입력받는다.
+		//2. split과 Integer.parseInt를 통해 정수 값으로 변경한다.
+		String str[] = br.readLine().trim().split(" ");
+		int objNum = Integer.parseInt(str[0]);
+		int maxWeight = Integer.parseInt(str[1]);
+		
+		for(int idx=0;idx<objNum;idx++) {
+			str = br.readLine().trim().split(" ");
+			weight[idx+1] = Integer.parseInt(str[0]);
+			value[idx+1] = Integer.parseInt(str[1]);
+		}
+
+		
+		// * 3. cost를 col삼아 각 cost에서 얻을 수 있는 최대 메모리를 구한다
+		for(int col =1;col<=maxWeight;col++) {
+			for(int row =1;row<=objNum;row++) {
+				if(col < weight[row]) {
+					dp[col][row] = dp[col][row-1];
+					continue;
+				}
+				dp[col][row] = (dp[col][row-1] > dp[col-weight[row]][row-1]+value[row] )?
+						dp[col][row-1] : dp[col-weight[row]][row-1]+value[row];
+			}
+		}
+		System.out.println(dp[maxWeight][objNum]);
+	}
+}
