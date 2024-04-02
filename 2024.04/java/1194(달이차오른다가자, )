@@ -1,0 +1,135 @@
+package backjoon;
+import java.io.*;
+import java.util.*;
+/*
+ * 1. 사용자로부터 배열의 너비와 정보를 입력받는다.
+ * 2. 배열 정보를 바탕으로 시작점을 찾는다.
+ * 3. 열쇠의 유무를 중심으로 priorityQueue를 활용해 bfs를 실행해 결과를 얻는다.
+ * 		3.1 열쇠를 얻을시 key값 추가
+ * 		3.2 문에 닿을시 열쇠 유무로 이동여부 결정
+ * 		3.3 도달시 길이를 출력하고 종료한다.
+ */
+public class b1194_달이차오른다가자 {
+	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	static StringBuilder sb = new StringBuilder();
+	static char map[][] = new char [50][50];
+	static boolean visit[][][] = new boolean[50][50][64];
+	static int dx[] = {0,1,0,-1};
+	static int dy[] = {-1,0,1,0};
+	public static class minsic implements Comparable<minsic>{
+		int y;
+		int x;
+		int dist;
+		int key;
+		minsic(int y, int x, int dist, int key){
+			this.y = y;
+			this.x = x;
+			this.dist = dist;
+			this.key = key;
+		}
+		
+		@Override
+		public int compareTo(minsic o) {
+			return this.dist - o.dist;
+		}
+		
+	}
+	public static void main(String[] args) throws IOException{
+		//1. 사용자로부터 배열의 너비와 정보를 입력받는다.
+		String[] lenStr = br.readLine().trim().split(" ");
+		int colLen = Integer.parseInt(lenStr[0]);
+		int rowLen = Integer.parseInt(lenStr[1]);
+		String mapinfo;
+		int startY=0, startX=0;
+		for(int colIdx=0;colIdx<colLen;colIdx++) {
+			mapinfo = br.readLine().trim();
+			for(int rowIdx=0;rowIdx<rowLen;rowIdx++) {
+				map[colIdx][rowIdx] = mapinfo.charAt(rowIdx);
+				//2. 배열 정보를 바탕으로 시작점을 찾는다.
+				if(map[colIdx][rowIdx]=='0') {
+					startX = rowIdx;
+					startY = colIdx;
+				}
+			}
+		}
+		//3. 열쇠의 유무를 중심으로 priorityQueue를 활용해 bfs를 실행해 결과를 얻는다.
+		PriorityQueue<minsic> pq = new PriorityQueue<minsic>();
+		visit[startY][startX][0] = true;
+		pq.add(new minsic(startY, startX, 0, 0));
+		minsic temp;
+		while(!pq.isEmpty()) {
+			temp = pq.poll();
+			for(int dir=0;dir<4;dir++) {
+				if(temp.y+dy[dir]>=0 && temp.y+dy[dir]<colLen &&
+						temp.x+dx[dir]>=0 && temp.x+dx[dir]<rowLen &&
+						!visit[temp.y+dy[dir]][temp.x+dx[dir]][temp.key] &&
+						map[temp.y+dy[dir]][temp.x+dx[dir]]!='#') {
+					//3.1 열쇠를 얻을시 key값 추가
+					if(map[temp.y+dy[dir]][temp.x+dx[dir]] =='a') {
+						pq.add(new minsic(temp.y+dy[dir], temp.x+dx[dir], temp.dist+1, temp.key|(1<<0)));
+						visit[temp.y+dy[dir]][temp.x+dx[dir]][temp.key|(1<<0)] = true;
+					}
+					else if(map[temp.y+dy[dir]][temp.x+dx[dir]] =='b') {
+						pq.add(new minsic(temp.y+dy[dir], temp.x+dx[dir], temp.dist+1, temp.key|(1<<1)));
+						visit[temp.y+dy[dir]][temp.x+dx[dir]][temp.key|(1<<1)] = true;
+					}
+					else if(map[temp.y+dy[dir]][temp.x+dx[dir]] =='c') {
+						pq.add(new minsic(temp.y+dy[dir], temp.x+dx[dir], temp.dist+1, temp.key|(1<<2)));
+						visit[temp.y+dy[dir]][temp.x+dx[dir]][temp.key|(1<<2)] = true;
+					}
+					else if(map[temp.y+dy[dir]][temp.x+dx[dir]] =='d') {
+						pq.add(new minsic(temp.y+dy[dir], temp.x+dx[dir], temp.dist+1, temp.key|(1<<3)));
+						visit[temp.y+dy[dir]][temp.x+dx[dir]][temp.key|(1<<3)] = true;
+					}
+					else if(map[temp.y+dy[dir]][temp.x+dx[dir]] =='e') {
+						pq.add(new minsic(temp.y+dy[dir], temp.x+dx[dir], temp.dist+1, temp.key|(1<<4)));
+						visit[temp.y+dy[dir]][temp.x+dx[dir]][temp.key|(1<<4)] = true;
+					}
+					else if(map[temp.y+dy[dir]][temp.x+dx[dir]] =='f') {
+						pq.add(new minsic(temp.y+dy[dir], temp.x+dx[dir], temp.dist+1, temp.key|(1<<5)));
+						visit[temp.y+dy[dir]][temp.x+dx[dir]][temp.key|(1<<5)] = true;
+					}
+					//3.2 문에 닿을시 열쇠 유무로 이동여부 결정
+					else if(map[temp.y+dy[dir]][temp.x+dx[dir]] =='A' && (temp.key &(1<<0)) != 0) {
+						pq.add(new minsic(temp.y+dy[dir], temp.x+dx[dir], temp.dist+1, temp.key));
+						visit[temp.y+dy[dir]][temp.x+dx[dir]][temp.key] = true;
+					}
+					else if(map[temp.y+dy[dir]][temp.x+dx[dir]] =='B' && (temp.key &(1<<1)) != 0) {
+						pq.add(new minsic(temp.y+dy[dir], temp.x+dx[dir], temp.dist+1, temp.key));
+						visit[temp.y+dy[dir]][temp.x+dx[dir]][temp.key] = true;
+					}
+					else if(map[temp.y+dy[dir]][temp.x+dx[dir]] =='C' && (temp.key &(1<<2)) != 0) {
+						pq.add(new minsic(temp.y+dy[dir], temp.x+dx[dir], temp.dist+1, temp.key));
+						visit[temp.y+dy[dir]][temp.x+dx[dir]][temp.key] = true;
+					}
+					else if(map[temp.y+dy[dir]][temp.x+dx[dir]] =='D' && (temp.key &(1<<3)) != 0) {
+						pq.add(new minsic(temp.y+dy[dir], temp.x+dx[dir], temp.dist+1, temp.key));
+						visit[temp.y+dy[dir]][temp.x+dx[dir]][temp.key] = true;
+					}
+					else if(map[temp.y+dy[dir]][temp.x+dx[dir]] =='E' && (temp.key &(1<<4)) != 0) {
+						pq.add(new minsic(temp.y+dy[dir], temp.x+dx[dir], temp.dist+1, temp.key));
+						visit[temp.y+dy[dir]][temp.x+dx[dir]][temp.key] = true;
+					}
+					else if(map[temp.y+dy[dir]][temp.x+dx[dir]] =='F' && (temp.key &(1<<5)) != 0) {
+						pq.add(new minsic(temp.y+dy[dir], temp.x+dx[dir], temp.dist+1, temp.key));
+						visit[temp.y+dy[dir]][temp.x+dx[dir]][temp.key] = true;
+					}
+					//3.3 도달시 길이를 출력하고 종료한다.
+					else if(map[temp.y+dy[dir]][temp.x+dx[dir]] =='1') {
+						System.out.print(temp.dist+1);
+						return;
+					}
+					else if(map[temp.y+dy[dir]][temp.x+dx[dir]] =='.' ||
+							map[temp.y+dy[dir]][temp.x+dx[dir]] =='0'){
+						pq.add(new minsic(temp.y+dy[dir], temp.x+dx[dir], temp.dist+1, temp.key));
+						visit[temp.y+dy[dir]][temp.x+dx[dir]][temp.key] = true;
+					}
+				}
+			}
+		}
+		
+		System.out.print("-1");
+		
+		
+	}
+}
