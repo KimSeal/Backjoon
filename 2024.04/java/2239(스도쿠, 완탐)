@@ -1,0 +1,89 @@
+import java.io.*;
+import java.util.*;
+/*
+ * 1. 사용자로부터 테스트 케이스 수를 입력받고 그만큼 2번부터 5번까지 반복한다.
+ * 2. 사용자로부터 원소의 갯수를 입력받는다.
+ * 3. 각 원소의 값을 입력받는다.
+ * 4. 각 원소의 값을 기반으로 LIS길이를 도출한다.
+ * 		4.1 LIS배열의 앞에서 부터 해당 값보다 작거나 비면 업데이트, 아니면 다음 칸으로 이동
+ * 5. 0이 아닌 칸의 길이를 출력한다. 
+ */
+public class Main {
+	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	static StringBuilder sb = new StringBuilder();
+	static int col[]= new int[9];
+	static int row[] = new int[9];
+	static int mid[] = new int[9];
+	static List<Integer> list = new ArrayList<>();
+	static int [][] board = new int[9][9];
+	static boolean end;
+	public static void sudocu(int num) {
+//		System.out.println(num);
+		//		if(num==list.size()) {
+
+		if(num==list.size()) {
+			end = true;
+			return;
+		}
+		if(end) return;
+		int arr = list.get(num);
+		for(int boardNum=1;boardNum<=9;boardNum++) {
+			if((row[arr%9] & (1<<boardNum))==0 && 
+					(col[arr/9] & (1<<boardNum))==0 &&
+					(mid[arr/27*3+ (arr%9)/3] & (1<<boardNum))==0 ) {
+				
+				row[arr%9] += (1<<boardNum);
+				col[arr/9] += (1<<boardNum);
+				mid[arr/27*3+ (arr%9)/3] += (1<<boardNum);
+
+				board[arr/9][arr%9] = boardNum;
+				sudocu(num+1);
+				if(end) return;
+				
+				row[arr%9] -= (1<<boardNum);
+				col[arr/9] -= (1<<boardNum);
+				mid[arr/27*3+ (arr%9)/3] -= (1<<boardNum);
+				
+				
+			}
+		}
+	}
+	public static void main(String[] args) throws IOException{
+		//1. 사용자로부터 테스트 케이스 수를 입력받고 그만큼 2번부터 5번까지 반복한다.
+		
+		String[] lenStr = new String[9];
+		
+		for(int colIdx=0;colIdx<9;colIdx++) {
+			lenStr[colIdx] = br.readLine().trim();
+			for(int rowIdx=0;rowIdx<9;rowIdx++) {
+				if(lenStr[colIdx].charAt(rowIdx) =='0') {
+					list.add(colIdx*9+rowIdx);
+					continue;
+				}
+				board[colIdx][rowIdx] = (int)(lenStr[colIdx].charAt(rowIdx))-(int)('0');
+				col[colIdx] = col[colIdx] | (1<<((int)(lenStr[colIdx].charAt(rowIdx))-(int)('0')));
+				row[rowIdx] = row[rowIdx] | (1<<((int)(lenStr[colIdx].charAt(rowIdx))-(int)('0')));
+				mid[colIdx/3 * 3 + rowIdx/3] = mid[colIdx/3 * 3 + rowIdx/3] | (1<<((int)(lenStr[colIdx].charAt(rowIdx))-(int)('0')));
+			}
+		}
+		sudocu(0);
+		StringBuilder sb = new StringBuilder();
+		for(int colIdx=0;colIdx<9;colIdx++) {
+			for(int rowIdx=0;rowIdx<9;rowIdx++) {
+				sb.append(board[colIdx][rowIdx]);
+			}
+			sb.append("\n");
+		}
+		
+		
+		
+//		StringBuilder sb = new StringBuilder();
+//		for(int colIdx=0;colIdx<9;colIdx++) {
+//			for(int rowIdx=0;rowIdx<9;rowIdx++) {
+//				sb.append(board[colIdx][rowIdx]);
+//			}
+//			sb.append("\n");
+//		}
+		System.out.print(sb);
+	}
+}
