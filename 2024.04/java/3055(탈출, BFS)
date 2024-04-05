@@ -9,7 +9,7 @@ import java.util.*;
  * 5. 고슴도치를 기준으로 BFS를 진행한다. 물은 이동할 수 있도록 별도의 문자로 처리한다.
  * 6. 도착했다면 걸린 시간, 도착하기 전에 이동을 할 수 없게 되었다면 KAKTUS를 출력한다.
  */
-public class b3055_탈출_김상우 {
+public class Main {
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	static StringBuilder sb = new StringBuilder();
 	static int board[][] = new int [102][102];
