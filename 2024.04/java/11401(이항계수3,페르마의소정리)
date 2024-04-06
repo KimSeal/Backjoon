@@ -1,0 +1,48 @@
+import java.io.*;
+import java.util.*;
+/*
+ * 1. 사용자로부터 테스트케이스의 수를 입력받는다. 그 수만큼 2번부터 4번까지 반복한다.
+ * 2. 사용자로부터 전체/고를 물건의 수를 입력받는다. 
+ * 3. 조합 식을 (분모) * (분자)^-1 의 형태로 바꾸고 분자에 페르마의 소정리를 적용한다.
+ * 4. 각 팩토리얼을 계산하고 분자의 경우 이진 탐색의 형태로 곱을 하여 Stringbuilder에 값을 업로드한다.
+ * 5. Stringbuilder를 출력한다.
+ */
+public class Main {
+	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	static StringBuilder sb = new StringBuilder();
+	//팩토리얼을 구하는 method
+	static long facTest(long input) {
+		long result = 1; 
+		while(input > 0) {
+			result *= input--;
+			result %= 1000000007;
+		}
+		return result;
+	}
+	//큰 제곱 계산에 대해 이진 탐색의 형태로 빠르게 계산.
+	static long binary(long baseNum, long mulNum) {
+		if(mulNum == 1) return baseNum;
+		long temp = binary(baseNum, mulNum/2);
+		temp *= temp;
+		temp %= 1000000007;
+		if(mulNum%2 != 0) {
+			temp *= baseNum;
+			temp %= 1000000007;
+		}
+		return temp % 1000000007;
+	}
+	public static void main(String[] args) throws IOException{
+		//1. 사용자로부터 테스트케이스의 수를 입력받는다. 그 수만큼 2번부터 4번까지 반복한다.
+		String[] input;
+		long Num, Sel;
+			//2. 사용자로부터 전체/고를 물건의 수를 입력받는다. 
+			input = br.readLine().trim().split(" ");
+			Num = Long.parseLong(input[0]);
+			Sel = Long.parseLong(input[1]);
+			//3. 조합 식을 (분모) * (분자)^-1 의 형태로 바꾸고 분자에 페르마의 소정리를 적용한다.
+			//4. 각 팩토리얼을 계산하고 분자의 경우 이진 탐색의 형태로 곱을 하여 Stringbuilder에 값을 업로드한다.
+			sb.append(facTest(Num) * binary(facTest(Sel) * facTest(Num-Sel) %1000000007, 1000000005) % 1000000007);
+		//5. Stringbuilder를 출력한다.
+		System.out.print(sb);
+	}
+}
