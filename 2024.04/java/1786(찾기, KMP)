@@ -1,0 +1,58 @@
+import java.io.*;
+import java.util.*;
+/*
+ * 1. 사용자로부터 전체 가로, 세로 길이를 입력받는다.
+ * 2. 전체 공간 정보를 입력받고 물의 위치와 고슴도치 위치를 입력받는다.
+ * 3. 물과 고슴도치에 대해 고슴도치의 이동이 불가능하거나 비버집에 도착할때까지 4,5를 반복한다.
+ * 4. 물들의 위치를 기준으로 먼저 BFS를 진행한다. 물이 찬곳은 돌과 같이 이동할 수 없게한다.
+ * 5. 고슴도치를 기준으로 BFS를 진행한다. 물은 이동할 수 있도록 별도의 문자로 처리한다.
+ * 6. 도착했다면 걸린 시간, 도착하기 전에 이동을 할 수 없게 되었다면 KAKTUS를 출력한다.
+ */
+public class Main {
+	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	static StringBuilder sb = new StringBuilder();
+	static int fail[] = new int[1000001];
+	static String str;
+	static String findStr;
+	public static void failMake() {
+		fail[0] = 0;
+		int lenVal = 0;
+		for(int idx=1;idx<findStr.length();idx++) {
+			while(lenVal>0 && findStr.charAt(idx) != findStr.charAt(lenVal))
+				lenVal = fail[lenVal-1];
+			if(findStr.charAt(idx) == findStr.charAt(lenVal)) fail[idx] = ++lenVal;
+		}
+	}
+	public static void main(String[] args) throws IOException{
+		str = br.readLine();
+		findStr = br.readLine();
+		if(str.length()<findStr.length()) {
+			System.out.println(0);
+			return;
+		}
+		failMake();
+		int result=0;
+		int lenVal =0;
+		
+		for(int idx=0;idx<str.length();idx++) {
+			while(lenVal>0 && 
+					str.charAt(idx)!= 
+					findStr.charAt(lenVal)) {
+				lenVal = fail[lenVal-1];
+			}
+			if(str.charAt(idx)==findStr.charAt(lenVal)) {
+				if(lenVal == findStr.length()-1) {
+					result++;
+					sb.append((idx-findStr.length()+2) + " ");
+					lenVal = fail[lenVal];
+				}
+				else {
+					lenVal++;
+				}
+			}
+
+		}
+		System.out.println(result +"\n"+ sb);
+	}
+	
+}
