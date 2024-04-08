@@ -1,0 +1,157 @@
+import java.io.*;
+import java.util.*;
+/*
+ * 1. 사용자로부터 전체 가로, 세로 길이를 입력받는다.
+ * 2. 전체 공간 정보를 입력받고 물의 위치와 고슴도치 위치를 입력받는다.
+ * 3. 물과 고슴도치에 대해 고슴도치의 이동이 불가능하거나 비버집에 도착할때까지 4,5를 반복한다.
+ * 4. 물들의 위치를 기준으로 먼저 BFS를 진행한다. 물이 찬곳은 돌과 같이 이동할 수 없게한다.
+ * 5. 고슴도치를 기준으로 BFS를 진행한다. 물은 이동할 수 있도록 별도의 문자로 처리한다.
+ * 6. 도착했다면 걸린 시간, 도착하기 전에 이동을 할 수 없게 되었다면 KAKTUS를 출력한다.
+ */
+public class Main {
+	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	static StringBuilder sb = new StringBuilder();
+	static int dist[][] = new int[11][11];
+	static int board[][] = new int[11][11];
+	static int dx[] = {0,1,0,-1}, dy[] = {-1,0,1,0};
+	static int parent[];
+	static int find(int a) {
+		if(parent[a] == a) return a;
+		return parent[a] = find(parent[a]);
+	}
+	static boolean union(int a, int b) {
+		if(find(a) == find(b)) return false;
+		if(find(a)<find(b)) parent[find(b)] = find(a);
+		else parent[find(a)] = find(b);
+		return true;
+	}
+	static int row, col;
+	static class point implements Comparable<point>{
+		int y;
+		int x;
+		point(int y, int x){
+			this.y = y;
+			this.x = x;
+		}
+		@Override
+		public int compareTo(point o) {
+			return this.y-o.y;
+		}
+	}
+	public static void main(String[] args) throws IOException{
+		String str[] = br.readLine().trim().split(" ");
+		col = Integer.parseInt(str[0]);
+		row = Integer.parseInt(str[1]);
+		List<point> list = new ArrayList<>();
+		for(int colIdx=0;colIdx<col;colIdx++) {
+			str = br.readLine().trim().split(" ");
+			for(int rowIdx=0;rowIdx<row;rowIdx++) {
+				if(str[rowIdx].equals("1")) {
+					board[colIdx][rowIdx] = -1;
+					list.add(new point(colIdx, rowIdx));
+				}
+			}
+		}
+		int boardNum=0;
+		Queue<point> queue = new LinkedList<>();
+		for(point temp : list) {
+			if(board[temp.y][temp.x]==-1) {
+				queue.add(new point(temp.y, temp.x));
+				boardNum++;
+				board[temp.y][temp.x]=boardNum;
+				while(!queue.isEmpty()) {
+					point tempBfs = queue.poll();
+					for(int dir=0;dir<4;dir++) {
+						if(tempBfs.y+dy[dir]>=0 && tempBfs.y+dy[dir]<col &&
+								tempBfs.x+dx[dir]>=0 && tempBfs.x+dx[dir]<row &&
+								board[tempBfs.y+dy[dir]][tempBfs.x+dx[dir]]==-1) {
+							queue.add(new point(tempBfs.y+dy[dir], tempBfs.x+dx[dir]));
+							board[tempBfs.y+dy[dir]][tempBfs.x+dx[dir]]=boardNum;
+						}
+					}
+				}
+			}
+		}
+
+		int from;
+		int to;
+		int distTemp;
+		for(int colIdx=0;colIdx<col;colIdx++) {
+			from = -1; to =-1; distTemp =0;
+			for(int rowIdx=0;rowIdx<row;rowIdx++) {
+				if(board[colIdx][rowIdx]!=0) {
+					from = to;
+					to = board[colIdx][rowIdx];
+					if(from != -1 && from != to && distTemp>1) {
+						if(dist[from][to] == 0 ) {
+							dist[from][to] = 99999;
+							dist[to][from] = 99999;
+						}
+						dist[from][to] = (dist[from][to] > distTemp) ? distTemp : dist[from][to];
+						dist[to][from] = (dist[from][to] > distTemp) ? distTemp : dist[from][to];
+					}
+					distTemp =0;
+				}
+				else {
+					distTemp++;
+				}
+			}
+		}
+		
+		
+		for(int rowIdx=0;rowIdx<row;rowIdx++) {
+			from = -1; 
+			to =-1; 
+			distTemp =0;
+			for(int colIdx=0;colIdx<col;colIdx++) {
+				if(board[colIdx][rowIdx]>0) {
+					from = to;
+					to = board[colIdx][rowIdx];
+					if(from != -1 && from != to && distTemp>1) {
+						if(dist[from][to] == 0 ) {
+							dist[from][to] = 99999;
+							dist[to][from] = 99999;
+						}
+						dist[from][to] = (dist[from][to] > distTemp) ? distTemp : dist[from][to];
+						dist[to][from] = (dist[to][from] > distTemp) ? distTemp : dist[to][from];
+					}
+					distTemp =0;
+				}
+				else {
+					distTemp++;
+				}
+			}
+		}
+
+		PriorityQueue<point> pq = new PriorityQueue<>();
+		parent = new int[boardNum+1];
+		for(int colIdx=1;colIdx<=boardNum;colIdx++) {
+			parent[colIdx] = colIdx;
+			for(int rowIdx=colIdx+1;rowIdx<=boardNum;rowIdx++) {
+				if(dist[colIdx][rowIdx]<9999 && dist[colIdx][rowIdx]>1 )
+				pq.add(new point(dist[colIdx][rowIdx], colIdx*10+rowIdx));
+			}
+		}
+		int result=0;
+		int chkNum=0;
+		boolean visited[] = new boolean[boardNum+1];
+
+		while(!pq.isEmpty()) {
+			point temp = pq.poll();
+			if(union(temp.x/10, temp.x%10)) {
+				//System.out.println(temp.x/10 + " "+temp.x%10);
+				chkNum++;
+				result+= temp.y;
+			}
+			if(chkNum == boardNum-1) {
+				System.out.print(result);
+				//for(int helo:parent) {
+				//	System.out.print(helo + "");
+				//}
+				return;
+			}
+		}
+		System.out.print(-1);
+	}
+	
+}
