@@ -1,0 +1,112 @@
+import java.io.*;
+import java.util.*;
+/*
+ * 0. 사용자로부터 테스트케이스의 수를 입력받는다. 그 수만큼 1번부터 3번까지 반복한다.
+ * 1. 사용자로부터 맵의 크기와 추가 활주로 길이, 맵의 정보를 입력받는다.
+ * 2. 모든 세로, 가로 줄에 대해 검토해 가능한 줄을 센다..
+ * 		2.1 높이가 같은 경우 가능한 길이를 늘리고 가능하다면 내려오기 위한 길이를 확보한다.
+ * 		2.2 1만큼 올라갈 경우 이전 내려오기 위한 길이가 확보되었는지와 새 활주로 설치 길이가 확보되었는지 확인한다.
+ * 		2.3 1만큼 내려갈 경우 이전 내려가기 위한 길이가 확보되었는지 확인한다.
+ * 		2.4 1초과로 차이날 경우 return한다. 
+ * 		2.5 줄 마지막에 도착했을때 내려가기 위한 활주로 설치가 완료되었는지 확인한다.
+ * 3. 결과를 StringBuilder에 업로드한다.
+ * 4. Stringbuilder를 출력한다.
+ */
+public class Main {
+	
+	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	static StringBuilder sb = new StringBuilder();
+	static int board[][] = new int[10][10];
+	static boolean visit[][] = new boolean[10][10];
+	static int result =50;
+	static class point{
+		int y;
+		int x;
+		point(int y, int x) {
+			this.y = y;
+			this.x = x;
+		}
+	}
+	static List<point> list = new ArrayList<point>();
+	static int chkSize(int col, int row, int len) {
+		
+		for(int idx=0;idx<len;idx++) {
+			if(col+len>10 || row+len>10) return 0;
+			if(visit[col+len-1][row+idx]) return 0;
+			if(visit[col+idx][row+len-1]) return 0;
+		}
+		if(len==5) return 5;
+		int temp = chkSize(col, row, len+1);
+		if(temp==0) return len;
+		else return temp;
+	}
+	static void recur(int idx, int add, int num1, int num2, int num3, int num4, int num5) {
+		//System.out.println(list.get(idx).y + " "+ list.get(idx).x);
+		//System.out.println(idx + " "+ add+" "+num1+" "+num2+" "+num3+" "+num4+" "+num5);
+		if(result <=add) return;
+		int tempIdx = idx;
+		point temp = list.get(idx);
+		int sizePaper = chkSize(temp.y, temp.x, 1);
+		for(int wid=1;wid<=sizePaper;wid++) {
+			if(wid==1 && num1==0) continue;
+			if(wid == 2 && num2==0) continue;
+			if(wid==3 && num3==0) continue;
+			if(wid == 4 && num4==0) continue;
+			if(wid==5 && num5==0) continue;
+			tempIdx = idx;
+			for(int widIdx=0;widIdx<wid;widIdx++) {
+				visit[temp.y+widIdx][temp.x+wid-1] = true;
+				visit[temp.y+wid-1][temp.x+widIdx] = true;
+			}
+			
+			while(true) {
+				tempIdx++;
+				if(tempIdx==list.size()) {
+					result = add+1;
+					break;
+				}
+				else if(!visit[list.get(tempIdx).y][list.get(tempIdx).x]){
+					if(wid==1) recur(tempIdx, add+1, num1-1, num2, num3, num4, num5);
+					if(wid==2) recur(tempIdx, add+1, num1, num2-1, num3, num4, num5);
+					if(wid==3) recur(tempIdx, add+1, num1, num2, num3-1, num4, num5);
+					if(wid==4) recur(tempIdx, add+1, num1, num2, num3, num4-1, num5);
+					if(wid==5) recur(tempIdx, add+1, num1, num2, num3, num4, num5-1);
+					break;
+				}
+			}
+		}
+		for(int colIdx=0;colIdx<sizePaper;colIdx++) {
+			for(int rowIdx=0;rowIdx<sizePaper;rowIdx++) {
+				visit[temp.y+colIdx][temp.x+rowIdx] = false;
+				visit[temp.y+colIdx][temp.x+rowIdx] = false;
+			}
+		}
+
+	}
+	public static void main(String[] args) throws IOException{
+
+		String[] input;
+		
+		// 0. 사용자로부터 테스트케이스의 수를 입력받는다. 그 수만큼 1번부터 3번까지 반복한다.
+		for (int colIdx = 0; colIdx < 10; colIdx++) {
+			input = br.readLine().trim().split(" ");
+			for (int rowIdx = 0; rowIdx < 10; rowIdx++) {
+				if(input[rowIdx].equals("1")) {
+					board[colIdx][rowIdx]=1;
+					list.add(new point(colIdx, rowIdx));
+				}
+				else {
+					visit[colIdx][rowIdx] = true;
+				}
+			}
+		}
+		if(list.size()==0) {
+			System.out.print(0);
+			return;
+		}
+		recur(0,0,5,5,5,5,5);
+		//4. Stringbuilder를 출력한다.
+		if(result == 50) result =-1;
+		System.out.print(result);
+	}
+}
