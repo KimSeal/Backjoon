@@ -1,0 +1,115 @@
+import java.io.*;
+import java.util.*;
+/*
+ * 1. 사용자로부터 테스트케이스의 수를 입력받는다. 그 수만큼 2번부터 4번까지 반복한다.
+ * 2. 사용자로부터 회전 수와 바퀴의 정보를 입력받는다.
+ * 3. 회전할 바퀴와 방향을 입력받고 바퀴를 회전 시킨다.
+ * 		3.1 처음 회전하는 바퀴는 좌우에 대해 탐색하여 좌우 바퀴를 회전시킬지 여부를 구한다.
+ * 		3.2 처음 회전하는 바퀴가 아닐 경우 이전 바퀴의 반대 바퀴를 확인한다.
+ * 		3.3 바퀴는 입력된 회전 방향에 따라 배열을 한칸 밀어준다.
+ * 4. 회전이 종료된 후 가장 위에 있는 자력을 확인하여 점수를 구해 StringBuilder에 업로드한다.
+ * 5. Stringbuilder를 출력한다.
+ */
+public class Main {
+	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	static StringBuilder sb = new StringBuilder();
+	static Queue<point> queue = new LinkedList<>();
+	static Queue<point> queue2 = new LinkedList<>();
+	static int dx[] = {0,1,0,-1};
+	static int dy[] = {-1,0,1,0};
+	static int arr[][] = new int[50][50];
+	static int visited[][] = new int[50][50];
+	static int col, row, aircon, result;
+	static class point{
+		int x;
+		int y;
+		int val;
+		point(int y, int x, int val) {
+			this.val = val;
+			this.x = x;
+			this.y = y;
+		}
+	}
+	static void turn() {
+		for(int colIdx=0;colIdx<col;colIdx++){
+			for(int rowIdx=0;rowIdx<row;rowIdx++) {
+				if(arr[colIdx][rowIdx] > 0) {
+					queue.add(new point(colIdx, rowIdx, arr[colIdx][rowIdx]));
+				}
+			}
+		}
+		
+		int dirNum;
+		
+		while(!queue.isEmpty()) {
+			dirNum=0;
+			point temp = queue.poll();
+			for(int dir=0;dir<4;dir++) {
+				if(temp.x+dx[dir] >=0 && temp.x+dx[dir] <row &&
+						temp.y+dy[dir] >=0 && temp.y+dy[dir] <col &&
+						!(temp.x+dx[dir]==0 && temp.y+dy[dir] == aircon) && 
+						!(temp.x+dx[dir]==0 && temp.y+dy[dir] == aircon-1) ) {
+					arr[temp.y+dy[dir]][temp.x + dx[dir]] += temp.val/5;
+					dirNum++;
+				}
+			}
+			arr[temp.y][temp.x] -= dirNum * (temp.val/5);
+		}
+		
+		result -= (arr[aircon+1][0] + arr[aircon-2][0]);
+		arr[aircon+1][0] = 0;
+		arr[aircon-2][0] = 0;
+		//가장 좌측
+		for(int idx = aircon-2;idx>=1;idx--) {
+			arr[idx][0] = arr[idx-1][0];
+		}
+		for(int idx = aircon+1;idx<col-1;idx++) {
+			arr[idx][0] = arr[idx+1][0];
+		}
+		//최상단, 최하단
+		for(int idx = 0;idx<row-1;idx++) {
+			arr[0][idx] = arr[0][idx+1];
+			arr[col-1][idx] = arr[col-1][idx+1];
+		}
+		//가장 우측
+		for(int idx = 0;idx<aircon-1;idx++) {
+			arr[idx][row-1] = arr[idx+1][row-1];
+		}
+		for(int idx = col-1;idx>aircon;idx--) {
+			arr[idx][row-1] = arr[idx-1][row-1];
+		}	
+		//중간
+		for(int idx = row-1;idx >1;idx--) {
+			arr[aircon][idx] = arr[aircon][idx-1];
+			arr[aircon-1][idx] = arr[aircon-1][idx-1];
+		}
+		arr[aircon][1] = 0;
+		arr[aircon-1][1] = 0;
+	}
+	public static void main(String[] args) throws IOException{
+
+		
+		String[] inputWid = br.readLine().trim().split(" ");
+		col = Integer.parseInt(inputWid[0]);
+		row = Integer.parseInt(inputWid[1]);
+		int time = Integer.parseInt(inputWid[2]);
+		
+		//1. 사용자로부터 테스트케이스의 수를 입력받는다. 그 수만큼 2번부터 4번까지 반복한다.
+		for(int colIdx=0;colIdx<col;colIdx++){
+			inputWid = br.readLine().trim().split(" ");
+			for(int rowIdx=0;rowIdx<row;rowIdx++) {
+				arr[colIdx][rowIdx] = Integer.parseInt(inputWid[rowIdx]);
+				result+= arr[colIdx][rowIdx];
+				if(arr[colIdx][rowIdx] == -1) {
+					aircon = colIdx;
+				}
+			}
+		}
+		result+=2;
+		for(int timeIdx=0;timeIdx<time;timeIdx++){
+			turn();
+		}
+		//5. Stringbuilder를 출력한다.
+		System.out.print(result);
+	}
+}
