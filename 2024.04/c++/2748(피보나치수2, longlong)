@@ -1,0 +1,16 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+    int n;
+    cin >> n;
+    long long num0 = 0;
+    long long num1 = 1;
+    long long num2;
+    for (int i = 1; i < n; i++) {
+        num2 = num1;
+        num1 += num0;
+        num0 = num2;
+        
+    }
+    cout << num1;
+}
