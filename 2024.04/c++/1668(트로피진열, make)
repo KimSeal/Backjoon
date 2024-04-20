@@ -1,0 +1,30 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+    int n;
+    cin >> n;
+    int arr[50];
+    for (int i = 0; i < n;i++) {
+        cin >> arr[i];
+    }
+    int result0 = 1;
+    int curH = arr[0];
+    for (int i = 1; i < n; i++) {
+        if (curH<arr[i]) {
+            curH = arr[i];
+            result0++;
+        }
+    }
+    cout << result0<<"\n";
+    result0 = 1;
+    curH = arr[n-1];
+    for (int i = n-1; i>=0; i--) {
+        if (curH < arr[i]) {
+            curH = arr[i];
+            result0++;
+        }
+    }
+    cout << result0;
+    
+    
+}
