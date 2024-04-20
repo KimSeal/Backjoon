@@ -1,0 +1,28 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int N, L;
+bool func(int a) {
+    
+    while (a>0) {
+        if (a % 10 == L) {
+            return false;
+        }
+        a /= 10;
+    }
+    return true;
+}
+int main() {
+    cin >> N >> L;
+    int result = 0;
+    int temp = 0;
+    while (result <N) {
+        temp++;
+        while (!func(temp)) {
+            temp++;
+        }
+        result++;
+    }
+    
+    cout << temp;
+}
