@@ -1,0 +1,158 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class Main {
+	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	static StringBuilder sb = new StringBuilder();
+	static int dx[]= {0,1,0,-1};
+	static int dy[] = {-1,0,1,0};
+	static boolean dp[][][] = new boolean[50][50][2];
+	
+	static class Train{
+		int x, y;
+		int rotation;
+		Train(int y, int x, int rotation){
+			this.x = x;
+			this.y = y;
+			this.rotation = rotation;
+		}
+	}
+	public static void main(String[] args) throws IOException{
+		// TODO Auto-generated method stub
+		int N = Integer.parseInt(br.readLine().trim());
+		int beginPlace[] = new int[6];
+		int endPlace[] = new int[6];
+		int endRotation;
+		int headNum=0, endNum=0;
+		boolean map0[][] = new boolean [N][N];
+		String str;
+		for(int colIdx=0;colIdx<N;colIdx++) {
+			str = br.readLine().trim();
+			for(int rowIdx=0;rowIdx<N;rowIdx++) {
+				if(str.charAt(rowIdx) == '1') {
+					map0[colIdx][rowIdx] = true;
+				}
+				if(str.charAt(rowIdx) == 'B') {
+					beginPlace[headNum] = colIdx;
+					beginPlace[headNum+1] = rowIdx;
+					headNum +=2;
+				}
+				if(str.charAt(rowIdx) == 'E') {
+					endPlace[endNum] = colIdx;
+					endPlace[endNum+1] = rowIdx;
+					endNum +=2;
+				}
+			}
+		}
+		Train train = new Train(beginPlace[2], beginPlace[3], (beginPlace[0] == beginPlace[2])?1:0);
+		endRotation =(endPlace[0] == endPlace[2]) ? 1:0;
+		Queue<Train> queue = new LinkedList<>();
+		queue.add(train);
+		dp[train.y][train.x][train.rotation]= true;
+		Train temp;
+		int Qsize;
+		int result =0;
+		while(!queue.isEmpty()) {
+			Qsize =queue.size();
+			for(int idx=0;idx<Qsize;idx++) {
+				temp = queue.poll();
+				
+				if(temp.y == endPlace[2] && temp.x == endPlace[3] && temp.rotation == endRotation) {
+					System.out.print(result);
+					return;
+				}
+				
+				//가로 일때
+				if(temp.rotation==1) {
+					//상단 이동
+					if(temp.y >0 
+							&& map0[temp.y-1][temp.x]==false && map0[temp.y-1][temp.x-1]==false
+							&& map0[temp.y-1][temp.x+1]==false &&
+							!dp[temp.y-1][temp.x][temp.rotation]) {
+						queue.add(new Train(temp.y-1, temp.x, temp.rotation));
+						dp[temp.y-1][temp.x][temp.rotation] = true;
+					}
+					//하단 이동
+					if(temp.y <N-1 
+							&& map0[temp.y+1][temp.x]==false && map0[temp.y+1][temp.x-1]==false
+							&& map0[temp.y+1][temp.x+1]==false &&
+							!dp[temp.y+1][temp.x][temp.rotation]) {
+						queue.add(new Train(temp.y+1, temp.x, temp.rotation));
+						dp[temp.y+1][temp.x][temp.rotation] = true;
+					}
+					//좌측이동
+					if(temp.x >1 
+							&& map0[temp.y][temp.x-2]==false &&
+							!dp[temp.y][temp.x-1][temp.rotation]) {
+						queue.add(new Train(temp.y, temp.x-1, temp.rotation));
+						dp[temp.y][temp.x-1][temp.rotation] = true;
+					}
+					//우측이동
+					if(temp.x <N-2 
+							&& map0[temp.y][temp.x+2]==false &&
+							!dp[temp.y][temp.x+1][temp.rotation]) {
+						queue.add(new Train(temp.y, temp.x+1, temp.rotation));
+						dp[temp.y][temp.x+1][temp.rotation] = true;
+					}
+					//회전
+					if(temp.x >0 && temp.y > 0 &&
+							temp.x<N-1 && temp.y<N-1 &&
+							!map0[temp.y+1][temp.x-1] &&!map0[temp.y+1][temp.x] && !map0[temp.y+1][temp.x+1]&&
+							!map0[temp.y-1][temp.x-1] &&!map0[temp.y-1][temp.x] && !map0[temp.y-1][temp.x+1]&&
+							!dp[temp.y][temp.x][0]) {
+						queue.add(new Train(temp.y,temp.x,0));
+						dp[temp.y][temp.x][0] = true;
+					}
+				}
+				
+				if(temp.rotation==0) {
+					//좌측 이동
+					if(temp.x >0 
+							&& map0[temp.y-1][temp.x-1]==false && map0[temp.y][temp.x-1]==false
+							&& map0[temp.y+1][temp.x-1]==false &&
+							!dp[temp.y][temp.x-1][temp.rotation]) {
+						queue.add(new Train(temp.y, temp.x-1, temp.rotation));
+						dp[temp.y][temp.x-1][temp.rotation] = true;
+					}
+					//우측 이동
+					if(temp.x <N-1 
+							&& map0[temp.y-1][temp.x+1]==false && map0[temp.y][temp.x+1]==false
+							&& map0[temp.y+1][temp.x+1]==false &&
+							!dp[temp.y][temp.x+1][temp.rotation]) {
+						queue.add(new Train(temp.y, temp.x+1, temp.rotation));
+						dp[temp.y][temp.x+1][temp.rotation] = true;
+					}
+					//상단이동
+					if(temp.y >1 
+							&& map0[temp.y-2][temp.x]==false &&
+							!dp[temp.y-1][temp.x][temp.rotation]) {
+						queue.add(new Train(temp.y-1, temp.x, temp.rotation));
+						dp[temp.y-1][temp.x][temp.rotation] = true;
+					}
+					//우측이동
+					if(temp.y <N-2 
+							&& map0[temp.y+2][temp.x]==false &&
+							!dp[temp.y+1][temp.x][temp.rotation]) {
+						queue.add(new Train(temp.y+1, temp.x, temp.rotation));
+						dp[temp.y+1][temp.x][temp.rotation] = true;
+					}
+					//회전
+					if(temp.x >0 && temp.y > 0 &&
+							temp.x<N-1 && temp.y<N-1 &&
+							!map0[temp.y-1][temp.x-1] &&!map0[temp.y][temp.x-1] && !map0[temp.y+1][temp.x-1]&&
+							!map0[temp.y-1][temp.x+1] &&!map0[temp.y][temp.x+1] && !map0[temp.y+1][temp.x+1]&&
+							!dp[temp.y][temp.x][1]) {
+						queue.add(new Train(temp.y,temp.x,1));
+						dp[temp.y][temp.x][1] = true;
+					}
+				}
+			}
+			result++;
+		}
+		System.out.print("0");
+	}
+
+}
