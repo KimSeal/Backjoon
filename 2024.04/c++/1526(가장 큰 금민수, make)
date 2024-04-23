@@ -1,0 +1,20 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+	int N, temp;
+	cin >> N;
+	while (true) {
+		temp = N;
+		while (temp>0) {
+			if (temp % 10 != 4 && temp % 10 != 7) {
+				break;
+			}
+			temp /= 10;
+			if (temp == 0) {
+				cout << N;
+				return 0;
+			}
+		}
+		N--;
+	}
+}
