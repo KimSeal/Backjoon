@@ -1,0 +1,43 @@
+package backjoon;
+
+import java.io.*;
+import java.util.*;
+
+public class Main {
+	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	static StringBuilder sb = new StringBuilder();
+
+	public static void main(String[] args) throws IOException{
+		String input = br.readLine().trim();
+		String[] token = input.split("\\+|\\-");
+		List<Boolean> list = new ArrayList<Boolean>();
+		for(int i=0;i<input.length();i++) {
+			if(input.charAt(i) == '+') {
+				list.add(true);
+			}
+			if(input.charAt(i) == '-') {
+				list.add(false);
+			}
+		}
+		List<Integer> hello= new ArrayList<Integer>();
+		for(String temp : token) {
+			hello.add(Integer.parseInt(temp));
+		}
+		int result = hello.get(0);
+		boolean cal=false;
+		for(int i=1;i<token.length;i++) {
+			if(!list.get(i-1)) {
+				cal = true;
+			}
+			if(!cal) {
+				result+= Integer.parseInt(token[i]);
+			}
+			else {
+				result-= Integer.parseInt(token[i]);
+			}
+			
+		}
+		System.out.print(result);
+	}
+	
+}
