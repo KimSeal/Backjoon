@@ -1,0 +1,21 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	static StringBuilder sb = new StringBuilder();
+
+	public static void main(String[] args) throws IOException{
+		String str = br.readLine().trim();
+		for(int idx=0;;idx++) {
+			if((idx+1)*10 >= str.length()) {
+				System.out.print(str.substring(idx*10, str.length()));
+				break;
+			}
+			else {
+				System.out.println(str.substring(idx*10, (idx+1)*10));
+			}
+		}
+	}
+	
+}
