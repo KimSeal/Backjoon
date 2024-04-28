@@ -1,0 +1,32 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	static StringBuilder sb = new StringBuilder();
+
+	public static void main(String[] args) throws IOException{
+		String str;
+		int start;
+		int end;
+		boolean result;
+		while(true) {
+			result=true;
+			str = br.readLine().trim();
+			if(str.equals("0")) {
+				break;
+			}
+			start=0; end = str.length()-1;
+			while(start<end) {
+				if(str.charAt(end)!=str.charAt(start)) {
+					result = false;
+					break;
+				}
+				start++;
+				end--;
+			}
+			if(result) System.out.println("yes");
+			else System.out.println("no");
+		}
+	}
+}
