@@ -1,0 +1,63 @@
+#include<bits/stdc++.h>
+using namespace std;
+int arr[3][4];
+int main() {
+	int N;
+	
+	cin >> N;
+	int input0, input1, input2;
+	for (int i = 0; i < N;i++) {
+		cin >> input0 >> input1 >> input2;
+		arr[0][input0]++;
+		arr[0][0] += input0;
+		arr[1][input1]++;
+		arr[1][0] += input1;
+		arr[2][input2]++;
+		arr[2][0] += input2;
+	}
+	int winner;
+	int equalChk = 0;
+	if (arr[0][0] == arr[1][0]) {
+		if (arr[0][3] == arr[1][3]) {
+			if (arr[0][2] == arr[1][2]) {
+				equalChk = 1;
+				winner = 0;
+			}
+			else {
+				winner = (arr[0][2] > arr[1][2]) ? 0 : 1;
+			}
+		}
+		else {
+			winner = (arr[0][3] > arr[1][3]) ? 0 : 1;
+		}
+	}
+	else {
+		winner = (arr[0][0] > arr[1][0]) ? 0 : 1;
+	}
+	int tempWinner = winner;
+	if (arr[winner][0] == arr[2][0]) {
+		if (arr[winner][3] == arr[2][3]) {
+			if (arr[winner][2] == arr[2][2]) {
+				equalChk = 2;
+				winner = 2;
+			}
+			else {
+				winner = (arr[0][2] > arr[1][2]) ? 0 : 1;
+			}
+		}
+		else {
+			winner = (arr[winner][3] > arr[2][3]) ? winner : 2;
+		}
+	}
+	else {
+		winner = (arr[winner][0] > arr[2][0]) ? winner : 2;
+	}
+	if (equalChk == 1 && winner == tempWinner) {
+		equalChk = 2;
+	}
+	if (equalChk == 2) {
+		cout << "0 " << arr[winner][0];
+		return 0;
+	}
+	cout << winner+1 << " " << arr[winner][0];
+}
