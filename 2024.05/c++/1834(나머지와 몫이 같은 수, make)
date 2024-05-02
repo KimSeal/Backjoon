@@ -1,0 +1,13 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    long a, b;
+    cin >> a;
+    b = a-1;
+    long result=0;
+    while(b>0){
+        result += b*a+b;
+        b--;
+    }
+    cout << result;
+}
