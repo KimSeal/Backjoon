@@ -1,0 +1,18 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+    int N;
+    cin >> N;
+    N -= 1;
+    string str0, str1;
+    cin >> str0;
+    while (N--) {
+        cin >> str1;
+        for (int i = 0; i < str0.size(); i++) {
+            if (str0[i] != str1[i]) {
+                str0[i] = '?';
+            }
+        }
+    }
+    cout << str0;
+}
