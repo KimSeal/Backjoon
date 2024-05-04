@@ -1,0 +1,24 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+    int N, K;
+    int arr[100];
+    cin >> N >> K;
+    for (int i = 0; i < N; i++) {
+        cin >> arr[i];
+    }
+    int point = K;
+    int max1 = 0;
+    int add1 = 0;
+    for (int i = 0; i < K; i++) {
+        add1 += arr[i];
+    }
+    max1 = add1;
+    while (point < N) {
+        add1 += arr[point];
+        add1 -= arr[point - K];
+        if (add1 > max1) max1 = add1;
+        point++;
+    }
+    cout << max1;
+}
