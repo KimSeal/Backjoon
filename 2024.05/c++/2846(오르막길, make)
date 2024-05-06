@@ -1,0 +1,23 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+    int N;
+    cin >> N;
+    int result = 0;
+    int curVal = 0;
+    int arr[1001];
+    cin >> arr[0];
+    curVal = arr[0];
+    arr[N] = 0;
+    for (int i = 1; i < N;i++) {
+        cin >> arr[i];
+        if (arr[i - 1] >= arr[i]) {
+            result = (result > arr[i - 1] - curVal) ? result : arr[i - 1] - curVal;
+            curVal = arr[i];
+        }
+    }
+    if (arr[N - 1] >= arr[N]) {
+        result = (result > arr[N - 1] - curVal) ? result : arr[N - 1] - curVal;
+    }
+    cout << result;
+}
