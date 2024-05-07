@@ -1,0 +1,16 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+	long N;
+	
+	cin >> N;
+	long result = 1;
+	while (true) {
+		if (result * (result + 1) / 2 > N) {
+			cout << result - 1;
+			break;
+		}
+		result++;
+	}
+	return 0;
+}
