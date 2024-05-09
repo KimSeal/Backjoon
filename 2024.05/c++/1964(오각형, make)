@@ -1,0 +1,15 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+	long N;
+	cin >> N;
+	
+	int result = 1;
+	int addVal = 4;
+	while (N--) {
+		result += addVal;
+		result %= 45678;
+		addVal += 3;
+	}
+	cout << result;
+}
