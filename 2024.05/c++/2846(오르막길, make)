@@ -1,4 +1,5 @@
 #include<bits/stdc++.h>
+//stack으로의 변경 가능성 고려
 using namespace std;
 int main() {
     int N;
