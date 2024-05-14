@@ -1,0 +1,22 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+    int N, M, K;
+    int sum_0 = 0;
+    int result = 0;
+    cin >> N >> M;
+    if (N == 0) {
+        cout << 0;
+        return 0;
+    }
+    while (N--) {
+        cin >> K;
+        sum_0 += K;
+        if (sum_0 > M) {
+            sum_0 = K;
+            result++;
+        }
+        
+    }
+    cout << result+1;
+}
