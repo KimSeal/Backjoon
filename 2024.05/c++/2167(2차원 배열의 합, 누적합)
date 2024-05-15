@@ -1,0 +1,21 @@
+#include <bits/stdc++.h>
+using namespace std;
+long arr[301][301];
+long sum_arr[301][301];
+int main() {
+    long N, M;
+    cin >> N >> M;
+    for (int i = 1; i <= N; i++) {
+        for (int j = 1; j <= M; j++) {
+            cin >> arr[i][j];
+            sum_arr[i][j] = arr[i][j] + sum_arr[i - 1][j] + sum_arr[i][j - 1] - sum_arr[i - 1][j-1];
+        }
+    }
+    long K, x1, x2, y1, y2;
+    cin >> K;
+
+    while (K--) {
+        cin >> y1 >> x1 >> y2 >> x2;
+        cout << sum_arr[y2][x2] - sum_arr[y1 - 1][x2] - sum_arr[y2][x1 - 1] + sum_arr[y1 - 1][x1 - 1] << "\n";
+    }
+}
