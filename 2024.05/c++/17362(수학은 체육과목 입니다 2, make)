@@ -1,5 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
+//짝수 홀수로 나눠서 탐색을 줄이는 것이 가능할 것 같다.
+//else if의 난잡한 사용을 막을 것을 고려
 int main(){
     long long N;
     cin >> N;
