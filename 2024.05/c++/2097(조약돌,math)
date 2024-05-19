@@ -1,5 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
+//정사각형일때 최소임을 인지할것
 int main() {
     long long N;
     cin >> N;
