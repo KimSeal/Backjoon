@@ -1,0 +1,13 @@
+#include<iostream>
+#include<string>
+using namespace std;
+int main() {
+	int N;
+	string str;
+	getline(cin, str);
+	N = stoi(str);
+	for (int i = 1; i <= N; i++) {
+		getline(cin, str);
+		cout << i << ". " << str << "\n";
+	}
+}
