@@ -1,0 +1,31 @@
+#include <bits/stdc++.h>
+using namespace std;
+bool visited[50];
+int main() {
+    int arr[50][50];
+    int N, M, temp, val, result=0;
+    
+    cin >> N >> M;
+    bool zzamTong = false;
+    for (int i = 0; i < N; i++) {
+        temp = 0;
+        for (int j = 0; j < M; j++) {
+            cin >> arr[i][j];
+            if (arr[i][j] != 0) {
+                temp++;
+                val = j;
+            }
+        }
+        if (temp == 1) {
+            if (visited[val]) result++;
+            visited[val] = true;
+        }
+        else if (temp > 1) {
+            if (zzamTong) result++;
+            zzamTong = true;
+        }
+    }
+    if (!zzamTong) result--;
+    if (result < 0) result = 0;
+    cout << result;
+}
