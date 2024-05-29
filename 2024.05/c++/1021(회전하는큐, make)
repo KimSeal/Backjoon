@@ -1,0 +1,46 @@
+#include<iostream>
+using namespace std;
+int main() {
+	int arr[52];
+	int N, M, input;
+	int start = 1;
+	int end = 1;
+	int curPoint = 1;
+	int tempResult0, tempResult1;
+	bool chk = false;
+
+	cin >> N >> M;
+	if (N == M) chk = true;
+	for (int i = 1; i <= N;i++) {
+		arr[i] = N;
+	}
+	int result = 0;
+	while (M--) {
+		cin >> input;
+		start = curPoint;
+		end = curPoint;
+		tempResult0 = 0;
+		tempResult1 = 0;
+		while (start != input) {
+			start--;
+			if (start == 0) start = N;
+			if (arr[start] > 0) tempResult0++;
+		}
+		while (end != input) {
+			end++;
+			if (end == N+1) end = 1;
+			if (arr[end] > 0) tempResult1++;
+		}
+		result += (tempResult0 < tempResult1) ? tempResult0 : tempResult1;
+		if (chk && M == 0) break;
+		arr[input] = 0;
+		
+		curPoint = input;
+		while (arr[curPoint]==0) {
+			curPoint++;
+			if (curPoint == N + 1) curPoint = 1;
+		}
+	}
+	cout << result;
+
+}
