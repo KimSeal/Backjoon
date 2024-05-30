@@ -1,0 +1,22 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int fullmember, N, M;
+    cin >> fullmember >> N >> M;
+    int result = 1;
+    while (true) {
+        if (N % 2 == 1) {
+            N++;
+        }
+        if (M % 2 == 1) {
+            M++;
+        }
+        if (N == M) {
+            break;
+        }
+        result++;
+        N /= 2;
+        M /= 2;
+    }
+    cout << result;
+}
