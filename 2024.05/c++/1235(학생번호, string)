@@ -1,0 +1,21 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int N;
+    vector<string> vec0;
+    string input;
+    cin >> N;
+    for (int i = 0; i < N;i++) {
+        cin >> input;
+        reverse(input.begin(), input.end());
+        vec0.push_back(input);
+    }
+    set<string> s;
+    int result = 0;
+    while (s.size() != N) {
+        result++;
+        s.clear();
+        for (int i = 0; i < N; i++) s.insert(vec0[i].substr(0, result));        
+    }
+    cout << result;
+}
