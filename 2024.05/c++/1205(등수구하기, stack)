@@ -1,0 +1,18 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int N, P, input0;
+    cin >> N >> input0 >> P;
+    stack<int> stk;
+    int input1;
+    for (int i = 0; i < N; i++) {
+        cin >> input1;
+        stk.push(input1);
+    }
+    while (!stk.empty() && stk.top() < input0) stk.pop();
+    if (stk.size() >= P) cout << -1;
+    else {
+        while (!stk.empty() && stk.top() == input0) stk.pop();
+        cout << stk.size() + 1;
+    }
+}
