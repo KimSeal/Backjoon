@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+//이번엔 stack으로 구현했지만 underbound나 upperbound등을 사용해서도 구할 수 있을 것이다.
 using namespace std;
 int main() {
     int N, P, input0;
