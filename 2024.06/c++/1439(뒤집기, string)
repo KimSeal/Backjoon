@@ -1,0 +1,22 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+	string str;
+	cin >> str;
+	int num0 = 0;
+	int num1 = 0;
+	char cur = '3';
+	for (int i = 0; i < str.size();i++) {
+		if (cur != str.at(i)) {
+			cur = str.at(i);
+			if (cur == '0') num0++;
+			else num1++;
+		}
+	}
+	if (num0 > num1) {
+		cout << num1;
+	}
+	else {
+		cout << num0;
+	}
+}
