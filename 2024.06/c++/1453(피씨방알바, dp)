@@ -1,5 +1,6 @@
 #include<iostream>
 using namespace std;
+//bitmask로는 정수가 너무 커진다.
 bool dp[101];
 int main() {
 	int N, temp, result;
