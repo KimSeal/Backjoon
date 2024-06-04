@@ -1,0 +1,14 @@
+#include<iostream>
+using namespace std;
+bool dp[101];
+int main() {
+	int N, temp, result;
+	result = 0;
+	cin >> N;
+	while (N--) {
+		cin >> temp;
+		if (dp[temp]) result++;
+		dp[temp] = true;
+	}
+	cout << result;
+}
