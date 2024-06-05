@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
+//겹치는 애들만 처리하면 된다.
 int main() {
 	string str;
 	cin >> str;
