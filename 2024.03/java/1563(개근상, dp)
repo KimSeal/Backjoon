@@ -1,5 +1,5 @@
 import java.io.*;
-//1.
+//1.dp를 이용해 점화식을 세워서 최종 결과를 도출. 
 public class Main {
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	static int length;
