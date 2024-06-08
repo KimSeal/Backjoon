@@ -1,0 +1,29 @@
+import java.io.*;
+import java.util.*;
+
+
+public class Main {
+	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	static StringBuilder sb = new StringBuilder();
+	static boolean visited[] = new boolean[2000001];
+	public static void main(String[] args) throws IOException{
+		int N, C, temp, Counter;
+		String[] str = br.readLine().trim().split(" ");
+		N = Integer.parseInt(str[0]);
+		C = Integer.parseInt(str[1]);
+		for(int i=0;i<N;i++) {
+			Counter =1;
+			temp = Integer.parseInt(br.readLine().trim());
+			while(temp * Counter<= 2000000) {
+				visited[temp*Counter] = true;
+				Counter++;
+			}
+		}
+		int result = 0;
+		for(int i=0;i<=C;i++) {
+			if(visited[i]) result++;
+		}
+		System.out.print(result);
+	}
+	
+}
