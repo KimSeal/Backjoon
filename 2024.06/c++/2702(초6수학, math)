@@ -1,0 +1,24 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+    int T, A, B, C, tempA, tempB, answer0, answer1;
+    cin >> T;
+    while (T--) {
+        cin >> A >> B;
+        if (B > A) {
+            C = A;
+            A = B;
+            B = C;
+        }
+        tempA = A;
+        tempB = B;
+        while (tempA % tempB != 0) {
+            tempA = tempA % tempB;
+            C = tempA;
+            tempA = tempB;
+            tempB = C;
+        }
+        answer1 = tempB;
+        cout << A * B / answer1 << " " << answer1 <<"\n";
+    }
+}
