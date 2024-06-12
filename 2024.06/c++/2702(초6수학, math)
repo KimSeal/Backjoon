@@ -1,5 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
+//변수 줄이기 vs 코드 줄이기, 선택 필요
+// swap에서 변수 두개로도 교환이 가능하다.
 int main() {
     int T, A, B, C, tempA, tempB, answer0, answer1;
     cin >> T;
