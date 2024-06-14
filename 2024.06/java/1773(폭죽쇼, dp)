@@ -1,6 +1,6 @@
 import java.io.*;
 import java.util.*;
-
+//메모리사용을 줄일수있을까?
 
 public class Main {
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
