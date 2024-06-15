@@ -1,6 +1,6 @@
 import java.io.*;
 import java.util.*;
-
+//dp로 알파벳 갯수 기록
 public class Main{
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	static StringBuilder sb = new StringBuilder();
