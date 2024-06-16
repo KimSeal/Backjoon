@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-
+//2진탐색을 통해 탐색 속도를 향상(O(n) -> O(log2 n))
 int vec_1[500001];
 int vec_2[500001];
 int N, M;
