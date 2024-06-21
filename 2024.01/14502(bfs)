@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
+//배열을 통한 상태 저장 및 최단 거리 탐색
 int temp_map[8][8];
 int N, M, result;
 struct map_toy{
