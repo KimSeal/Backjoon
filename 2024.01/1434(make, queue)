@@ -2,7 +2,7 @@
 using namespace std;
 
 int result, box_num, book_num, box_weight, book_weight;
-
+//vector를 queue처럼 이용해 각 box를 채우는 방식으로 진행. 
 int main(){
     int N, M, input_1;
     vector<int> book_1;
