@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
-
+//회전에 따른 배열의 상태를 저장하는 방식으로 해결한다.
 int R, C;
 string str_1;
 //int arr[751][751];
