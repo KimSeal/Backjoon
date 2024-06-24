@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main(){
+    int S, K, H;
+    cin >> S >> K >> H;
+    if(S+K+H>99){
+        cout << "OK";
+    }
+    else{
+        if(S<K){
+            if(S<H){
+                cout << "Soongsil";
+            }
+            else{
+                cout << "Hanyang";
+            }
+        }
+        else{
+            if(K<H){
+                cout << "Korea";
+            }
+            else{
+                cout << "Hanyang";
+            }
+        }
+    }
+}
