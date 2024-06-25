@@ -1,5 +1,6 @@
 #include <iostream>
 using namespace std;
+//최대를 탐색하며 진행
 int main() {
     ios_base::sync_with_stdio(0);
     cin.tie(0);
