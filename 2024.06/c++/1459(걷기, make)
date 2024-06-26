@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main() {
+    long long X, Y, W, S;
+    cin >> X >> Y >> W >> S;
+    if (W * 2 < S) {
+        cout << (X + Y) * W;
+    }
+    else {
+        long long result=0;
+        if (X > Y) {
+            result += S * Y;
+            X -= Y;
+        }
+        else {
+            result += S * X;
+            Y -= X;
+            X = Y;
+        }
+        if (W > S) {
+            result += (X / 2) * 2 * S;
+            if (X % 2 == 1) result += W;
+        }
+        else {
+            result += W * X;
+        }
+        cout << result;
+
+    }
+}
