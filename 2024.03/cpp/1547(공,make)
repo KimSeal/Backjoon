@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
-//using namespace std;
+using namespace std;
+//swap을 통해 ball의 값을 계속해 변경
 int ball=1;
 void swap(int a, int b) {
     if (!a && !b) return;
