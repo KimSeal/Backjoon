@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std;
-
+//나온횟수 측정
 int main() {
     int a;
     int b;
