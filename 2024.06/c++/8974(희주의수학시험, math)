@@ -1,0 +1,23 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    vector<int> vec_0;
+    int a = 1, b, index = 1, result = 0;
+    vec_0.push_back(0);
+    while (true) {
+        //cout << a * (a + 1) / 2 << " ";
+        vec_0.push_back(a * (a + 1) / 2);
+        if (a * (a + 1) / 2 > 1000) { break; }
+        a++;
+        
+    }
+    cin >> a >> b;
+    for (int i = a; i <= b; i++) {
+        while (i > vec_0[index]) {
+            index++;
+        }
+        result += index ;
+    }
+    cout << result;
+}
