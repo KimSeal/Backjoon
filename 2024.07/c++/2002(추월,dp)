@@ -1,0 +1,34 @@
+#include <bits/stdc++.h>
+using namespace std;
+bool chk[1000];
+int main() {
+    stack<int> stk;
+    map<string, int> m;
+    int N;
+    int result = 0;
+    int temp;
+    bool tempChk = false;
+    cin >> N;
+    string str;
+    for (int i = 0; i < N;i++) {
+        cin >> str;
+        m.insert({str, i});
+    }
+    for (int i = 0; i < N; i++) {
+        tempChk = false;
+        cin >> str;
+        temp = m[str];
+        for (int j = 0; j < temp;j++) {
+            if (!chk[j]) {
+                tempChk = true;
+                break;
+            }
+        }
+        if (!tempChk) {
+            //cout << temp<<"\n";
+            result++;
+        }
+        chk[temp] = true;
+    }
+    cout << N-result;
+}
