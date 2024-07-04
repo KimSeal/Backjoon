@@ -1,0 +1,50 @@
+#include <bits/stdc++.h>
+using namespace std;
+int dist[1000][1000];
+int main() {
+    int xs, ys, xe, ye, dx, dy;
+    cin >> xs >> ys >> xe >> ye >> dx >> dy;
+    int dist0 = (xe - xs) * (xe - xs) + (ye - ys) * (ye - ys);
+    int dist1 = (xe - xs) * (xe - xs) + (ye - ys) * (ye - ys);
+    int dx2 = dx;
+    int dy2 = dy;
+    int temp;
+    if (dx != 0 && dy != 0) {
+        if (dx2 < 0) dx2 *= -1;
+        if (dy2 < 0) dy2 *= -1;
+        if (dx2 < dy2) {
+            temp = dx2;
+            dx2 = dy2;
+            dy2 = temp;
+        }
+        while (true) {
+            if (dx2 % dy2 == 0) {
+                break;
+            }
+            temp = dx2;
+            dx2 = dy2;
+            dy2 = temp % dx2;
+        }
+        dx /= dy2;
+        dy /= dy2;
+    }
+    else if (dx==0 && dy ==0) {
+
+    }
+    else if (dx == 0) {
+        if (dy > 0) dy = 1;
+        else dy = -1;
+    }
+    else if (dy == 0) {
+        if (dx > 0) dx = 1;
+        else dx = -1;
+    }
+    while (true) {
+        dist1 = (xe - xs) * (xe - xs) + (ye - ys) * (ye - ys);
+        if (dist0 < dist1) break;
+        dist0 = dist1;
+        xe += dx;
+        ye += dy;
+    }
+    cout << xe-dx << " " << ye-dy;
+}
