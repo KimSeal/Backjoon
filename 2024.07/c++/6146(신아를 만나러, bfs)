@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+bool mapTemp[1001][1001];
+bool visited[1001][1001];
+int dy[4] = { -1,0,1,0 };
+int dx[4] = { 0,1,0,-1 };
+
+
+int main() {
+    int N, M, U, temp1, temp2;
+    cin >> N >> M >> U;
+    while (U--) {
+        cin >> temp1 >> temp2;
+        mapTemp[temp2 + 500][temp1 + 500] = true;
+    }
+    queue <pair<int, int>> q;
+    mapTemp[0][0] = true;
+    q.push(make_pair(500, 500));
+    int dist = 0;
+    mapTemp[500][500] = true;
+    while (!q.empty()) {
+        
+        int sizeTemp = q.size();
+        int curX, curY;
+        for (int i = 0; i < sizeTemp;i++) {
+            int curY = q.front().first;
+            int curX = q.front().second;
+            if (curY == M+500 && curX == N+500) {
+                cout << dist;
+                return 0;
+            }
+            for (int j = 0; j < 4; j++) {
+                if (curY + dy[j] >= 0 && curY + dy[j] < 1001 &&
+                    curX + dx[j] >= 0 && curX + dx[j] < 1001 &&
+                    !mapTemp[curY + dy[j]][curX + dx[j]]) {
+                    mapTemp[curY + dy[j]][curX + dx[j]] = true;
+                    q.push(make_pair(curY+dy[j], curX+dx[j]));
+                }
+            }
+            q.pop();
+            
+        }
+        dist++;
+        
+    }
+}
