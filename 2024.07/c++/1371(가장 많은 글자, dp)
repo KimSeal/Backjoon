@@ -1,0 +1,22 @@
+#include <bits/stdc++.h>
+using namespace std;
+int strDP[26];
+int main(){
+    string str;
+    while(cin >> str){
+        for(int i=0;i<str.size();i++){
+            strDP[str[i]-'a']++;
+        }
+    }
+    int maxVal =0;
+    for(int i=0;i<26;i++){
+        if(maxVal <= strDP[i]) maxVal = strDP[i];
+    }
+    char printChar;
+    for(int i=0;i<26;i++){
+        if(maxVal == strDP[i]) {
+            printChar = 'a' + i;
+            cout << printChar;
+        }
+    }
+}
