@@ -1,0 +1,23 @@
+#include <bits/stdc++.h>
+using namespace std;
+bool prison[101];
+int main() {
+    int A, B, input0;
+    cin >> A >> B;
+    set<int> s;
+    while (A--) {
+        cin >> input0;
+        s.insert(input0);
+    }
+    while (B--) {
+        cin >> input0;
+        if (s.find(input0) != s.end()) {
+            s.erase(s.find(input0));
+        }
+    }
+    set<int>::iterator it;
+    cout << s.size() <<"\n";
+    for (it = s.begin(); it != s.end();it++) {
+        cout << *it << " ";
+    }
+}
