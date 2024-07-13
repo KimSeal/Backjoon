@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+int main() {
+    int result = 0;
+    int N;
+    int arr[100000];
+    bool dp[100000];
+    for (int i = 0; i < 100000;i++) {
+        dp[i] = false;
+    }
+    int startPoint;
+
+    cin >> N;
+    for (int i = 0; i < N;i++) {
+        cin >> arr[i];
+    }
+    cin >> startPoint;
+    queue<int> qu;
+    qu.push(startPoint - 1);
+    int temp;
+    while (!qu.empty()) {
+        temp = qu.front();
+        qu.pop();
+        dp[temp] = true;
+        result++;
+        if (temp - arr[temp] >= 0 && !dp[temp - arr[temp]]) {
+            qu.push(temp - arr[temp]);
+        }
+        if (temp + arr[temp] < N && !dp[temp + arr[temp]]) {
+            qu.push(temp + arr[temp]);
+        }
+    }
+    cout << result;
+}
