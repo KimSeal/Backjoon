@@ -1,0 +1,23 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main(){
+    int N;
+    cin >> N;
+    if(N<3) cout << N;
+    else{
+        int cur = 3;
+        int temp_1 = 1;
+        int temp_2 = 2;
+        int temp_3;
+        while(true){
+            temp_3 = (temp_1 + temp_2)%10;
+            if(cur == N){
+                cout << temp_3;
+                break;
+            }
+            temp_1 = temp_2;
+            temp_2 = temp_3;
+            cur++;
+        }
+    }
+}
