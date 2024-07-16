@@ -1,0 +1,18 @@
+using System;
+
+namespace 백준
+{
+    internal class Program
+    {
+        static void Main(string[] args){
+            string[] strArr = Console.ReadLine().Split(' ');
+            int N = int.Parse(strArr[0]);
+            int W = int.Parse(strArr[1]);
+            int H = int.Parse(strArr[2]);
+            int L = int.Parse(strArr[3]);
+            int max_0 = (W/L) * (H/L);
+            if(max_0 > N) max_0 = N;
+            Console.WriteLine("{0}",max_0);
+        }
+    }
+}
