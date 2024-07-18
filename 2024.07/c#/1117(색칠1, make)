@@ -1,0 +1,32 @@
+using System;
+
+namespace 백준
+{
+    internal class Program
+    {
+        static void Main(string[] args){
+            string[] strArr = Console.ReadLine().Split(' ');
+            long W = long.Parse(strArr[0]);
+            long H = long.Parse(strArr[1]);
+            long f = long.Parse(strArr[2]);
+            long c = long.Parse(strArr[3]);
+            long x1 = long.Parse(strArr[4]);
+            long y1 = long.Parse(strArr[5]);
+            long x2 = long.Parse(strArr[6]);
+            long y2 = long.Parse(strArr[7]);
+            long tempWidth0 = (W - f > f) ? W - f : f;
+            long tempWidth1 = (W - f < f) ? W - f : f;
+            long subsize0 = (tempWidth0 * (H / (c + 1)) - (y2 - y1) * (x2 - x1));
+            if (tempWidth1 < x2)
+            {
+                x2 = tempWidth1;
+            }
+            if (tempWidth1 < x1)
+            {
+                x1 = tempWidth1;
+            }
+            long subsize1 = (tempWidth1 * (H / (c + 1)) - (y2 - y1) * (x2 - x1));
+            Console.WriteLine("{0}", (subsize1 + subsize0) * (c + 1));
+        }
+    }
+}
