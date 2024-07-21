@@ -1,0 +1,29 @@
+using System;
+
+namespace 백준
+{
+    internal class Program
+    {
+        
+        static long[] arr = new long[100001];
+        static void Main(string[] args)
+        {
+            int N = int.Parse( Console.ReadLine());
+            int M = int.Parse( Console.ReadLine());
+            int temp;
+            int result =0;
+            string[] strArr = Console.ReadLine().Split(' ');
+            for(int i=0;i<N;i++){
+                temp = int.Parse(strArr[i]);
+                if(M-temp >= 0 && M-temp <= 100000 && arr[M-temp] > 0) {
+                    arr[M-temp]--;
+                    result++;
+                }
+                else if(temp <=100000){
+                    arr[temp]++;
+                }
+            }
+            Console.WriteLine("{0}", result);
+        }
+    }
+}
