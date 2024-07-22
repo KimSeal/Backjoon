@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main(){
+    string str;
+    string outStr;
+    while(true){
+        cin >> str;
+        if(str.compare("#") == 0) break;
+        outStr = "";
+        for(int i=str.size()-1;i>=0;i--){
+            if(str[i] == 'b') outStr = outStr + "d";
+            else if (str[i] == 'd') outStr = outStr + "b";
+            else if (str[i] == 'p') outStr = outStr + "q";
+            else if (str[i] == 'q') outStr = outStr + "p";
+            else if (str[i] == 'i') outStr = outStr + "i";
+            else if (str[i] == 'o') outStr = outStr + "o";
+            else if (str[i] == 'v') outStr = outStr + "v";
+            else if (str[i] == 'w') outStr = outStr + "w";
+            else if (str[i] == 'x') outStr = outStr + "x";
+            else {
+                break;
+            }
+        }
+        if(outStr.size() != str.size()) cout <<"INVALID"<<"\n";
+        else cout << outStr<<"\n";
+    }
+}
