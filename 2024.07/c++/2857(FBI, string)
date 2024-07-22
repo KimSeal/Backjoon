@@ -1,0 +1,16 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    string str;
+    bool tempChk = false;
+    for(int i=1;i<=5;i++){
+        cin >> str;
+        if(str.find("FBI") != string::npos){
+            cout << i << " ";
+            tempChk = true;
+        }
+    }
+    if(!tempChk){
+        cout << "HE GOT AWAY!";
+    }
+}
