@@ -4,7 +4,8 @@ namespace 백준
 {
     internal class Program
     {
-        
+
+        //JAVA와 유사하게 new를통해 배열이 할당될 수 있다. 
         static long[] arr = new long[100001];
         static void Main(string[] args)
         {
