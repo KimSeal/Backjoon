@@ -1,0 +1,30 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    set <int>s;
+    int N, M, temp0, max0;
+    char input0;
+    string name0;
+    string resultStr = "";
+    cin >> N >> M;
+    while (N--) {
+        max0 = 0;
+        temp0 = 0;
+        for (int i = 0; i < M; i++) {
+            cin >> input0;
+            if (input0 == '.') temp0++;
+            else {
+                if (max0 < temp0) max0 = temp0;
+                temp0 = 0;
+            }
+        }
+        if (max0 < temp0) max0 = temp0;
+        s.insert(max0);
+        cin >> name0;
+        resultStr += to_string(max0);
+        resultStr += " ";
+        resultStr += name0;
+        resultStr += "\n";
+    }
+    cout << s.size() << "\n" << resultStr;
+}
