@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+int arrHeight[1001];
+int main() {
+    int N, M, K;
+    int maxHeight = 0;
+    int maxPoint = 0;
+    cin >> N;
+    for (int i = 1; i <= N; i++) {
+        cin >> M >> K;
+        arrHeight[M] = K;
+        if (maxHeight < K) {
+            maxPoint = M;
+            maxHeight = K;
+        }
+    }
+    int result = 0;
+    int curHeight = 0;
+    for (int i = 1; i <= maxPoint; i++) {
+        
+        if (curHeight < arrHeight[i]) {
+            curHeight = arrHeight[i];
+        }
+        //cout << i << " : " << curHeight << "\n";
+        result += curHeight;
+    }
+    curHeight = 0;
+    for (int i = 1000; i > maxPoint; i--) {
+        if (curHeight < arrHeight[i]) {
+            curHeight = arrHeight[i];
+        }
+        //cout << i << " : " << curHeight << "\n";
+        result += curHeight;
+    }
+    cout << result;
+}
