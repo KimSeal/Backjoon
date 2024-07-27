@@ -1,0 +1,55 @@
+#include <bits/stdc++.h>
+using namespace std;
+int arrHeight[1001];
+int main() {
+    int N, result=0;
+    char input0, input1, input2, input3;
+    cin >> N;
+    cin >> input0;
+    if (N == 1) {
+        cin >> input1;
+        if (input0 != input1) result++;
+        cout << result;
+    }
+    else {
+        for (int i = 3; i < N; i += 2) {
+            cin >> input1 >> input2;
+            if ((input1 == '&' && input0 == 'T' && input2 == 'T') || (input1 == '|' && (input0 == 'T' || input2 == 'T'))){
+                input0 = 'T';
+            }
+            else input0 = 'F';
+        }
+        cin >> input1 >> input2;
+        cin >> input3;
+        if (input0 == 'T' && input2 == 'T') {
+            if (input1 == '&') {
+                if (input3 == 'T') cout << 0;
+                else cout << 1;
+            }
+            else if (input1 == '|') {
+                if (input3 == 'T') cout << 0;
+                else cout << 2;
+            }
+        }
+        else if (input0 != input2) {
+            if (input1 == '&') {
+                if (input3 == 'T') cout << 1;
+                else cout << 0;
+            }
+            else if (input1 == '|') {
+                if (input3 == 'T') cout << 0;
+                else cout << 1;
+            }
+        }
+        else {
+            if (input1 == '&') {
+                if (input3 == 'T') cout << 2;
+                else cout << 0;
+            }
+            else if (input1 == '|') {
+                if (input3 == 'T') cout << 1;
+                else cout << 0;
+            }
+        }
+    }
+}
