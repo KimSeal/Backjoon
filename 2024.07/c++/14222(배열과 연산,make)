@@ -1,0 +1,25 @@
+#include <bits/stdc++.h>
+using namespace std;
+bool chk[51];
+int main() {
+    chk[0] = true;
+    int N, K, input0, temp=0;
+    cin >> N >> K;
+    vector<int> vec0;
+    for (int i = 0; i < N;i++) {
+        cin >> input0;
+        vec0.push_back(input0);
+    }
+    sort(vec0.begin(), vec0.end());
+    for (int i = 0; i < N; i++) {
+        temp = vec0[i];
+        while (true) {
+            if (temp > N) break;
+            if (chk[temp]) temp += K;
+            else { chk[temp] = true; /*cout << temp << "\n"; */ break; }
+        }
+        if (temp > N) break;
+    }
+    if (temp > N) cout << 0;
+    else cout << 1;
+}
