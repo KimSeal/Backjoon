@@ -1,0 +1,21 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int temp=0;
+    string str;
+    string printStr;
+    int num = 0;
+    while (true) {
+        getline(cin, str);
+        if (str.compare("EOI") == 0) { break; }
+        printStr = "Missing\n";
+        str += "zzzz";
+        for (int i = 0; i < str.size() - 3; i++) {
+            if ((str[i] == 'N' || str[i] == 'n') && (str[i+1] == 'E' || str[i+1] == 'e') &&
+                (str[i+2] == 'M' || str[i+2] == 'm') && (str[i+3] == 'O' || str[i+3] == 'o')) {
+                printStr = "Found\n";
+            }
+        }
+        cout << printStr;
+    }
+}
