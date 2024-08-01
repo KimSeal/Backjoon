@@ -1,0 +1,14 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int arr[101];
+    int arr1[101];
+    int N, input0, input1=0;
+    cin >> N;
+    arr[0]=0;
+    for (int i = 1; i <= N;i++) {
+        cin >> arr[i];
+        arr[i] *= i;
+        cout << arr[i] - arr[i-1] << " ";
+    }
+}
