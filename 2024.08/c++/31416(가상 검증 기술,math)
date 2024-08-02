@@ -1,0 +1,21 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int Q, Ta, Tb, Va, Vb;
+    cin >> Q;
+    //int temp0, temp1;
+    while (Q--) {
+        cin >> Ta >> Tb >> Va >> Vb;
+        if (Ta * Va <= Tb * Vb) cout << Tb * Vb << "\n";
+        else {
+            if ((Va - (Tb * Vb / Ta)) % 2 == 1) cout << ((Tb * Vb / Ta) + ((Va - (Tb * Vb / Ta)) / 2 + 1)) * Ta << "\n";
+            else cout << ((Va - (Tb * Vb / Ta)) / 2) * Ta + Tb * Vb << "\n";
+            /*
+            temp0 = Tb * Vb / Ta;
+            temp1 = Va - temp0;
+            if (temp1 % 2 == 1) cout << (temp0 + (temp1 / 2 + 1)) * Ta << "\n";
+            else cout << (temp1 / 2) * Ta + Tb * Vb << "\n";
+            */
+        }
+    }
+}
