@@ -1,0 +1,12 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+int main() {
+    int n, m;
+
+    cin >> n >> m;
+    n *= m;
+    if (n % 3 == 0) cout << "YES";
+    else cout << "NO";
+}
