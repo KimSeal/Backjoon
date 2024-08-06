@@ -1,6 +1,6 @@
 import java.io.*;
 import java.util.*;
-//dp로 알파벳 갯수 기록
+//dp로 알파벳 갯수 기록 문자 to 숫자가 주요개념
 public class Main{
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	static StringBuilder sb = new StringBuilder();
