@@ -1,0 +1,35 @@
+#include <bits/stdc++.h>
+using namespace std;
+int strawArr[100];
+int shineArr[100];
+int answerArr[100];
+int main() {
+    int N, Straw, Shine;
+    cin >> N >> Straw >> Shine;
+    int resultNum = 0;
+    bool resultChk = true;
+    for (int i = 0; i < N; i++) cin >> strawArr[i];
+    for (int i = 0; i < N; i++) cin >> shineArr[i];
+    for (int i = 0; i < N; i++) {
+        //cout << (strawArr[i] - shineArr[i]) % (Straw - Shine) << " " << (strawArr[i] - shineArr[i]) * (Straw - Shine) << "\n";
+
+        if (strawArr[i] == shineArr[i]) {
+            answerArr[i] = 0;
+        }
+        else if (Straw != Shine && ((strawArr[i] - shineArr[i]) % (Straw - Shine) == 0) &&
+            (strawArr[i] - shineArr[i]) * (Straw - Shine) < 0) {
+            answerArr[i] += (strawArr[i] - shineArr[i]) / (Straw - Shine);
+            if (answerArr[i] < 0) answerArr[i] *= -1;
+            resultNum += answerArr[i];
+        }
+        else  resultChk = false;
+    }
+    if (resultNum > 10000) resultChk = false;
+    if (resultChk) {
+        cout << "YES\n";
+        for (int i = 0; i < N; i++) { cout << answerArr[i] << " "; }
+    }
+    else {
+        cout << "NO";
+    }
+}
