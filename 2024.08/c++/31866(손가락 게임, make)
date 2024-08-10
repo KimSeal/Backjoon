@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
+//다중 조건문 처리
 int main(){
     int N, M;
     cin >> N >> M;
