@@ -1,0 +1,16 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    long long N, M, input0, result=0;
+    cin >> N >> M;
+    while (N--) {
+        cin >> input0;
+        result += input0;
+    }
+    while (M--) {
+        cin >> input0;
+        if(input0 != 0) result *= input0;
+    }
+    cout << result;
+}
