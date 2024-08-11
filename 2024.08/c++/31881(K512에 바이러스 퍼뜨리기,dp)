@@ -1,0 +1,24 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+bool arr[200000];
+int main() {
+    //sync_with_stdio(false);
+    //cin.tie(NULL);
+    ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+    int N, M, input0, input1, result = 0;
+    cin >> N >> M;
+    while (M--) {
+        cin >> input0;
+        if(input0 <= 2) cin >> input1;
+        if (input0 == 1 && !arr[input1 - 1]) {
+            arr[input1 - 1] = true;
+            result++;
+        }
+        if (input0 == 2 && arr[input1 - 1]) {
+            arr[input1 - 1] = false;
+            result--;
+        }
+        if(input0 == 3) cout << N-result << "\n";
+    }
+}
