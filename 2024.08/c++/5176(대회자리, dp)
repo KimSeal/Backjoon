@@ -1,0 +1,21 @@
+#include <bits/stdc++.h>
+using namespace std;
+bool arr[501];
+int main() {
+    int K;
+    cin >> K;
+    int P, M, result, input;
+    while (K--) {
+        cin >> P >> M;
+        result = 0;
+        for (int i = 1; i <= M; i++) {
+            arr[i] = false;
+        }
+        for (int i = 0; i < P; i++) {
+            cin >> input;
+            if (arr[input]) result++;
+            arr[input] = true;
+        }
+        cout << result << "\n";
+    }
+}
