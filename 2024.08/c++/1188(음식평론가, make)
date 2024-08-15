@@ -1,0 +1,28 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+	int N, M;
+	int result = 0;
+	cin >> N >> M;
+	while (true) {
+		//M이 더 크게 만들기
+		if (N > M) N %= M;
+
+		//N이 0이면 종료
+		if (N == 0) { 
+			break; 
+		}
+
+		//M이 0이면 종료
+		if (M % N == 0) {
+			result +=  M-N ;
+			break;
+		}
+		else {
+			result += (M / N) * N;
+			M %= N;
+		}
+	}
+	cout << result;
+
+}
