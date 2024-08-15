@@ -1,0 +1,34 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int arr[1001];
+int main() {
+	int N, M, input, point, result;
+	bool resultChk = false;
+	cin >> N >> M;
+	for (int i = 1; i <= N;i++) {
+		cin >> input;
+		arr[i] = input;
+	}
+	point = 1;
+	for (int i = 0; i < M; i++) {
+		cin >> input;
+		if (resultChk) continue;
+
+		point += input;
+		//cout << "1" << point << "\n";
+		if (point >= N) {
+			cout << i + 1;
+			resultChk = true;
+		}
+		else {
+			point += arr[point];
+			//cout << "2" << point << "\n";
+
+			if (point >= N ) {
+				cout << i + 1;
+				resultChk = true;
+			}
+		}
+	}
+}
