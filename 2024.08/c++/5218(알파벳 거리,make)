@@ -1,0 +1,18 @@
+#include <bits/stdc++.h>
+using namespace std;
+bool arr[100000];
+int main() {
+	int N, temp;
+	string string0, string1;
+	cin >> N;
+	while (N--) {
+		cin >> string0 >> string1;
+		cout << "Distances: ";
+		for(int i = 0;i < string0.size();i++) {
+			temp = string1[i] - string0[i];
+			if (temp < 0) temp += 26;
+			cout << temp << " ";
+		}
+		cout << "\n";
+	}
+}
