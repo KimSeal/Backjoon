@@ -1,0 +1,25 @@
+#include <bits/stdc++.h>
+using namespace std;
+bool arr[100000];
+int main() {
+	long long N, M, tempVal = 1;
+	long long result = 1;
+	cin >> N >> M;
+	long long curVal = N;
+	while (tempVal <= N) {
+		tempVal *= 10;
+	}
+	while (curVal % M != 0) {
+		
+		if (arr[curVal % M]) {
+			result = -1;
+			break;
+		}
+		arr[curVal % M] = true;
+		
+		
+		curVal = (curVal % M) * tempVal + N;
+		result++;
+	}
+	cout << result;
+}
