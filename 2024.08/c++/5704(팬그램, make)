@@ -1,0 +1,26 @@
+#include <bits/stdc++.h>
+using namespace std;
+bool arr[26];
+int main() {
+	string str;
+	int temp;
+	int result;
+	getline(cin, str);
+	while (str.compare("*") != 0) {
+		
+		for (int i = 0; i < 26;i++) {
+			arr[i] = false;
+		}
+		result = 0;
+		for (int i = 0; i < str.size();i++) {
+			temp = str[i] - 'a';
+			if (temp >= 0 && temp < 26 && !arr[temp]) {
+				arr[temp] = true;
+				result++;
+			}
+		}
+		if (result == 26) cout << "Y" << "\n";
+		else cout << "N" << "\n";
+		getline(cin, str);
+	}
+}
