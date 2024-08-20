@@ -1,0 +1,18 @@
+#include <bits/stdc++.h>
+using namespace std;
+bool arr[10001];
+int main() {
+	int N, Q, L, I;
+	cin >> N >> Q;
+	while (Q--) {
+		cin >> L >> I;
+		for (int i = L; i <= N;i+=I) {
+			arr[i] = true;
+		}
+	}
+	int result = 0;
+	for (int i = 1; i <= N;i++) {
+		if (!arr[i]) result++;
+	}
+	cout << result;
+}
