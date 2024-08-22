@@ -1,0 +1,19 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    long long N, M;
+    cin >> N >> M;
+    if (N == M) {
+        cout << 0;
+        return 0;
+    }
+    if (N > M) {
+        long long temp = M;
+        M = N;
+        N = temp;
+    }
+    cout << M - N - 1 << "\n";
+    for (long long i = N + 1; i < M; i++) {
+        cout << i << " ";
+    }
+}
