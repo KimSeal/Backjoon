@@ -1,0 +1,15 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+    int N;
+    long long K, temp;
+    cin >> N;
+    while (N--) {
+        cin >> K;
+        temp = 1;
+        while (K--) {
+            temp *= 2;
+        }
+        cout << temp - 1 << "\n";
+    }
+}
