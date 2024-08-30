@@ -1,0 +1,34 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int N;
+    cin >> N;
+    string str;
+    cin.ignore();
+    double addVal = 0.0;
+    int allNum = 0.0;
+    for (int i = 0; i < N; i++) {
+        getline(cin, str);
+        if (str[str.size() - 1] == 'F') {
+            allNum += str[str.size() - 3] - '0';
+            continue;
+        }
+        allNum += str[str.size() - 4] - '0';
+        if (str[str.size() - 1] == '+') addVal += 0.3 * (double)(str[str.size() - 4] - '0');
+        if (str[str.size() - 1] == '-') addVal -= 0.3 * (double)(str[str.size() - 4] - '0');
+        if (str[str.size() - 2] == 'A') addVal += 4.0 * (double)(str[str.size() - 4] - '0');
+        if (str[str.size() - 2] == 'B') addVal += 3.0 * (double)(str[str.size() - 4] - '0');
+        if (str[str.size() - 2] == 'C') addVal += 2.0 * (double)(str[str.size() - 4] - '0');
+        if (str[str.size() - 2] == 'D') addVal += 1.0 * (double)(str[str.size() - 4] - '0');
+        
+        //cout << addVal <<"\n";
+    }
+    
+    addVal /= (double)allNum;
+    addVal = round(addVal*100);
+    addVal /= 100.0;
+    cout.precision(2);
+    cout << fixed;
+    cout << addVal;
+    
+}
