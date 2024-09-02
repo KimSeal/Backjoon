@@ -1,0 +1,52 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class temp {
+public:
+    bool flg;
+    char ch;
+    long len;
+    long point;
+};
+
+int main() {
+    stack<temp> stk_0;
+    stack<char> stk_1;
+    int N;
+    string strInput;
+    char chInput;
+    long pointInput, lenInput;
+    cin >> N;
+
+    for (int i = 0; i < N;i++) {
+        cin >> strInput;
+        if (strInput[0] == 't') {
+            cin >> chInput >> pointInput;
+            temp temp0 = { true, chInput, 0, pointInput };
+            stk_0.push(temp0); 
+        }
+        else {
+            cin >> lenInput >> pointInput;
+            temp temp0 = { false, '0', lenInput, pointInput};
+            stk_0.push(temp0);
+        }
+    }
+    temp temp1;
+    while (!stk_0.empty()) {
+        temp1 = stk_0.top();
+        if (temp1.flg) {
+            stk_1.push(temp1.ch);
+            stk_0.pop();
+        }
+        else {
+            long notInclude = temp1.point - temp1.len;
+            while (!stk_0.empty() && stk_0.top().point >= notInclude) {
+                stk_0.pop();
+            }
+        }
+    }
+    while (!stk_1.empty()) {
+        cout << stk_1.top();
+        stk_1.pop();
+    }
+}
