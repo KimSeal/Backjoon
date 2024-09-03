@@ -1,0 +1,38 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+class point {
+public:
+	long long x;
+	long long y;
+};
+int main() {
+	vector<point> vec_0;
+	point temp;
+	int N;
+	long long a, b;
+	long long result = 0;
+	cin >> N;
+	for (int i = 0; i < N;i++) {
+		cin >> a >> b;
+		temp = {a, b};
+		vec_0.push_back(temp);
+	}
+	for (int i = 0; i < N;i++) {
+		temp = vec_0[i];
+		for (int j = 0; j < N;j++) {
+			if (j == i) continue;
+			for (int k = j+1; k < N; k++) {
+				if (k == i) continue;
+
+				if ((vec_0[j].x - vec_0[i].x) * (vec_0[k].x - vec_0[i].x) + (vec_0[j].y - vec_0[i].y) * (vec_0[k].y - vec_0[i].y) == 0) {
+					result++;
+				}
+
+			}
+		}
+	}
+	cout << result;
+
+}
