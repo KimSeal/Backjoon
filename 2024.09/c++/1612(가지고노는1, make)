@@ -1,0 +1,27 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+int main() {
+	long long N;
+	cin >> N;
+	if (N % 2 == 0 || N % 5 == 0) {
+		cout << -1;
+	}
+	else if (N == 1) cout << 1;
+	else {
+		long long curVal = 11;
+		int result = 2;
+		
+		while (curVal % N != 0) {
+			if (curVal % N == 1) {
+				cout << -1; return 0;
+			}
+			result++;
+			curVal = (curVal % N) * 10 + 1;
+			//cout << curVal << "\n";
+		}
+		cout << result;
+	}
+
+}
