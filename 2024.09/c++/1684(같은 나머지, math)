@@ -1,0 +1,39 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+int make_max(int a, int b) {
+	int c;
+	while (b != 0) {
+		c = a % b;
+		a = b;
+		b = c;
+	}
+	return a;
+}
+
+class point {
+public:
+	long long x;
+	long long y;
+};
+int main() {
+	vector<int> vec_0;
+	vector<int> vec_1;
+	int N, input0;
+	cin >> N;
+	for (int i = 0; i < N;i++) {
+		cin >> input0;
+		vec_0.push_back(input0);
+	}
+	sort(vec_0.begin(), vec_0.end());
+	for (int i = 0; i < N-1; i++){
+		vec_1.push_back(vec_0[i + 1] - vec_0[i]);
+	}
+
+	int temp = vec_1[0];
+	for (int i = 1; i < N - 1; i++) {
+		temp = make_max(temp, vec_1[i]);
+	}
+	cout << temp;
+}
