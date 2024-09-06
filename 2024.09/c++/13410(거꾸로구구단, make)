@@ -1,0 +1,20 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main() {
+	int N, M;
+	cin >> N >> M;
+	int temp, temp2;
+	int maxVal = -1;
+	for (int i = 1; i <= M;i++) {
+		temp = i * N;
+		temp2 = 0;
+		while (temp > 0) {
+			temp2 *= 10;
+			temp2 += temp % 10;
+			temp /= 10;
+		}
+		maxVal = (maxVal > temp2) ? maxVal : temp2;
+	}
+	cout << maxVal;
+}
