@@ -1,0 +1,24 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main() {
+	int N;
+	string hello;
+	getline(cin, hello);
+	bool strFlag = false;
+	N = stoi(hello);
+	while (N--) {
+		strFlag = false;
+		getline(cin, hello);
+		for (int i = 0; i < hello.size();i++) {
+			if (strFlag && hello[i] != ' ') {
+				cout << hello[i];
+			}
+			if (strFlag == false && hello[i] == ' ') {
+				strFlag = true;
+				cout << "god";
+			}
+		}
+		cout << "\n";
+	}
+}
