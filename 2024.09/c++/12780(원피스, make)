@@ -1,0 +1,20 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main() {
+	string str0, str1;
+	cin >> str0 >> str1;
+	int result=0;
+	int point;
+	while (true) {
+		point = str0.find(str1);
+		if (point != string::npos) {
+			result++;
+			str0 = str0.substr(point + 1);
+		}
+		else {
+			break;
+		}
+	}
+	cout << result;
+}
