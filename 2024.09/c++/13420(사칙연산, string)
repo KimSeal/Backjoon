@@ -1,0 +1,69 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main() {
+	int N;
+	string str;
+	bool numFlag = true, minusFlag;
+	long long num0, num1, num2;
+	int idx;
+	char giho;
+	getline(cin, str);
+	N = stoi(str);
+	while (N--) {
+		idx = 0;
+		getline(cin, str);
+		num0 = 0; num1 = 0; num2 = 0;
+		
+		minusFlag = false;
+		if (str[idx] == '-') {
+			minusFlag = true;
+			idx++;
+		}
+
+		while(str[idx] != ' ') {
+			num0 *= 10;
+			num0 += str[idx] - '0';
+			idx++;
+		}
+		if (minusFlag) num0 *= -1;
+		///
+		idx++;
+		giho = str[idx];
+		idx+=2;
+
+		minusFlag = false;
+		if (str[idx] == '-') {
+			minusFlag = true;
+			idx++;
+		}
+		while (str[idx] != ' ') {
+			num1 *= 10;
+			num1 += str[idx] - '0';
+			idx++;
+		}
+		if (minusFlag) num1 *= -1;
+		idx+=3;
+		minusFlag = false;
+		if (str[idx] == '-') {
+			minusFlag = true;
+			idx++;
+		}
+
+		while (idx < str.size()) {
+			num2 *= 10;
+			num2 += str[idx] - '0';
+			idx++;
+		}
+		if (minusFlag) num2 *= -1;
+
+		if (giho == '+' && num1 + num0 == num2) cout << "correct\n";
+		else if (giho == '-' && num0 - num1 == num2) cout << "correct\n";
+		else if (giho == '*' && num1 * num0 == num2) cout << "correct\n";
+		else if (giho == '/' && num1 * num2 == num0) cout << "correct\n";
+		else {
+			cout << "wrong answer\n";
+		}
+	}
+
+}
