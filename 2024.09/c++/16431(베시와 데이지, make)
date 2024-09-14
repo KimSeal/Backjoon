@@ -1,0 +1,21 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int ax, ay, bx, by, cx, cy, atime, btime;
+    cin >> ax >> ay >> bx >> by >> cx >> cy;
+    int atimex = cx - ax;
+    int atimey = cy - ay;
+    if (atimex < 0) atimex *= -1;
+    if (atimey < 0) atimey *= -1;
+    atime = (atimex > atimey) ? atimex : atimey;
+
+    int btimex = cx - bx;
+    int btimey = cy - by;
+    if (btimex < 0) btimex *= -1;
+    if (btimey < 0) btimey *= -1;
+    btime = btimex + btimey;
+
+    if (atime < btime) cout << "bessie";
+    else if(btime < atime) cout << "daisy";
+    else cout << "tie";
+}
