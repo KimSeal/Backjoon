@@ -1,0 +1,35 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+bool arr[25][25];
+int x;
+int y;
+int result;
+void chk(int curPoint) {
+    if (curPoint == x * y) {
+
+        result++;
+        return;
+    }
+    if (curPoint % x == 0 || curPoint < x) {
+        chk(curPoint + 1);
+        arr[curPoint / x][curPoint % x] = true;
+        chk(curPoint + 1);
+        arr[curPoint / x][curPoint % x] = false;
+    }
+    else if(arr[curPoint / x -1][curPoint % x] && arr[curPoint / x ][curPoint % x -1] && arr[curPoint / x -1][curPoint % x-1]) {
+        chk(curPoint + 1);
+    }
+    else {
+        chk(curPoint + 1);
+        arr[curPoint / x][curPoint % x] = true;
+        chk(curPoint + 1);
+        arr[curPoint / x][curPoint % x] = false;
+    }
+}
+
+int main() {
+    cin >> y >> x;
+    chk(0);
+    cout << result;
+}
