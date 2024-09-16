@@ -1,0 +1,21 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+bool chk[4];
+int main() {
+    int N, M, K, input0, input1;    
+    cin >> N >> M >> K;
+    while (K--) {
+        cin >> input0 >> input1;
+        if ((input0 + input1) % 2 == 0) {
+            if (input0 % 2 == 0) chk[0] = true;
+            else chk[1] = true;
+        }
+        else if ((input0 + input1) % 2 == 1) {
+            if (input0 % 2 == 0) chk[2] = true;
+            else chk[3] = true;
+        }
+    }
+    if (chk[0] && chk[1] && chk[2] && chk[3]) cout << "YES";
+    else cout << "NO";
+}
