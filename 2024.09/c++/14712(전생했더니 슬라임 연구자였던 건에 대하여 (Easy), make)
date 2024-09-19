@@ -1,0 +1,34 @@
+#include <bits/stdc++.h>
+using namespace std;
+/*
+bool arr[1000001];
+void che() {
+    
+    for (int i = 2; i <= 1000;i++) {
+        if (arr[i]) continue;
+        for (int j = 1; i * j <= 1000000;j++) {
+            arr[i * j] = true;
+        }
+    }
+}
+*/
+int main() {
+    int N;
+    cin >> N;
+    //che();
+    int i = 2;
+    int result = 0;
+    while(i*i <= N ) {
+        if (N % i == 0) {
+            N /= i;
+            result++;
+        }
+        else i++;
+    }
+    int answer = 0;
+    while (result) {
+        answer++;
+        result >>= 1;
+    }
+    cout << answer;
+}
