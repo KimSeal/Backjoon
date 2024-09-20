@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    string str0, str1;
+    cin >> str0 >> str1;
+    int frontIdx = 0;
+    int endIdx = 0;
+    int sizeTemp = (str0.size() > str1.size()) ? str0.size() : str1.size();
+    for (int i = 0; i < sizeTemp;i++) {
+        if (str0[i] != str1[i]) {
+            break;
+        }
+        frontIdx++;
+    }
+    for (int i = 0;;i++) {
+        //cout << str0[str0.size() - 1 - i] <<" "<< str1[str1.size() - 1 - i]<<"\n";
+        if (str0.size() - 1 - i < frontIdx || str1.size() - 1 - i < frontIdx) {
+            break;
+        }
+
+        if (str0[str0.size() - 1 - i] != str1[str1.size() - 1 - i]) {
+            break;
+        }
+        
+        endIdx++;
+    }
+    cout << str1.size() - frontIdx- endIdx;
+}
