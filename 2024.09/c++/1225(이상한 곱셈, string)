@@ -1,0 +1,15 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    string str0, str1;
+    cin >> str0 >> str1;
+    long long num0 = 0;
+    long long num1 = 0;
+    for (int i = 0; i < str0.size(); i++) {
+        num0 += str0[i] - '0';
+    }
+    for (int i = 0; i < str1.size(); i++) {
+        num1 += str1[i] - '0';
+    }
+    cout << num0 * num1;
+}
