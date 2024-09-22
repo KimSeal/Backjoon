@@ -1,0 +1,55 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class pointx {
+public :
+	int x;
+	int y;
+	int z;
+	void initPoint(int x, int y, int z) {
+		this->x = x;
+		this->y = y;
+		this->z = z;
+	};
+};
+int distCal(pointx a, pointx b) {
+	int distX = a.x - b.x;
+	distX = (distX < 0) ? distX * -1 : distX;
+	int distY = a.y - b.y;
+	distY = (distY < 0) ? distY * -1 : distY;
+	int distZ = a.z - b.z;
+	distZ = (distZ < 0) ? distZ * -1 : distZ;
+	return distX + distY + distZ;
+}
+int main() {
+	vector<pointx> vec_0;
+	int result= 99999999;
+	int x, y, z, T;
+	cin >> T;
+	pointx tempPoint;
+	for (int i = 0; i < T;i++) {
+		cin >> x >> y >> z;
+		tempPoint.initPoint(x,y,z);
+		vec_0.push_back(tempPoint);
+	}
+	int curDist;
+	int distMax0 = 20000;
+	int distMax1 = 20000;
+	for (int i = 0; i < T;i++) {
+		distMax0 = 20000;
+		distMax1 = 20000;
+		for (int j = 0; j < T;j++) {
+			if (i == j) continue;
+			curDist = distCal(vec_0[i], vec_0[j]);
+			if (distMax0 > curDist) {
+				distMax1 = distMax0;
+				distMax0 = curDist;
+			}
+			else if (distMax1 > curDist) {
+				distMax1 = curDist;
+			}
+		}
+		result = (distMax0 + distMax1 < result) ? distMax0 + distMax1 : result;
+	}
+	cout << result;
+}
