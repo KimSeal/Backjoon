@@ -1,0 +1,33 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	long long N;
+	long long sum_result = 0;
+	long long curFac = 1;
+	long long curNum = 1;
+	stack<long long> stk_0;
+	cin >> N;
+	if (N == 0) {
+		cout << "NO";
+		return 0;
+	}
+	while (true) {
+		stk_0.push(curFac);
+		//cout << curFac<<" // ";
+		sum_result += curFac;
+		if (sum_result >= N) break;
+		curFac *= curNum;
+		curNum++;
+	}
+	long long takePop=0;
+	while (!stk_0.empty()) {
+		if (takePop + stk_0.top() <= N) {
+			takePop += stk_0.top();
+		}
+		stk_0.pop();
+	}
+	if (takePop == N) cout << "YES";
+	else cout << "NO";
+
+}
