@@ -1,0 +1,21 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int a, b;
+    int tempResult=0;
+    int minVal = 99999999;
+    for (int i = 0; i < 4; i++) {
+        cin >> a;
+        minVal = (minVal > a) ? a : minVal;
+        tempResult += a;
+    }
+
+    cin >> a >> b;
+    tempResult += (a + b);
+    
+    if (a > b) a = b;
+    tempResult -= a;
+    cout << tempResult - minVal;
+
+}
