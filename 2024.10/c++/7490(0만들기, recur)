@@ -1,0 +1,75 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int inputNum;
+string temp = "0";
+void recurChk(int num, string strTemp) {
+    
+    if (inputNum == num) {
+        //cout << strTemp << "\n";
+        int curNum = 0;
+        int tempNum = 1;
+        int curCal = 1;
+        for (int i = 1; i <= (inputNum-1) * 2;i++) {
+            if (strTemp[i] == '+') {
+                if (curCal == 1) {
+                    curNum += tempNum;
+                    tempNum = 0;
+                }
+                else if (curCal == 2) {
+                    curNum -= tempNum;
+                    tempNum = 0;
+                }
+                curCal = 1;
+            }
+            else if (strTemp[i] == '-') {
+                if (curCal == 1) {
+                    curNum += tempNum;
+                    tempNum = 0;
+                }
+                else if (curCal == 2) {
+                    curNum -= tempNum;
+                    tempNum = 0;
+                }
+                curCal = 2;
+            }
+            else if (strTemp[i] == ' ') {
+                tempNum *= 10;
+            }
+            else {
+                tempNum += strTemp[i] - '0';
+            }
+        }
+        if (curCal == 1) {
+            curNum += tempNum;
+            tempNum = 0;
+        }
+        else if (curCal == 2) {
+            curNum -= tempNum;
+            tempNum = 0;
+        }
+        //cout << curNum<<"\n";
+        if (curNum == 0) {
+            cout << strTemp<<"\n";
+        }
+    }
+    else {
+        temp[0] = '1' + num;
+        recurChk(num + 1, strTemp + " " + temp);
+        temp[0] = '1' + num;
+        recurChk(num + 1, strTemp+ "+" + temp);
+        temp[0] = '1' + num;
+        recurChk(num + 1, strTemp + "-" + temp);
+        
+    }
+}
+int main() {
+
+    int T;
+    cin >> T;
+    while (T--) {
+        cin >> inputNum;
+        recurChk(1, "1");
+        cout << "\n";
+    }
+}
