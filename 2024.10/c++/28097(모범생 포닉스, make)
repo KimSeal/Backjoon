@@ -1,0 +1,13 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+    int N;
+    cin >> N;
+    int sumTemp = (N - 1) * 8;
+    int input = 0;
+    while (N--) {
+        cin >> input;
+        sumTemp += input;
+    }
+    cout << (sumTemp / 24) << " " << (sumTemp % 24);
+}
