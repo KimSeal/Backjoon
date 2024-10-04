@@ -1,0 +1,19 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+        int N;
+        char input;
+        bool endChk = false;
+        int dalgu = 0, ponix = 0;
+        cin >> N;
+        while (N--) {
+            cin >> input;
+            if (!endChk) {
+                if (input == 'D') dalgu++;
+                else ponix++;
+                if (dalgu - ponix >= 2 || ponix - dalgu >= 2) endChk = true;
+            }
+        }
+        cout << dalgu << ":" << ponix;
+}
