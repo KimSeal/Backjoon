@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+using namespace std;
+bool arr[150][150];
+int main() {
+    int curX = 75, curY = 75;
+    arr[curY][curX] = true;
+    int minX_0 = 75, maxX_0 = 75, minY_0 = 75, maxY_0 = 75;
+    int N;
+    string str0;
+    int dx[4] = { 0,1,0,-1 };
+    int dy[4] = { -1,0,1,0 };
+    int dir = 2;
+    cin >> N >> str0;
+    for (int i = 0; i < N;i++) {
+        if (str0[i] == 'R') {
+            dir = (dir + 1) % 4;
+        }
+        else if (str0[i] == 'L') {
+            dir = (dir + 3) % 4;
+        }
+        else if(str0[i] == 'F') {
+            //cout << curY << " " << curX << "\n";
+            curX += dx[dir];
+            curY += dy[dir];
+            minX_0 = (minX_0 < curX) ? minX_0 : curX;
+            minY_0 = (minY_0 < curY) ? minY_0 : curY;
+            maxX_0 = (maxX_0 > curX) ? maxX_0 : curX;
+            maxY_0 = (maxY_0 > curY) ? maxY_0 : curY;
+            arr[curY][curX] = true;
+        }
+    }
+    for (int i = minY_0; i <= maxY_0;i++) {
+        for (int j = minX_0; j <= maxX_0; j++) {
+            if (arr[i][j]) cout << ".";
+            else cout << "#";
+        }
+        cout << "\n";
+    }
+
+}
