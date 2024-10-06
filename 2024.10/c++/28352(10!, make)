@@ -1,0 +1,13 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+    long long N;
+    cin >> N;
+    long long result = 6;
+    long long temp = 11;
+    while (temp <= N) {
+        result *= temp;
+        temp++;
+    }
+    cout << result;
+}
