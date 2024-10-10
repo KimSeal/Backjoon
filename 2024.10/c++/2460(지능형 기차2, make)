@@ -1,0 +1,14 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main(){
+    int a[10];
+    int b[10];
+    int manNum =0;
+    int max_0 =0;
+    for(int i=0;i<10;i++){
+        cin >> a[i] >> b[i];
+        manNum += b[i]-a[i];
+        max_0 = (max_0 > manNum) ? max_0 : manNum;
+    }
+    cout << max_0;
+}
