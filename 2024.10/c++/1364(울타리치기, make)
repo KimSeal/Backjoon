@@ -1,0 +1,22 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    long long N;
+    cin >> N;
+    long long arr[6] = { 1,1,2,3,4,5 };
+    long long arr_2[6] = { -5,-6,-6,-6,-6,-6 };
+    long long a, b;
+    a = (N % 6);
+    b = N / 6;
+    if (N < 5) {
+        cout << N;
+    }
+    else if (b == 1) {
+        cout << arr[a] + N;
+    }
+    else {
+        b -= 1;
+        a = 2*N +arr_2[a] + (b * a) + (b * (b - 1) * 6 / 2);
+        cout << a;
+    }
+}
