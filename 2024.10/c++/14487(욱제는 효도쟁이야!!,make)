@@ -1,0 +1,14 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main(){
+    int N, A;
+    int max_0 = -1;
+    int sum_0 = 0;
+    cin >> N;
+    while(N--){
+        cin >> A;
+        sum_0 += A;
+        max_0 = (max_0 > A) ? max_0 : A;
+    }
+    cout << sum_0 - max_0;
+}
