@@ -1,0 +1,32 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+    int N;
+    string str0, str1, str2, str3;
+    cin >> N;
+    while (N>0) {
+        for (int i = 0; i < N;i++) {
+            cin >> str2;
+            if (i == 0) {
+                str0 = str2;
+                str1 = str2;
+                for (int j = 0; j < str1.size(); j++) {
+                    str1[j] = tolower(str1[j]);
+                }
+            }
+            else {
+                str3 = str2;
+                for (int j = 0; j < str3.size(); j++) {
+                    str3[j] = tolower(str3[j]);
+                }
+                if (str1 > str3) {
+                    str1 = str3;
+                    str0 = str2;
+                }
+            }
+            
+        }
+        cout << str0 <<"\n";
+        cin >> N;
+    }
+}
