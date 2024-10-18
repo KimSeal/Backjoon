@@ -1,0 +1,9 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main(){
+    string str0;
+    cin >> str0;
+    cout << ":fan::fan::fan:\n";
+    cout << ":fan::" << str0 <<"::fan:\n";
+    cout << ":fan::fan::fan:";
+}
