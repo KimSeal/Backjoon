@@ -1,0 +1,18 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int a, b, c;
+    int index = 1;
+    cin >> a;
+    while (a != 0) {
+        cin >> b >> c;
+        if (4 * a * a >= b * b + c * c) {
+            cout << "Pizza " << index << " fits on the table.\n";
+        }
+        else {
+            cout << "Pizza " << index << " does not fit on the table.\n";
+        }
+        index++;
+        cin >> a;
+    }
+}
