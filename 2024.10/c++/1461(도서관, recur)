@@ -1,0 +1,57 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int M;
+int maxVal = 99999999;
+int maxVal_0 = 99999999;
+vector<int> vec_0;
+vector<int> vec_1;
+void recur_0(int curIdx, int seq, int curVal) {
+    //cout << curIdx << " / " << seq << " / " << curVal << "\n";
+    if (curIdx < 0) {
+        maxVal = (maxVal < curVal) ? maxVal : curVal;
+        //cout << "maxVal : " << maxVal <<"\n";
+        return;
+    }
+    else {
+        if (seq < M) recur_0(curIdx - 1, seq + 1, curVal);
+        if (curVal + vec_0[curIdx] * 2 < maxVal) recur_0(curIdx - 1, 1, curVal + vec_0[curIdx] * 2);
+    }
+}
+void recur_1(int curIdx, int seq, int curVal) {
+    if (curIdx < 0) {
+        maxVal_0 = (maxVal_0 < curVal) ? maxVal_0 : curVal;
+       // cout << "maxVal_0 : " << maxVal_0 << "\n";
+        return;
+    }
+    else {
+        if (seq < M) recur_1(curIdx - 1, seq + 1, curVal);
+        if (curVal + vec_1[curIdx] * 2 < maxVal_0) recur_1(curIdx - 1, 1, curVal + vec_1[curIdx] * 2);
+    }
+}
+int main() {
+    int N, input0;
+    cin >> N >> M;
+    for (int i = 0; i < N;i++) {
+        cin >> input0;
+        (input0 < 0) ? vec_1.push_back(input0 * -1) : vec_0.push_back(input0 );
+    }
+    
+    sort(vec_0.begin(), vec_0.end());
+    sort(vec_1.begin(), vec_1.end());
+
+   // cout << vec_0.size() << " / " << vec_1.size() << "\n";
+    if (vec_0.size() == 0) maxVal = 0;
+    else recur_0(vec_0.size()-2, 1, vec_0[vec_0.size()-1]);
+
+    if (vec_1.size() == 0) maxVal_0 = 0;
+    else recur_1(vec_1.size() - 2, 1, vec_1[vec_1.size() - 1]);
+    
+    if (vec_0.size() > 0 && vec_1.size() > 0) {
+        maxVal += (vec_0[vec_0.size() - 1] < vec_1[vec_1.size() - 1]) ? vec_0[vec_0.size() - 1] : vec_1[vec_1.size() - 1];
+    }
+    //cout << maxVal <<" "<< maxVal_0 << "\n";
+    cout << maxVal + maxVal_0;
+    
+}
