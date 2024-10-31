@@ -1,0 +1,15 @@
+#include <bits/stdc++.h>
+using namespace std;
+long long M = 1234567891, r=1;
+
+int main() {
+    int N;
+    string str;
+    cin >> N >> str;
+    long long answer = 0;
+    for (int i = 0; i < N; i++) {
+        answer = (answer + (str[i] - 'a' + 1) * r) % M;
+        r = (r * 31) % M;
+    }
+    cout << answer;
+}
