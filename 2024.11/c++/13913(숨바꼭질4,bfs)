@@ -1,0 +1,48 @@
+#include<bits/stdc++.h>
+using namespace std;
+int parentArr[100001], curDepth;
+int depthArr[100001];
+queue<int> q;
+stack<int> stk;
+int main() {
+    int A, B, cur;
+
+    cin >> A >> B;
+    parentArr[A] = A;
+    depthArr[A] = 1;
+    q.push(A);
+    while (!q.empty()) {
+        cur = q.front();
+        if (cur == B) {
+            cout << depthArr[cur]-1 << "\n";
+            break;
+        }
+        curDepth = depthArr[cur] + 1;
+        q.pop();
+        if (cur >= 1 && depthArr[cur-1] == 0) {
+            q.push(cur - 1);
+            depthArr[cur - 1] = curDepth;
+            parentArr[cur - 1] = cur;
+        }
+        if (cur < 100000 && depthArr[cur + 1] == 0) {
+            q.push(cur + 1);
+            depthArr[cur + 1] = curDepth;
+            parentArr[cur + 1] = cur;
+        }
+        if (cur <= 50000 && depthArr[cur << 1] == 0) {
+            q.push(cur << 1);
+            depthArr[cur << 1] = curDepth;
+            parentArr[cur << 1] = cur;
+        }
+    }
+
+    stk.push(B);
+    while (parentArr[B] != B) {
+        B = parentArr[B];
+        stk.push(B);
+    }
+    while (!stk.empty()) {
+        cout << stk.top() << " ";
+        stk.pop();
+    }
+}
