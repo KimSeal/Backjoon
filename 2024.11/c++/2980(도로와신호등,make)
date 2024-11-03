@@ -1,0 +1,21 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int N, L;
+int D, R, G;
+
+int main() {
+    cin >> N >> L;
+    int curPoint = 0, curTime =0;
+    for (int i = 0; i < N;i++) {
+        cin >> D >> R >> G;
+        curTime += D - curPoint;
+        while (curTime % (R+G) < R) {
+            curTime++;
+        }
+        curPoint = D;
+    }
+    curTime += L - curPoint;
+    cout << curTime;
+}
