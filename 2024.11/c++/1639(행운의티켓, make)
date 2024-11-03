@@ -1,0 +1,23 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+int arr[51];
+string str;
+int maxLen;
+int answer = 0;
+bool flag = false;
+void makeLen(int start) {
+    int tempAnswer = answer + 1;
+    while(start + tempAnswer * 2 <=maxLen) {
+        if (arr[start + tempAnswer] - arr[start] == arr[start + tempAnswer * 2] - arr[start + tempAnswer]) answer = tempAnswer;
+        tempAnswer++;
+    }
+}
+
+int main() {
+    cin >> str;
+    maxLen = str.size();
+    for (int i = 0; i < maxLen; i++) arr[i + 1] = arr[i] + (str[i] - '0');
+    for (int i = 0; i < maxLen; i++) makeLen(i);
+    cout << answer * 2;
+}
