@@ -1,0 +1,22 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+    int N, A, B, C, o1=1, o2=1;
+
+    cin >> N >> A >> B;
+    while (N--) {
+        o1 += A;
+        o2 += B;
+        if (o1 < o2) {
+            C = o2;
+            o2 = o1;
+            o1 = C;
+        }
+        if (o1 == o2) {
+            o2--;
+        }
+        //cout << o1 << " " << o2<<"\n";
+    }
+    cout << o1 << " " << o2;
+
+}
