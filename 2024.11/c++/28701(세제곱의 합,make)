@@ -1,0 +1,12 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    long long N, N0, T = 0;
+    cin >> N;
+    N0 = (N) * (N + 1) / 2;
+    cout << N0 << "\n" << N0 * N0 << "\n";
+    do{
+        T += ((N * N) * N);
+    } while (N--);
+    cout << T;
+}
