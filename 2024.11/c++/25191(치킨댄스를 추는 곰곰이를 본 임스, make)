@@ -1,0 +1,10 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main(){
+    int N, A, B;
+    cin >> N >> A >> B;
+    A /= 2;
+    A += B;
+    N = (N < A) ? N : A;
+    cout << N;
+}
