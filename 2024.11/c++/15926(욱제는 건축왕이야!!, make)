@@ -1,0 +1,23 @@
+#include<bits/stdc++.h>
+using namespace std;
+long long abs0(long long a, long long b) {
+    if (a > b) return a - b;
+    else return b - a;
+}
+int main() {
+    int N;
+    long long result = 0;
+    long long firstX, firstY, input0, input1, input2, input3;
+    cin >> N;
+    cin >> firstX >> firstY;
+    input0 = firstX;
+    input1 = firstY;
+    for (int i = 1; i < N; i++) {
+        cin >> input2 >> input3;
+        result += abs0(input0, input2) + abs0(input1, input3);
+        input0 = input2;
+        input1 = input3;
+    }
+    result += abs0(input0, firstX) + abs0(input1, firstY);
+    cout << result;
+}
