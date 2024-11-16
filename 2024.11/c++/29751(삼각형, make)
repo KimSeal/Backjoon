@@ -1,0 +1,9 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+    double A, B;
+    cin >> A >> B;
+    cout << fixed;
+    cout.precision(1);
+    cout << A * B / 2.00f;
+}
