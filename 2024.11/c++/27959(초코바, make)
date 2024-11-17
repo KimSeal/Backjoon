@@ -1,0 +1,10 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    int A, B;
+    cin >> A >> B;
+    if(A*100 < B){
+        cout << "No";
+    }
+    else cout << "Yes";
+}
