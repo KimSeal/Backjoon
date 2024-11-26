@@ -1,0 +1,33 @@
+#include<bits/stdc++.h>
+using namespace std;
+int arr[50][50];
+int N, M, temp;
+int result = 0;
+int main() {
+    cin >> N >> M;
+    string str0;
+    for (int i = 0; i < N; i++) {
+        cin >> str0;
+        for (int j = 0; j < M; j++) {
+            arr[i][j] = str0[j] - '0';
+        }
+    }
+
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < M; j++) {
+            temp = 1;
+            while (true) {
+                if (i + temp >= N || j + temp >= M) {
+                    break;
+                }
+                if (arr[i][j] == arr[i][j + temp] &&
+                    arr[i][j + temp] == arr[i + temp][j + temp] &&
+                    arr[i + temp][j] == arr[i + temp][j + temp]) {
+                    result = (result > temp) ? result : temp;
+                }
+                temp++;
+            }
+        }
+    }
+    cout << (result+1) * (result+1);
+}
