@@ -1,0 +1,24 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+    long long N, result =0;
+    long long curMax = 1;
+    cin >> N;
+    long long hello = 0;
+    while (N / curMax > 0) {
+        curMax *= 10;
+        hello++;
+    }
+    curMax /= 10;
+    result += ((N - curMax) + 1) * hello;
+    
+    hello--;
+    //curMax /= 10;
+    while (hello > 0) {
+        result += (curMax - curMax/10) * hello;
+        curMax /= 10;
+        hello--;
+    }
+    
+    cout << result;
+}
