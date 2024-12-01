@@ -1,0 +1,27 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+    long long t, x, m, d, s, initMove, result;
+
+    cin >> t >> x >> m;
+    long long dangerMonster = 999999999;
+    while (m--) {
+        cin >> d >> s;
+        if (d % s == 0) dangerMonster = (dangerMonster < ( d / s - 1)) ? dangerMonster : (d / s - 1);
+        else dangerMonster = (dangerMonster < (d / s)) ? dangerMonster : (d / s);
+    }
+
+        if (t <= dangerMonster) {
+            cout << t * x;
+        }
+        else if (dangerMonster == 0) {
+            cout << 0;
+        }
+        else {
+            result = dangerMonster;
+
+            result += (t - dangerMonster) / 2;
+            cout << result * x;
+        }
+
+}
