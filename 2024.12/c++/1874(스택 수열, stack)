@@ -1,0 +1,48 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+    stack<int> stk_0;
+    vector<int> vec_0;
+    int N, input, cur=1, cur_1 =0;
+    cin >> N;
+    for (int i = 0; i < N;i++) {
+        cin >> input;
+        vec_0.push_back(input);
+    }
+    string result = "";
+    while (true) {
+        
+        
+        if (stk_0.empty()) {
+            if (cur == N+1 && cur_1 == N) {
+                break;
+            }
+            if (cur > N) {
+                cout << "NO";
+                return 0;
+            }
+            //cout << "push" << cur << "\n";
+            stk_0.push(cur);
+            cur++;
+            result += "+\n";
+        }
+        else if (stk_0.top() == vec_0[cur_1]) {
+            //cout << "pop" << vec_0[cur_1] << "\n";
+            result += "-\n";
+            cur_1++;
+            stk_0.pop();
+        }
+        else {
+            if (cur > N) {
+                cout << "NO";
+                return 0;
+            }
+            //cout << "push" << cur << "\n";
+            result += "+\n";
+            stk_0.push(cur);
+            cur++;
+        }
+    }
+    cout << result;
+
+}
