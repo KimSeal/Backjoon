@@ -1,0 +1,56 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int N, result=0;
+int P[48];
+int S[48];
+int cur[48], cur_1[48];
+
+void mix() {
+    for (int i = 0; i < N; i++) cur_1[i] = cur[S[i]];
+    for (int i = 0; i < N; i++) cur[i] = cur_1[i];
+}
+
+bool cmpInit() {
+    for (int i = 0; i < N; i++) {
+        if (cur[i] != i % 3) {
+            return false;
+        }
+    }
+    return true;
+}
+bool cmpArr() {
+    for (int i = 0; i < N; i++) {
+        if (cur[i] != P[i]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+int main() {
+    
+
+    cin >> N;
+    
+    for (int i = 0; i < N;i++) {
+        cin >> P[i];
+        cur[i] = i % 3;
+        cur_1[i] = i % 3;
+    }
+    for (int i = 0; i < N; i++) {
+        cin >> S[i];
+    }
+    while (true) {
+        if (cmpArr()) {
+            break;
+        }
+        result++;
+        mix();
+        if (cmpInit()) {
+            result = -1;
+            break;
+        }
+    }
+    cout << result;
+}
