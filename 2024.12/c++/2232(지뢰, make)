@@ -1,0 +1,26 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+    int N, input, a = 0, b = 0, dir = 0;
+    cin >> N;
+    for (int i = 0; i < N; i++) {
+        cin >> b;
+        if (dir == 0 && a > b) {
+            cout << i << "\n";
+            dir = 1;
+        }
+        if (a < b) {
+            dir = 0;
+        }
+        if (dir == 0 && a == b) {
+            cout << i << "\n";
+        }
+        if (dir == 1 && a==b) {
+            dir = 0;
+        }
+        a = b;
+    }
+    if (dir == 0) {
+        cout << N;
+    }
+}
