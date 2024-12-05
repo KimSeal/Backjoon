@@ -1,0 +1,26 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+    char ch0;
+    int max_Val, curVal;
+    string str0;
+    for (int i = 0; i < 3;i++) {
+        cin >> str0;
+        ch0 = str0[0];
+        curVal = 1;
+        max_Val = 1;
+        for (int i = 1; i < 8;i++) {
+            if (ch0 == str0[i]) {
+                curVal++;
+                ch0 = str0[i];
+            }
+            else {
+                max_Val = (max_Val > curVal) ? max_Val : curVal;
+                curVal = 1;
+                ch0 = str0[i];
+            }
+        }
+        max_Val = (max_Val > curVal) ? max_Val : curVal;
+        cout << max_Val <<"\n";
+    }
+}
