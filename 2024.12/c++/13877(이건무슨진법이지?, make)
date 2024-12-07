@@ -1,0 +1,30 @@
+#include<bits/stdc++.h>
+using namespace std;
+void make8(long long a, long long b) {
+    long long curTemp = 1;
+    long long result = 0;
+    while (a > 0) {
+        if (a % 10 >= b) {
+            cout << " 0";
+            return;
+        }
+        result += (a % 10) * curTemp;
+        curTemp *= b;
+        a /= 10;
+    }
+    cout << " " << result;
+}
+
+int main() {
+    int N, M;
+    long long inputVal, inputValCopy;
+    cin >> N;
+    for (int i = 0; i < N; i++) {
+        cin >> M >> inputVal;
+        cout << M;
+        make8(inputVal, 8);
+        cout << " " << inputVal;
+        make8(inputVal, 16);
+        cout << "\n";
+    }
+}
