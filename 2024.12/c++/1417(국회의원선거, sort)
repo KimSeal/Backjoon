@@ -1,0 +1,23 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int N, firstVal, input, result=0;
+    vector<int> vec_0;
+    cin >> N >> firstVal;
+    for (int i = 1; i < N;i++) {
+        cin >> input;
+        vec_0.push_back(input);
+    }
+    vec_0.push_back(0);
+    sort(vec_0.begin(), vec_0.end());
+
+    while (vec_0[N-1] >= firstVal) {
+        firstVal++;
+        result++;
+        vec_0[N - 1]--;
+        sort(vec_0.begin(), vec_0.end());
+    }
+    cout << result;
+
+}
