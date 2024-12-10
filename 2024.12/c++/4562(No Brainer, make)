@@ -1,0 +1,11 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    int N, A, B;
+    cin >> N;
+    while(N--){
+        cin >> A >> B;
+        if(A<B) cout << "NO BRAINS\n";
+        else cout << "MMM BRAINS\n";
+    }
+}
