@@ -1,0 +1,11 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+    int Day, input, result = 0;
+    cin >> Day;
+    for (int i = 0; i < 5; i++) {
+        cin >> input;
+        if (input == Day) result++;
+    }
+    cout << result;
+}
