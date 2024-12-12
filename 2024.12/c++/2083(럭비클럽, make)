@@ -1,0 +1,14 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main(){
+    string str;
+    int a, b;
+    cin >> str >> a >> b;
+    while(!(str[0]=='#' && a == 0 && b==0)){
+        if(a>17 || b >= 80){
+            cout << str <<" Senior\n";
+        }
+        else cout << str << " Junior\n";
+        cin >> str >> a >> b;
+    }
+}
