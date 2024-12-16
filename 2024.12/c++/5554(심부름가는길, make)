@@ -1,0 +1,12 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+    int A, B;
+    cin >> A;
+    cin >> B; A += B;
+    cin >> B; A += B;
+    cin >> B; A += B;
+    cout << A / 60;
+    cout << "\n";
+    cout << A % 60;
+}
