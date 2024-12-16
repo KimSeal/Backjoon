@@ -1,0 +1,17 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+    int N, input;
+    cin >> N;
+    int aSum = 0, bSum = 0;
+    while (N--) {
+        cin >> input;
+        aSum += input / 30 * 10;
+        aSum += 10;
+        bSum += input / 60 * 15;
+        bSum += 15;
+    }
+    if (aSum < bSum) cout << "Y " << aSum;
+    else if (aSum > bSum) cout << "M " << bSum;
+    else if (aSum == bSum) cout << "Y M " << aSum;
+}
