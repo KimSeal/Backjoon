@@ -1,0 +1,22 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+    string str;
+    int result = 0;
+    for (int i = 0; i < 8;i++) {
+        cin >> str;
+        for (int j = 0; j < 8;j++) {
+            if (str[j] == 'p') result--;
+            else if (str[j] == 'P') result++;
+            else if (str[j] == 'N') result+=3;
+            else if (str[j] == 'n') result-=3;
+            else if (str[j] == 'B') result+=3;
+            else if (str[j] == 'b') result-=3;
+            else if (str[j] == 'R') result+=5;
+            else if (str[j] == 'r') result-=5;
+            else if (str[j] == 'Q') result+=9;
+            else if (str[j] == 'q') result-=9;
+        }
+    }
+    cout << result;
+}
