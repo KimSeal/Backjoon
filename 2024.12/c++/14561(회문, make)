@@ -1,0 +1,38 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+    vector<char> vec_0;
+    long long N, i, j, temp, tempVal;
+    
+    int result = 0;
+    cin >> N;
+    while (N--) {
+        vec_0.clear();
+        result = 1;
+        cin >> i >> j;
+        if (i == 0 || i == 1 || i<j) {
+            cout << "1\n";
+            continue;
+        }
+        temp = 0;
+        tempVal = 1;
+        while (i > tempVal) {
+            tempVal *= j;
+        }
+        tempVal /= j;
+        while (tempVal > 0) {
+            vec_0.push_back(i / tempVal);
+            i %= tempVal;
+            tempVal /= j;
+        }
+
+        for (int i = 0; i < vec_0.size();i++) {
+            //if (i >= str.size() - 1 - i) break;
+            if (vec_0[i] != vec_0[vec_0.size() - 1 - i]) {
+                result = 0;
+                //break;
+            }
+        }
+        cout << result<<"\n";
+    }
+}
