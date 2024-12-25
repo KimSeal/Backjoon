@@ -1,0 +1,14 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    int result = 0;
+    string str;
+    cin >> str;
+    for(int i=0;i<str.size()-3;i++){
+        if(str[i] == 'D' && str[i+1] == 'K' &&
+          str[i+2] == 'S' && str[i+3] == 'H'){
+            result++;
+        }
+    }
+    cout << result;
+}
