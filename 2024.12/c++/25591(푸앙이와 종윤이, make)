@@ -1,0 +1,16 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int input0, input1, a, b, c, d, q, r, result0, result1;
+    cin >> input0 >> input1;
+    a = 100 - input0;
+    b = 100 - input1;
+    c = 100 - a - b;
+    d = a * b;
+    q = d / 100;
+    r = d % 100;
+    result0 = c + q;
+    result1 = r;
+    cout << a << " " << b << " " << c << " " << d << " " << q << " " << r << "\n";
+    cout << result0 << " " << result1;
+}
