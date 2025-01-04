@@ -1,0 +1,21 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+    string str0;
+    cin >> str0;
+    int valArr[3] = {0,0,0};
+    int arrIdx = 0;
+    for (int i = 0; i < str0.size(); i++) {
+        if (str0[i] == '/') {
+            arrIdx++;
+        }
+        else {
+            valArr[arrIdx] *= 10;
+            valArr[arrIdx] += str0[i] - '0';
+        }
+    }
+    if (valArr[1] == 0 || valArr[0] + valArr[2] < valArr[1]) {
+        cout << "hasu";
+    }
+    else cout << "gosu";
+}
