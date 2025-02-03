@@ -1,5 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
+//common making
 int main() {
     string str0;
     cin >> str0;
