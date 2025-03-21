@@ -1,0 +1,44 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int findArr[2][26];
+int alphaArr[2][26];
+
+bool chkSame() {
+    for (int i = 0; i < 52; i++) {
+        if (alphaArr[i / 26][i % 26] != findArr[i / 26][i % 26]) return false;
+    }
+    return true;
+}
+void addFindAlpha(char a) {
+    if (a >= 'A' && 'Z' >= a) { findArr[0][a - 'A']++; }
+    else { findArr[1][a - 'a']++; }
+}
+void addAlpha(char a) {
+    if (a >= 'A' && 'Z' >= a) { alphaArr[0][a - 'A']++; }
+    else { alphaArr[1][a - 'a']++; }
+}
+void subAlpha(char a) {
+    if (a >= 'A' && 'Z' >= a) { alphaArr[0][a - 'A']--; }
+    else { alphaArr[1][a - 'a']--; }
+}
+int main() {
+    int N, M;
+    long long result = 0;
+    cin >> N >> M;
+    string w, g;
+    cin >> w >> g;
+    for (int i = 0; i < N; i++) {
+        addFindAlpha(w[i]);
+        addAlpha(g[i]);
+    }
+    if (chkSame()) result++;
+    for (int i = N; i < M; i++) {
+        subAlpha(g[i - N]);
+        addAlpha(g[i]);
+        if (chkSame()) result++;
+    }
+    cout << result;
+
+
+}
