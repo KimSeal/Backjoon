@@ -1,0 +1,11 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+    long long N;
+    cin >> N;
+    int answer = 1;
+    while (answer * answer <= N) {
+        answer++;
+    }
+    cout << "The largest square has side length "<< answer - 1 <<".";
+}
