@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define MAXVAL 10000001
+bool dp[MAXVAL];
+int main() {
+    long long a, b, temp;
+    cin >> a >> b;
+    for (int i = 2;i * i<= MAXVAL;i++) {
+        
+        if ( dp[i]) {
+            continue;
+        }
+        temp = i * i;
+        while (temp < MAXVAL) {
+            dp[temp] = true;
+            temp += i;
+        }
+    }
+    long long result = 0;
+    for (int i = 2; i <= MAXVAL;i++) {
+        if (!dp[i]) {
+            temp = i;
+            while (temp <= b / i) {
+                if (a <= temp * i) result++;
+                temp *= i;
+            }
+        }
+    }
+
+    cout << result;
+}
