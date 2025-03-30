@@ -1,0 +1,19 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    long long N, X;
+    cin >> N >> X;
+    long long sum = 0;
+    long long input0, input1;
+    long long maxVal = 9999999999;
+    cin >> input0;
+    sum = input0;
+    for (int i = 1; i<N;i++) {
+        cin >> input1;
+        sum += input1;
+        if (maxVal > sum) maxVal = sum;
+        sum -= input0;
+        input0 = input1;
+    }
+    cout << maxVal * X;
+}
