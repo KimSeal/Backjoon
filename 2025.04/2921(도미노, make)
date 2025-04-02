@@ -1,0 +1,12 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    long long N, result=0;
+    cin >> N;
+    for (long long i = 1; i <= N;i++) {
+        result += i * (i + 1);
+        result += i * (i + 1) / 2;
+        
+    }
+    cout << result << "\n";
+}
