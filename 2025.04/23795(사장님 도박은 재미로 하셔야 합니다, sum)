@@ -1,0 +1,12 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    long long input;
+    long long result =0 ;
+    cin >> input;
+    while(input!= -1){
+        result += input;
+        cin >> input;
+    }
+    cout << result;
+}
