@@ -1,0 +1,29 @@
+#include<bits/stdc++.h>
+using namespace std;
+string result = "";
+void makeStr(char a) {
+    if (a == '0') result += "000";
+    if (a == '1') result += "001";
+    if (a == '2') result += "010";
+    if (a == '3') result += "011";
+    if (a == '4') result += "100";
+    if (a == '5') result += "101";
+    if (a == '6') result += "110";
+    if (a == '7') result += "111";
+}
+int main() {
+    string input0;
+    cin >> input0;
+    if (input0 == "0") {
+        cout << "0"; return 0;
+    }
+    for (int i = 0; i < input0.size(); i++) {
+        makeStr(input0[i]);
+    }
+    bool triggerChk = false;
+    for (int i = 0; i < result.size(); i++) {
+        if (result[i] == '1') triggerChk = true;
+        if (triggerChk) cout << result[i];
+    }
+
+}
