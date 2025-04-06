@@ -1,0 +1,70 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int N, M;
+int dx[8] = { 0,1,1,1,0,-1,-1,-1 };
+int dy[8] = { -1,-1,0,1,1,1,0,-1 };
+int result = 0;
+int depth[100][70];
+bool chk[100][70];
+
+class point {
+   public : 
+       point(int a, int b, int c) {
+           y = a; x = b; depth = c;
+       };
+    int x, y, depth;
+
+};
+
+
+vector<point> pointVec;
+
+bool cmp(point a, point b) {
+    return a.depth > b.depth;
+}
+
+queue<point> forExpand;
+
+void expandFunc(int y, int x) {
+    if (chk[y][x]) return;
+    result++;
+    chk[y][x] = true;
+    forExpand.push(point(y, x, depth[y][x]));
+    while (!forExpand.empty()) {
+        int tempY = forExpand.front().y;
+        int tempX = forExpand.front().x;
+        int tempDepth = forExpand.front().depth;
+
+        forExpand.pop();
+
+        for (int i = 0; i < 8; i++) {
+            if (tempY + dy[i] < N && tempY + dy[i] >= 0 &&
+                tempX + dx[i] < M && tempX + dx[i] >= 0 &&
+                depth[tempY + dy[i]][tempX + dx[i]] <= tempDepth &&
+                !chk[tempY + dy[i]][tempX + dx[i]]) {
+
+                chk[tempY + dy[i]][tempX + dx[i]] = true;
+                forExpand.push(point(tempY + dy[i], tempX + dx[i], depth[tempY + dy[i]][tempX + dx[i]]));
+            }
+        }
+    }
+    
+}
+
+int main() {
+    
+    cin >> N >> M;
+    for (int i = 0; i < N;i++) {
+        for (int j = 0; j < M; j++) {
+            cin >> depth[i][j];
+            pointVec.push_back(point(i, j, depth[i][j]));
+        }
+    }
+    sort(pointVec.begin(), pointVec.end(), cmp);
+    for (int i = 0; i < pointVec.size();i++) {
+        expandFunc(pointVec[i].y, pointVec[i].x);
+    }
+
+    cout << result;
+}
