@@ -1,0 +1,19 @@
+#include<bits/stdc++.h>
+using namespace std;
+int makeFunc(int a, int b) {
+    int result = 0;
+    while (a > 0) {
+        result += a % b;
+        a /= b;
+    }
+    return result;
+}
+
+int main() {
+    for (int i = 1000; i < 10000; i++) {
+        if (makeFunc(i, 10) == makeFunc(i, 12) &&
+            makeFunc(i, 16) == makeFunc(i, 12)) {
+            cout << i << "\n";
+        }
+    }
+}
