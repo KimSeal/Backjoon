@@ -1,0 +1,30 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+    int N;
+    cin >> N;
+    for (int i = 1; i <= N; i++) {
+        cout << "Scenario #" <<i<< ":\n";
+        long long a, b;
+
+        cin >> a >> b;
+        if (a > b) {
+            long long c = a;
+            a = b;
+            b = c;
+        }
+        if ((a < 0 && b < 0)) {
+            a *= -1;
+            b *= -1;
+            cout << ((a) * (a + 1) / 2 - b * (b - 1) / 2) * -1;
+        }
+        else if (a >= 0 && b >= 0) {
+            cout << b * (b + 1) / 2 - a * (a - 1) / 2;
+        }
+        else {
+            a *= -1;
+            cout << b * (b + 1) / 2 - a * (a + 1) / 2;
+        }
+        cout << "\n\n";
+    }
+}
