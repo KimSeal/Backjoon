@@ -1,0 +1,32 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int sixVal, oneVal;
+
+int main() {
+	
+	int N, M;
+	cin >> N >> M;
+	int input0, input1;
+	sixVal = 9999; oneVal = 9999;
+	for (int i = 0; i < M; i++) {
+		cin >> input0 >> input1;
+		if (input0 < sixVal) sixVal = input0;
+		if (input1 < oneVal) oneVal = input1;
+	}
+
+	if (sixVal >= 6 * oneVal) {
+		cout << N * oneVal;
+	}
+	else {
+		if (N % 6 == 0) {
+			cout << (N / 6) * sixVal;
+		}
+		else {
+			int temp0 = (N / 6 + 1) * sixVal;
+			int temp1 = (N / 6) * sixVal + (N % 6) * oneVal;
+			temp0 = (temp0 < temp1) ? temp0 : temp1;
+			cout << temp0;
+		}
+	}
+}
