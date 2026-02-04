@@ -6,7 +6,7 @@ int main() {
     int a;
     long long b = 0;
     cin >> a;
-    vector<long long> dp;
+    vector<long long> dp; //for number size cover
     for (int i = 0; i < 10;i++) {
         dp.push_back(1);
     }
