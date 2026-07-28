@@ -3,7 +3,7 @@
 #include <queue>
 #include <algorithm>
 using namespace std;
-
+//bfs
 bool map[52][52];
 int answer1;
 int T, M, N, K;
